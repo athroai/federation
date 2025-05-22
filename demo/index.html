@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athro Card Demo</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .athro-carousel {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 20px 0;
+        }
+        
+        .athro-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            width: 280px;
+            padding: 16px;
+            flex-shrink: 0;
+        }
+        
+        .athro-card-clickable {
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .athro-card-clickable:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .athro-card-header {
+            margin-bottom: 12px;
+        }
+        
+        .athro-card-title {
+            margin: 0 0 8px 0;
+            font-size: 18px;
+            color: #333;
+        }
+        
+        .athro-card-content {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+        
+        .athro-card-footer {
+            font-size: 12px;
+            color: #888;
+            padding-top: 12px;
+            border-top: 1px solid #eee;
+        }
+        
+        .athro-confidence-indicator {
+            margin-top: 8px;
+        }
+        
+        .athro-confidence-bar {
+            height: 4px;
+            border-radius: 2px;
+            margin-bottom: 4px;
+        }
+        
+        .athro-confidence-label {
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .controls {
+            margin: 20px 0;
+            padding: 16px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .control-group {
+            margin-bottom: 16px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        select, input, button {
+            padding: 8px 12px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+        
+        button {
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        button:hover {
+            background-color: #3367d6;
+        }
+    </style>
+</head>
+<body>
+    <h1>Athro Card with Confidence Levels</h1>
+    
+    <div class="controls">
+        <h2>Update Confidence Level</h2>
+        <div class="control-group">
+            <label for="athro-select">Select Athro:</label>
+            <select id="athro-select">
+                <option value="athro-1">Document Analysis Athro</option>
+                <option value="athro-2">Code Generation Athro</option>
+                <option value="athro-3">Creative Writing Athro</option>
+                <option value="all">All Athros</option>
+            </select>
+        </div>
+        
+        <div class="control-group">
+            <label for="confidence-slider">Confidence Level: <span id="confidence-value">50%</span></label>
+            <input type="range" id="confidence-slider" min="0" max="100" value="50" style="width: 100%;">
+        </div>
+        
+        <button id="update-button">Update Confidence</button>
+    </div>
+    
+    <h2>Athro Carousel</h2>
+    <div class="athro-carousel">
+        <div class="athro-card athro-card-clickable" data-athro-id="athro-1">
+            <div class="athro-card-header">
+                <h3 class="athro-card-title">Document Analysis Athro</h3>
+                <div class="athro-confidence-indicator">
+                    <div class="athro-confidence-bar" style="width: 50%; background-color: #ff9800;"></div>
+                    <span class="athro-confidence-label">50%</span>
+                </div>
+            </div>
+            <div class="athro-card-content">
+                Specializes in analyzing and extracting information from documents. Can handle PDF, Word, and plain text formats.
+            </div>
+            <div class="athro-card-footer">
+                Created: May 15, 2025
+            </div>
+        </div>
+        
+        <div class="athro-card athro-card-clickable" data-athro-id="athro-2">
+            <div class="athro-card-header">
+                <h3 class="athro-card-title">Code Generation Athro</h3>
+                <div class="athro-confidence-indicator">
+                    <div class="athro-confidence-bar" style="width: 50%; background-color: #ff9800;"></div>
+                    <span class="athro-confidence-label">50%</span>
+                </div>
+            </div>
+            <div class="athro-card-content">
+                Generates code in multiple programming languages including JavaScript, Python, and TypeScript.
+            </div>
+            <div class="athro-card-footer">
+                Created: May 18, 2025
+            </div>
+        </div>
+        
+        <div class="athro-card athro-card-clickable" data-athro-id="athro-3">
+            <div class="athro-card-header">
+                <h3 class="athro-card-title">Creative Writing Athro</h3>
+                <div class="athro-confidence-indicator">
+                    <div class="athro-confidence-bar" style="width: 50%; background-color: #ff9800;"></div>
+                    <span class="athro-confidence-label">50%</span>
+                </div>
+            </div>
+            <div class="athro-card-content">
+                Helps with creative writing tasks, including story development, character creation, and dialogue.
+            </div>
+            <div class="athro-card-footer">
+                Created: May 20, 2025
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Simple event bus implementation
+        const eventBus = {
+            events: {},
+            subscribe(event, callback) {
+                if (!this.events[event]) {
+                    this.events[event] = [];
+                }
+                this.events[event].push(callback);
+                return () => this.events[event] = this.events[event].filter(cb => cb !== callback);
+            },
+            publish(event, data) {
+                if (this.events[event]) {
+                    this.events[event].forEach(callback => callback({ 
+                        payload: data,
+                        timestamp: new Date().toISOString()
+                    }));
+                }
+            }
+        };
+        
+        // DOM elements
+        const confidenceSlider = document.getElementById('confidence-slider');
+        const confidenceValue = document.getElementById('confidence-value');
+        const athroSelect = document.getElementById('athro-select');
+        const updateButton = document.getElementById('update-button');
+        const athroCards = document.querySelectorAll('.athro-card');
+        
+        // Update confidence display in the slider
+        confidenceSlider.addEventListener('input', () => {
+            confidenceValue.textContent = `${confidenceSlider.value}%`;
+        });
+        
+        // Update confidence level when button is clicked
+        updateButton.addEventListener('click', () => {
+            const athroId = athroSelect.value;
+            const confidenceLevel = parseInt(confidenceSlider.value) / 100;
+            
+            // Publish the confidence update event
+            eventBus.publish('athro.confidence.updated', {
+                level: confidenceLevel,
+                athroId: athroId === 'all' ? null : athroId,
+                source: 'user',
+            });
+        });
+        
+        // Set up event listeners for each card
+        athroCards.forEach(card => {
+            const athroId = card.getAttribute('data-athro-id');
+            const confidenceBar = card.querySelector('.athro-confidence-bar');
+            const confidenceLabel = card.querySelector('.athro-confidence-label');
+            
+            // Subscribe to confidence updates
+            eventBus.subscribe('athro.confidence.updated', (event) => {
+                const { payload } = event;
+                
+                // Update if this is for all cards or this specific card
+                if (payload.athroId === null || payload.athroId === athroId) {
+                    // Update confidence display
+                    const level = payload.level;
+                    const percentage = Math.round(level * 100);
+                    
+                    // Update the bar width
+                    confidenceBar.style.width = `${percentage}%`;
+                    
+                    // Update the text
+                    confidenceLabel.textContent = `${percentage}%`;
+                    
+                    // Update color based on level
+                    if (level >= 0.7) {
+                        confidenceBar.style.backgroundColor = '#4caf50'; // Green
+                    } else if (level >= 0.4) {
+                        confidenceBar.style.backgroundColor = '#ff9800'; // Orange
+                    } else {
+                        confidenceBar.style.backgroundColor = '#f44336'; // Red
+                    }
+                }
+            });
+            
+            // Add click handler to card
+            card.addEventListener('click', () => {
+                athroSelect.value = athroId;
+            });
+        });
+    </script>
+</body>
+</html>
