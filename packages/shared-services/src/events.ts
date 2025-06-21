@@ -1,26 +1,26 @@
-// Simple event bus implementation for sharing between components
-// This is a temporary solution until we properly set up Module Federation
+type EventCallback = (...args: any[]) => void;
 
-export const simpleEventBus = {
-  events: {},
-  subscribe(event, callback) {
+export class EventEmitter {
+  private events: Record<string, EventCallback[]> = {};
+
+  subscribe(event: string, callback: EventCallback): () => void {
     if (!this.events[event]) {
       this.events[event] = [];
     }
     this.events[event].push(callback);
-    return () => this.events[event] = this.events[event].filter(cb => cb !== callback);
-  },
-  publish(event, data) {
+
+    return () => {
+      this.events[event] = this.events[event].filter((cb) => cb !== callback);
+    };
+  }
+
+  publish(event: string, data: any): void {
     if (this.events[event]) {
-      this.events[event].forEach(callback => callback({ 
-        payload: data,
-        timestamp: new Date().toISOString()
-      }));
-    }
-  },
-  unsubscribe(unsubFn) {
-    if (typeof unsubFn === 'function') {
-      unsubFn();
+      this.events[event].forEach((callback) => callback(data));
     }
   }
-};
+
+  unsubscribe(unsubFn: () => void): void {
+    unsubFn();
+  }
+}

@@ -1,1 +1,2 @@
-export * from './federation-utils.js';
+export * from './src/eventBus';
+export * from './src/EventBusService';

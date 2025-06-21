@@ -59,3 +59,22 @@ export interface AppRegistration {
     services: string[];
   };
 }
+
+/**
+ * Confidence level for Athro subjects
+ */
+export type ConfidenceLevel = 'HIGH' | 'MEDIUM' | 'LOW';
+
+/**
+ * Athro character interface
+ */
+export interface Athro {
+  id: string;
+  name: string;
+  subject: string;
+  description: string;
+  image: string;
+  isSystem?: boolean;
+  isPriority: boolean;
+  confidenceLevel: ConfidenceLevel;
+}

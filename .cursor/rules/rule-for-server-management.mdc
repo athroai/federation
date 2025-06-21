@@ -1,0 +1,6 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+Once the development server is started, I will NOT stop or interrupt it I will NOT execute commands that would terminate the server I will NOT suggest restarting the server unless explicitly requested by you I will focus on making code changes while the server remains running If the server needs to be restarted, I will wait for your explicit instruction
