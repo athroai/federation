@@ -59,3 +59,34 @@ export interface AppRegistration {
     services: string[];
   };
 }
+
+/**
+ * Confidence level for Athro subjects
+ */
+export type ConfidenceLevel = 'HIGH' | 'MEDIUM' | 'LOW';
+
+/**
+ * UK Exam Boards
+ */
+export type ExamBoard = 'AQA' | 'Edexcel' | 'OCR' | 'WJEC' | 'CCEA';
+
+/**
+ * UK Qualification Levels
+ */
+export type QualificationLevel = 'GCSE' | 'A-Level' | 'AS-Level';
+
+/**
+ * Athro character interface
+ */
+export interface Athro {
+  id: string;
+  name: string;
+  subject: string;
+  description: string;
+  image: string;
+  isSystem?: boolean;
+  isPriority: boolean;
+  confidenceLevel: ConfidenceLevel;
+  examBoard?: ExamBoard;
+  level?: QualificationLevel;
+}

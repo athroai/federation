@@ -5,7 +5,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && tsc",
+    "build": "tsc",
     "lint": "eslint src --ext ts,tsx"
   },
   "dependencies": {

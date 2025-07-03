@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to AthroAI</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background-color: #f7fafc;
+        }
+        
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4fc38a 0%, #45b579 50%, #e4c97e 100%);
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+            50% { transform: translate(-50%, -50%) rotate(180deg); }
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            font-weight: 400;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .content {
+            padding: 40px 30px;
+            background: white;
+        }
+        
+        .greeting {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .message {
+            font-size: 16px;
+            color: #4a5568;
+            margin-bottom: 30px;
+            text-align: center;
+            line-height: 1.7;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #4fc38a, #45b579);
+            color: white;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            text-align: center;
+            width: 100%;
+            max-width: 300px;
+            margin: 20px auto;
+            display: block;
+            box-shadow: 0 4px 12px rgba(79, 195, 138, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 195, 138, 0.4);
+        }
+        
+        .features {
+            background: #f8f9fa;
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 8px;
+            border-left: 4px solid #4fc38a;
+        }
+        
+        .features h3 {
+            font-family: 'Playfair Display', serif;
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .feature-list li {
+            padding: 8px 0;
+            position: relative;
+            padding-left: 25px;
+            color: #4a5568;
+        }
+        
+        .feature-list li::before {
+            content: '✨';
+            position: absolute;
+            left: 0;
+            color: #e4c97e;
+        }
+        
+        .security-note {
+            background: #fef5e7;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #e4c97e;
+            margin: 20px 0;
+            font-size: 14px;
+            color: #744210;
+        }
+        
+        .footer {
+            background: #f7fafc;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: #4fc38a;
+            margin-bottom: 15px;
+        }
+        
+        .footer-text {
+            font-size: 14px;
+            color: #718096;
+            margin-bottom: 15px;
+        }
+        
+        .social-links {
+            margin: 20px 0;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 8px;
+            background: #4fc38a;
+            color: white;
+            text-decoration: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            text-align: center;
+            line-height: 20px;
+        }
+        
+        .unsubscribe {
+            font-size: 12px;
+            color: #a0aec0;
+            margin-top: 20px;
+        }
+        
+        .unsubscribe a {
+            color: #4fc38a;
+            text-decoration: none;
+        }
+        
+        @media (max-width: 600px) {
+            .email-container {
+                margin: 10px;
+                border-radius: 8px;
+            }
+            
+            .header, .content, .footer {
+                padding: 20px;
+            }
+            
+            .logo {
+                font-size: 24px;
+            }
+            
+            .greeting {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <div class="logo">AthroAI</div>
+            <div class="subtitle">Your AI-Powered Learning Companion</div>
+        </div>
+        
+        <div class="content">
+            <h1 class="greeting">Welcome to the Future of Learning! 🚀</h1>
+            
+            <p class="message">
+                Hi there! We're thrilled you've joined the AthroAI family. You're about to experience a revolutionary approach to personalized learning that adapts to your unique style and goals.
+            </p>
+            
+            <a href="{{ .ConfirmationURL }}" class="cta-button">
+                Confirm Your Email & Get Started
+            </a>
+            
+            <div class="features">
+                <h3>What awaits you in AthroAI:</h3>
+                <ul class="feature-list">
+                    <li>AI-powered study plans tailored to your subjects and goals</li>
+                    <li>Interactive mind maps and visual learning tools</li>
+                    <li>Smart flashcards with spaced repetition</li>
+                    <li>Wellbeing tracking and mindfulness integration</li>
+                    <li>Progress analytics and achievement tracking</li>
+                    <li>Seamless document management and note-taking</li>
+                </ul>
+            </div>
+            
+            <div class="security-note">
+                <strong>🔒 Security Note:</strong> This confirmation link will expire in 24 hours for your security. If you didn't create an AthroAI account, you can safely ignore this email.
+            </div>
+            
+            <p class="message">
+                Ready to transform your learning journey? Click the button above to confirm your email and dive into your personalized AI learning experience!
+            </p>
+        </div>
+        
+        <div class="footer">
+            <div class="footer-logo">AthroAI</div>
+            <p class="footer-text">
+                Empowering students with AI-driven personalized learning
+            </p>
+            <p class="footer-text">
+                Need help? Reach out to us at <a href="mailto:support@athroai.com" style="color: #4fc38a;">support@athroai.com</a>
+            </p>
+            
+            <div class="social-links">
+                <a href="#" title="Follow us on Twitter">📱</a>
+                <a href="#" title="Like us on Facebook">👥</a>
+                <a href="#" title="Connect on LinkedIn">💼</a>
+            </div>
+            
+            <p class="footer-text">© 2024 AthroAI. All rights reserved.</p>
+            
+            <div class="unsubscribe">
+                Don't want to receive these emails? <a href="#">Unsubscribe</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

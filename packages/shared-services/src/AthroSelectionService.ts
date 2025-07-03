@@ -66,11 +66,29 @@ export class AthroSelectionService {
    */
   private constructor() {
     // Generate or retrieve user ID for storage namespacing
+    try {
     const existingUserId = localStorage.getItem('athro-user-id');
     this.userId = existingUserId || uuidv4();
     
     if (!existingUserId) {
       localStorage.setItem('athro-user-id', this.userId);
+        console.log('[AthroSelectionService] Generated new user ID:', this.userId);
+      } else {
+        console.log('[AthroSelectionService] Using existing user ID:', this.userId);
+      }
+      
+      // Validate userId is not null or undefined
+      if (!this.userId || this.userId === 'undefined' || this.userId === 'null') {
+        console.error('[AthroSelectionService] Invalid userId detected, generating fallback:', this.userId);
+        this.userId = uuidv4();
+        localStorage.setItem('athro-user-id', this.userId);
+        console.log('[AthroSelectionService] Generated fallback user ID:', this.userId);
+      }
+    } catch (error) {
+      console.error('[AthroSelectionService] Error accessing localStorage for user ID:', error);
+      // Fallback to in-memory UUID if localStorage fails
+      this.userId = uuidv4();
+      console.log('[AthroSelectionService] Using in-memory fallback user ID:', this.userId);
     }
 
     // Subscribe to selection events from other tabs/windows
@@ -106,7 +124,37 @@ export class AthroSelectionService {
    * Uses namespacing to isolate data between apps
    */
   private getStorageKey(appId: string): string {
-    return `${this.STORAGE_KEY_PREFIX}${this.userId}-${appId}`;
+    // Safety check for null/undefined userId
+    if (!this.userId || this.userId === 'undefined' || this.userId === 'null') {
+      console.error('[AthroSelectionService] CRITICAL: userId is invalid when generating storage key!', {
+        userId: this.userId,
+        appId,
+        typeof: typeof this.userId
+      });
+      
+      // Try to recover
+      try {
+        const savedUserId = localStorage.getItem('athro-user-id');
+        if (savedUserId && savedUserId !== 'null' && savedUserId !== 'undefined') {
+          console.log('[AthroSelectionService] Recovered userId from localStorage:', savedUserId);
+          (this as any).userId = savedUserId; // Force update the readonly property
+        } else {
+          const newUserId = uuidv4();
+          localStorage.setItem('athro-user-id', newUserId);
+          (this as any).userId = newUserId; // Force update the readonly property
+          console.log('[AthroSelectionService] Generated new userId for recovery:', newUserId);
+        }
+      } catch (error) {
+        console.error('[AthroSelectionService] Failed to recover userId:', error);
+        const fallbackUserId = uuidv4();
+        (this as any).userId = fallbackUserId;
+        console.log('[AthroSelectionService] Using fallback userId:', fallbackUserId);
+      }
+    }
+    
+    const key = `${this.STORAGE_KEY_PREFIX}${this.userId}-${appId}`;
+    console.log('[AthroSelectionService] Generated storage key:', key);
+    return key;
   }
 
   /**
@@ -177,6 +225,80 @@ export class AthroSelectionService {
    */
   public destroy(): void {
     this.subscriptions.forEach(id => eventBus.unsubscribe(id));
+  }
+
+  /**
+   * Migrate data from incorrect storage keys to correct ones
+   * Helps fix userid mismatch issues
+   */
+  public migrateIncorrectStorageKeys(appId: string): boolean {
+    try {
+      console.log('[AthroSelectionService] Checking for incorrect storage keys for app:', appId);
+      
+      // Look for keys with null, undefined, or mismatched userIds
+      const correctKey = this.getStorageKey(appId);
+      const allKeys = Object.keys(localStorage);
+      const athroSelectionKeys = allKeys.filter(key => 
+        key.startsWith(this.STORAGE_KEY_PREFIX) && 
+        key.includes(`-${appId}`) &&
+        key !== correctKey
+      );
+      
+      console.log('[AthroSelectionService] Found potentially incorrect keys:', athroSelectionKeys);
+      console.log('[AthroSelectionService] Correct key should be:', correctKey);
+      
+      if (athroSelectionKeys.length === 0) {
+        console.log('[AthroSelectionService] No incorrect keys found');
+        return false;
+      }
+      
+      // Try to find the most recent data
+      let mostRecentData: AthroSelection[] = [];
+      let mostRecentTimestamp = 0;
+      let sourceKey = '';
+      
+      athroSelectionKeys.forEach(key => {
+        try {
+          const data = localStorage.getItem(key);
+          if (data) {
+            const selections: AthroSelection[] = JSON.parse(data);
+            const latestTimestamp = Math.max(...selections.map(s => new Date(s.timestamp).getTime()));
+            
+            if (latestTimestamp > mostRecentTimestamp) {
+              mostRecentTimestamp = latestTimestamp;
+              mostRecentData = selections;
+              sourceKey = key;
+            }
+          }
+        } catch (error) {
+          console.error('[AthroSelectionService] Error parsing data from key:', key, error);
+        }
+      });
+      
+      if (mostRecentData.length > 0) {
+        console.log('[AthroSelectionService] Migrating data from:', sourceKey, 'to:', correctKey);
+        console.log('[AthroSelectionService] Migrating selections:', mostRecentData);
+        
+        // Save to correct key
+        localStorage.setItem(correctKey, JSON.stringify(mostRecentData));
+        
+        // Remove old incorrect keys
+        athroSelectionKeys.forEach(key => {
+          console.log('[AthroSelectionService] Removing incorrect key:', key);
+          localStorage.removeItem(key);
+        });
+        
+        console.log('[AthroSelectionService] Migration complete!');
+        return true;
+      } else {
+        console.log('[AthroSelectionService] No valid data found to migrate');
+        return false;
+      }
+      
+    } catch (error) {
+      console.error('[AthroSelectionService] Error during storage key migration:', error);
+      return false;
+    }
   }
 
   /**
