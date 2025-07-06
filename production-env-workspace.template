@@ -1,0 +1,66 @@
+# 🚀 ATHRO WORKSPACE - PRODUCTION ENVIRONMENT TEMPLATE
+# Copy these to Vercel Dashboard > Project Settings > Environment Variables
+# Set each as "Production" environment
+
+# ============================================
+# 🔧 APPLICATION SETTINGS
+# ============================================
+NODE_ENV=production
+VITE_APP_NAME=Athro Workspace
+VITE_APP_VERSION=1.0.0
+
+# ============================================
+# 🌐 DEPLOYMENT URLS (UPDATE WITH YOUR DOMAINS)
+# ============================================
+VITE_WORKSPACE_URL=https://athro-workspace.vercel.app
+VITE_DASHBOARD_URL=https://athro-dashboard.vercel.app
+
+# ============================================
+# 🗄️ SUPABASE CONFIGURATION
+# ============================================
+VITE_SUPABASE_URL=https://YOUR-PROJECT.supabase.co
+VITE_SUPABASE_ANON_KEY=YOUR-SUPABASE-ANON-KEY
+
+# ============================================
+# 🤖 OPENAI CONFIGURATION
+# ============================================
+VITE_OPENAI_API_KEY=sk-YOUR-OPENAI-API-KEY
+
+# ============================================
+# ☁️ AWS TEXTRACT (OPTIONAL - FOR PDF PROCESSING)
+# ============================================
+VITE_AWS_ACCESS_KEY_ID=YOUR-AWS-ACCESS-KEY
+VITE_AWS_SECRET_ACCESS_KEY=YOUR-AWS-SECRET-KEY
+VITE_AWS_REGION=us-east-1
+
+# ============================================
+# 🌍 GOOGLE TRANSLATE (OPTIONAL - FOR MULTI-LANGUAGE)
+# ============================================
+VITE_GOOGLE_TRANSLATE_API_KEY=YOUR-GOOGLE-TRANSLATE-KEY
+
+# ============================================
+# 📊 MONITORING & ANALYTICS (OPTIONAL)
+# ============================================
+VITE_SENTRY_DSN=https://YOUR-SENTRY-DSN@sentry.io/PROJECT-ID
+
+# ============================================
+# 🔐 SECURITY SETTINGS
+# ============================================
+VITE_ENVIRONMENT=production
+VITE_CSP_ENABLED=true
+
+# ============================================
+# 🚀 FEDERATION SETTINGS
+# ============================================
+VITE_FEDERATION_MODE=production
+VITE_HOST_DASHBOARD_URL=https://athro-dashboard.vercel.app
+
+# ============================================
+# 📝 INSTRUCTIONS:
+# ============================================
+# 1. Replace all YOUR-* placeholders with actual values
+# 2. Set these in Vercel Dashboard under Environment Variables
+# 3. Select "Production" environment for each variable
+# 4. The workspace app is consumed by the dashboard via federation
+# 5. Make sure CORS headers allow dashboard domain access
+# ============================================ 

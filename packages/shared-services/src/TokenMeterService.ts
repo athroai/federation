@@ -1,6 +1,6 @@
-import { createClient } from '@supabase/supabase-js';
+import { getSupabaseClient, SupabaseClient } from './supabaseClient';
 
-export type ModelType = 'gpt-4' | 'gpt-4-turbo';
+export type ModelType = 'gpt-4o-mini' | 'gpt-4o'; // Updated for new model routing
 
 interface TokenUsage {
   inputTokens: number;
@@ -15,48 +15,44 @@ interface MonthlyUsage {
   lastResetDate: string;
 }
 
+// Updated pricing for new model structure (GPT-4.1 = gpt-4o, GPT-4.1 mini = gpt-4o-mini)
 const PRICES_GBP: Record<ModelType, { input: number; output: number }> = {
-  'gpt-4': { input: 0.00198, output: 0.00792 },      // £0.00198/1K input, £0.00792/1K output
-  'gpt-4-turbo': { input: 0.00099, output: 0.00297 } // £0.00099/1K input, £0.00297/1K output
+  'gpt-4o-mini': { input: 0.00012, output: 0.00048 },  // GPT-4.1 mini - much cheaper for general tasks
+  'gpt-4o': { input: 0.00396, output: 0.01188 }        // GPT-4.1 - premium model for quizzes only
 };
 
-// Monthly spend limits and token equivalents (updated for new SaaS model)
+// NEW SAAS TOKEN LIMITS - Dramatically increased as specified
 const TIER_MONTHLY_LIMITS = {
   free: {
-    spendLimitGBP: 0.20,    // £0.20/month
-    tokenEquivalent: 300,   // Approximately 300 tokens worth
-    description: 'Free tier with basic access'
+    spendLimitGBP: 50.00,      // £50/month internal budget (not shown to users)
+    tokenEquivalent: 100000,   // 100,000 tokens/month
+    description: 'Free tier with generous access'
   },
   lite: {
-    spendLimitGBP: 3.00,    // £3.00/month  
-    tokenEquivalent: 4500,  // Approximately 4,500 tokens worth
+    spendLimitGBP: 500.00,     // £500/month internal budget  
+    tokenEquivalent: 1000000,  // 1,000,000 tokens/month
     description: 'Lite tier with expanded access'
   },
   full: {
-    spendLimitGBP: 7.00,    // £7.00/month (called AthroAI in UI)
-    tokenEquivalent: 10500, // Approximately 10,500 tokens worth
+    spendLimitGBP: 800.00,     // £800/month internal budget
+    tokenEquivalent: 1602000,  // 1,602,000 tokens/month
     description: 'Full AthroAI access with highest limits'
   }
 };
 
 export class TokenMeterService {
-  private static instance: TokenMeterService;
   private supabase: any;
 
-  private constructor() {
-    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-    const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-    
-    if (supabaseUrl && supabaseKey) {
-      this.supabase = createClient(supabaseUrl, supabaseKey);
-    }
+  constructor(supabaseUrl?: string, supabaseKey?: string) {
+    // Always use shared client to prevent multiple instances
+    this.supabase = getSupabaseClient();
   }
 
-  static getInstance(): TokenMeterService {
-    if (!TokenMeterService.instance) {
-      TokenMeterService.instance = new TokenMeterService();
-    }
-    return TokenMeterService.instance;
+  /**
+   * Get tier limits (updated for new token structure)
+   */
+  getTierLimits(tier: 'free' | 'lite' | 'full') {
+    return TIER_MONTHLY_LIMITS[tier] || TIER_MONTHLY_LIMITS.free;
   }
 
   /**
@@ -78,10 +74,26 @@ export class TokenMeterService {
   }
 
   /**
-   * Get tier limits and information
+   * CRITICAL: Quiz Model Enforcement
+   * All quizzes MUST use GPT-4.1 (gpt-4o) regardless of user tier
    */
-  getTierLimits(tier: 'free' | 'lite' | 'full') {
-    return TIER_MONTHLY_LIMITS[tier] || TIER_MONTHLY_LIMITS.free;
+  enforceQuizModel(task: string): ModelType {
+    // Check for quiz-related keywords
+    const quizKeywords = [
+      'quiz', 'questions', 'mcq', 'multiple choice', 'generate questions',
+      'test questions', 'assessment questions', 'practice questions',
+      'flashcard', 'flashcards', 'exam questions'
+    ];
+    
+    const isQuizTask = quizKeywords.some(keyword => 
+      task.toLowerCase().includes(keyword)
+    );
+    
+    if (isQuizTask) {
+      return 'gpt-4o'; // ALWAYS use GPT-4.1 for quizzes
+    }
+    
+    return 'gpt-4o-mini'; // Default to GPT-4.1 mini for everything else
   }
 
   /**
@@ -118,23 +130,35 @@ export class TokenMeterService {
       (tierLimits.spendLimitGBP - usage.totalSpendGBP).toFixed(6)
     );
 
-    // Calculate remaining tokens (approximation)
-    const remainingTokens = Math.max(0, usage.remainingTokens);
+    // Calculate remaining tokens (approximation based on token equivalents)
+    const remainingTokens = Math.max(0, tierLimits.tokenEquivalent - usage.totalTokens);
 
     // Check for low token warning (below 300 tokens)
     const isLowTokenWarning = remainingTokens <= 300 && remainingTokens > 0;
 
-    // Check if call would exceed limit
-    if (estimatedUsage.totalCostGBP > remainingBudgetGBP || remainingTokens <= 0) {
+    // Check if call would exceed limit - use token-based checking primarily
+    if (remainingTokens <= 0) {
       return {
         canProceed: false,
-        reason: remainingTokens <= 0 
-          ? 'Monthly token limit reached' 
-          : `Monthly spend limit reached. Available: £${remainingBudgetGBP.toFixed(3)}`,
+        reason: 'Monthly token limit reached',
+        estimatedCostGBP: estimatedUsage.totalCostGBP,
+        remainingBudgetGBP,
+        remainingTokens: 0,
+        isLowTokenWarning: false // No warning if already at 0
+      };
+    }
+
+    // Estimate tokens needed (input + estimated output)
+    const totalEstimatedTokens = estimatedInputTokens + Math.ceil(estimatedInputTokens * 0.5);
+    
+    if (totalEstimatedTokens > remainingTokens) {
+      return {
+        canProceed: false,
+        reason: `Insufficient tokens remaining. Need ${totalEstimatedTokens}, have ${remainingTokens}`,
         estimatedCostGBP: estimatedUsage.totalCostGBP,
         remainingBudgetGBP,
         remainingTokens,
-        isLowTokenWarning: false // No warning if already at 0
+        isLowTokenWarning: false
       };
     }
 
@@ -210,26 +234,20 @@ export class TokenMeterService {
       };
     }
 
-    // Calculate remaining tokens based on spend
-    const userTier = await this.getUserTier(userId);
-    const tierLimits = this.getTierLimits(userTier);
-    const remainingBudget = tierLimits.spendLimitGBP - data.total_spend_gbp;
-    const remainingTokens = Math.max(0, Math.floor(remainingBudget / 0.001)); // Rough conversion
-
     return {
       totalTokens: data.total_tokens,
       totalSpendGBP: data.total_spend_gbp,
-      remainingTokens,
+      remainingTokens: data.total_tokens, // We'll calculate this in the calling service
       lastResetDate: data.last_reset_date
     };
   }
 
   /**
-   * Get user's current tier from database
+   * Get user tier from database
    */
-  private async getUserTier(userId: string): Promise<'free' | 'lite' | 'full'> {
+  async getUserTier(userId: string): Promise<'free' | 'lite' | 'full'> {
     if (!this.supabase) return 'free';
-    
+
     try {
       const { data, error } = await this.supabase
         .from('profiles')
@@ -237,10 +255,13 @@ export class TokenMeterService {
         .eq('id', userId)
         .single();
 
-      if (error || !data) return 'free';
+      if (error || !data) {
+        return 'free';
+      }
+
       return data.user_tier || 'free';
     } catch (error) {
-      console.error('Error fetching user tier:', error);
+      console.error('Error getting user tier:', error);
       return 'free';
     }
   }
@@ -259,10 +280,13 @@ export class TokenMeterService {
     const usage = await this.getMonthlyUsage(userId);
     const tierLimits = this.getTierLimits(tier);
     
+    const usedTokens = usage.totalTokens;
+    const remainingTokens = Math.max(0, tierLimits.tokenEquivalent - usedTokens);
+    
     return {
-      remainingTokens: usage.remainingTokens,
+      remainingTokens,
       totalTokens: tierLimits.tokenEquivalent,
-      usedTokens: tierLimits.tokenEquivalent - usage.remainingTokens,
+      usedTokens,
       monthlySpendLimit: tierLimits.spendLimitGBP,
       currentSpend: usage.totalSpendGBP,
       remainingSpend: tierLimits.spendLimitGBP - usage.totalSpendGBP

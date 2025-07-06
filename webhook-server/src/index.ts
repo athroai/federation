@@ -38,13 +38,15 @@ const supabase = createClient(
   }
 );
 
-// Price mapping with validation (updated with your Buy Button price IDs)
+// Price mapping with validation (updated with new Stripe products)
 const PRICE_ID_TO_TIER = {
-  'price_1RfM4LHlv5z8bwBIcwv3aUkb': 'lite',     // £9.99/month - Lite Buy Button
-  'price_1RfM4LHlv5z8bwBIKLFadfjp': 'full',     // £19.99/month - Full Buy Button
-  // Legacy price IDs (if still in use)
-  'price_1Rfh1nQYU340CsP0kXM8I05h': 'lite',     
-  'price_1RfgxvQYU340CsP0AcrSjH2O': 'full'      
+  'price_1Rh7kCQYU340CsP0NGbx0Qnj': 'lite',     // £7.99/month - NEW Lite Product
+  'price_1Rh7lMQYU340CsP0yJy4VaTu': 'full',     // £14.99/month - NEW Full Product
+  // Legacy price IDs (deprecated but kept for safety)
+  'price_1RfM4LHlv5z8bwBIcwv3aUkb': 'lite',     // OLD - £7.99/month - Lite (was £9.99)
+  'price_1RfM4LHlv5z8bwBIKLFadfjp': 'full',     // OLD - £14.99/month - Full (was £19.99)
+  'price_1Rfh1nQYU340CsP0kXM8I05h': 'lite',     // LEGACY
+  'price_1RfgxvQYU340CsP0AcrSjH2O': 'full'      // LEGACY
 } as const;
 
 // Validate tier type

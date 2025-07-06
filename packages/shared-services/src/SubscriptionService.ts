@@ -5,7 +5,7 @@
  * Updated for new monthly token-based SaaS model
  */
 
-import { createClient } from '@supabase/supabase-js';
+import { getSupabaseClient } from './supabaseClient';
 import { TokenMeterService, ModelType } from './TokenMeterService';
 
 export interface UserSubscription {
@@ -42,85 +42,75 @@ export interface TierLimits {
 }
 
 export class SubscriptionService {
-  private static instance: SubscriptionService;
   private supabase: any;
   private tokenMeter: TokenMeterService;
 
-  private constructor() {
-    // Initialize Supabase client
-    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-    const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-    
+  constructor(supabaseUrl?: string, supabaseKey?: string) {
     if (supabaseUrl && supabaseKey) {
-      this.supabase = createClient(supabaseUrl, supabaseKey);
+      this.supabase = getSupabaseClient();
+      this.tokenMeter = new TokenMeterService(supabaseUrl, supabaseKey);
     } else {
-      console.warn('Supabase credentials not found');
+      this.supabase = getSupabaseClient();
+      this.tokenMeter = new TokenMeterService();
     }
-
-    // Initialize TokenMeterService
-    this.tokenMeter = TokenMeterService.getInstance();
-  }
-
-  static getInstance(): SubscriptionService {
-    if (!SubscriptionService.instance) {
-      SubscriptionService.instance = new SubscriptionService();
-    }
-    return SubscriptionService.instance;
   }
 
   /**
-   * 🔥 UPDATED TIER LIMITS - NEW SAAS MODEL
-   * Monthly token-based limits matching user requirements
+   * 🎯 NEW USER-FACING TIER LIMITS
+   * These are the ONLY prices shown to users
    */
   getTierLimits(tier: 'free' | 'lite' | 'full'): TierLimits {
     switch (tier) {
       case 'free':
         return {
-          monthlySpendLimitGBP: 0.20,     // £0.20/month
-          monthlyTokenLimit: 300,         // ~300 tokens
-          hasWorkspaceAccess: true,       // Limited access until tokens run out
-          hasDashboardAccess: true,       // Limited access until tokens run out
-          description: 'Free trial: 300 tokens per month',
-          price: 'Free',
+          monthlySpendLimitGBP: 50.00,      // Internal budget (hidden from users)
+          monthlyTokenLimit: 100000,        // 100,000 tokens/month
+          hasWorkspaceAccess: true,         
+          hasDashboardAccess: true,         
+          description: 'Free tier with generous token allocation',
+          price: 'Free',                    // USER-FACING PRICE
           features: [
-            '300 tokens per month',
-            'Basic AI chat access',
-            'Basic workspace features',
-            'Basic dashboard features'
+            '100,000 tokens per month',
+            'Full workspace access',
+            'Full dashboard access', 
+            'AI study assistance',
+            'Basic quiz generation'
           ]
         };
       
       case 'lite':
         return {
-          monthlySpendLimitGBP: 3.00,     // £3.00/month
-          monthlyTokenLimit: 4500,        // ~4,500 tokens
-          hasWorkspaceAccess: true,       // Full workspace access
-          hasDashboardAccess: false,      // BLOCKED from dashboard (upgrade modal)
-          description: 'Lite plan: Full workspace access only',
-          price: '£3.00/month',
+          monthlySpendLimitGBP: 500.00,     // Internal budget (hidden from users)
+          monthlyTokenLimit: 1000000,       // 1,000,000 tokens/month
+          hasWorkspaceAccess: true,         
+          hasDashboardAccess: true,         
+          description: 'Lite plan with expanded token allocation',
+          price: '£7.99/month',             // USER-FACING PRICE
           features: [
-            '4,500 tokens per month',
+            '1,000,000 tokens per month',
             'Full workspace access',
+            'Full dashboard access',
             'Advanced AI features',
-            'Progress saved',
-            'No dashboard access'
+            'Priority quiz generation',
+            'Progress tracking'
           ]
         };
       
       case 'full':
         return {
-          monthlySpendLimitGBP: 7.00,     // £7.00/month
-          monthlyTokenLimit: 10500,       // ~10,500 tokens
-          hasWorkspaceAccess: true,       // Full access until spend limit
-          hasDashboardAccess: true,       // Full access to dashboard
-          description: 'AthroAI: Full access with extra token purchase option',
-          price: '£7.00/month',
+          monthlySpendLimitGBP: 800.00,     // Internal budget (hidden from users)
+          monthlyTokenLimit: 1602000,       // 1,602,000 tokens/month
+          hasWorkspaceAccess: true,         
+          hasDashboardAccess: true,         
+          description: 'AthroAI: Full access with token top-up option',
+          price: '£14.99/month',            // USER-FACING PRICE
           features: [
-            '10,500 tokens per month',
-            'Full dashboard access',
+            '1,602,000 tokens per month',
             'Full workspace access',
+            'Full dashboard access',
             'All premium features',
-            'Buy extra tokens option',
+            'Premium quiz generation',
+            'Token top-ups available: £2.00 per pack',
             'Priority support'
           ]
         };
@@ -170,6 +160,65 @@ export class SubscriptionService {
       console.error('Failed to fetch user subscription:', error);
       return null;
     }
+  }
+
+  /**
+   * CRITICAL: Quiz model enforcement before usage check
+   */
+  async checkQuizUsage(
+    userId: string,
+    estimatedInputTokens: number
+  ): Promise<UsageCheck> {
+    const subscription = await this.getUserSubscription(userId);
+    
+    if (!subscription) {
+      return {
+        success: false,
+        canProceed: false,
+        error: 'Subscription not found',
+        currentSpendGBP: 0,
+        monthlyLimitGBP: 0,
+        remainingGBP: 0,
+        remainingTokens: 0,
+        tier: 'free'
+      };
+    }
+
+    // ENFORCE: All quizzes MUST use GPT-4.1 (gpt-4o)
+    const usageCheck = await this.tokenMeter.canMakeAPICall(
+      userId,
+      'gpt-4o', // ALWAYS GPT-4.1 for quizzes
+      estimatedInputTokens,
+      subscription.tier
+    );
+
+    const limits = this.getTierLimits(subscription.tier);
+
+    if (!usageCheck.canProceed) {
+      return {
+        success: false,
+        canProceed: false,
+        error: 'Insufficient tokens for quiz generation. Upgrade required.',
+        currentSpendGBP: limits.monthlySpendLimitGBP - usageCheck.remainingBudgetGBP,
+        monthlyLimitGBP: limits.monthlySpendLimitGBP,
+        remainingGBP: usageCheck.remainingBudgetGBP,
+        remainingTokens: usageCheck.remainingTokens,
+        tier: subscription.tier,
+        requiresUpgrade: true,
+        lockoutType: 'full_app' // Block quiz generation completely
+      };
+    }
+
+    return {
+      success: true,
+      canProceed: true,
+      currentSpendGBP: limits.monthlySpendLimitGBP - usageCheck.remainingBudgetGBP,
+      monthlyLimitGBP: limits.monthlySpendLimitGBP,
+      remainingGBP: usageCheck.remainingBudgetGBP,
+      remainingTokens: usageCheck.remainingTokens,
+      tier: subscription.tier,
+      isLowTokenWarning: usageCheck.isLowTokenWarning
+    };
   }
 
   /**
@@ -237,20 +286,32 @@ export class SubscriptionService {
   }
 
   /**
-   * Determine what type of lockout to apply based on tier and usage
+   * Determine lockout type based on tier and usage
    */
-  private determineLockoutType(tier: 'free' | 'lite' | 'full', canProceed: boolean): 'full_app' | 'workspace_only' | null {
+  private determineLockoutType(tier: string, canProceed: boolean): 'full_app' | 'workspace_only' | null {
     if (canProceed) return null;
+    
+    // All tiers get full access when they have tokens
+    // All tiers get blocked when they run out of tokens
+    return 'full_app';
+  }
 
+  /**
+   * Get upgrade message based on tier and situation
+   */
+  private getUpgradeMessage(tier: string, situation: string): string {
     switch (tier) {
       case 'free':
-        return 'full_app'; // Free users get completely locked out
+        return 'Upgrade to Lite (£7.99/month) for 1M tokens or Full (£14.99/month) for 1.6M tokens + top-ups.';
       case 'lite':
-        return 'workspace_only'; // Lite users only lose workspace access
+        return 'Upgrade to Full (£14.99/month) for 1.6M tokens plus the ability to purchase token top-ups.';
       case 'full':
-        return 'workspace_only'; // Full users only lose workspace access, can buy more tokens
+        if (situation === 'tokens_exhausted') {
+          return 'Purchase additional tokens for £2.00 per pack to continue using premium features.';
+        }
+        return 'Your AthroAI subscription includes 1.6M monthly tokens plus token top-up options.';
       default:
-        return 'full_app';
+        return 'Upgrade your plan to access this feature.';
     }
   }
 
@@ -268,87 +329,85 @@ export class SubscriptionService {
 
     const limits = this.getTierLimits(subscription.tier);
 
-    // Check spend limit first
+    // Check token balance for access
     const usageCheck = await this.tokenMeter.canMakeAPICall(
       userId,
-      'gpt-4',  // Use as reference model
-      100,      // Small token amount for check
+      'gpt-4o-mini',  // Use as reference model for access check
+      100,            // Small token amount for check
       subscription.tier
     );
 
-    // If user has hit spend limit
+    // All tiers have access to both dashboard and workspace when they have tokens
     if (!usageCheck.canProceed) {
-      const lockoutType = this.determineLockoutType(subscription.tier, false);
-      
-      if (accessType === 'workspace' && lockoutType !== 'full_app') {
-        return {
-          hasAccess: false,
-          reason: `Monthly token limit reached (${usageCheck.remainingTokens} tokens remaining)`,
-          requiresUpgrade: true,
-          upgradeMessage: this.getUpgradeMessage(subscription.tier, 'tokens_exhausted')
-        };
-      }
-      
-      if (accessType === 'dashboard' && lockoutType === 'full_app') {
-        return {
-          hasAccess: false,
-          reason: 'Monthly token limit reached',
-          requiresUpgrade: true,
-          upgradeMessage: this.getUpgradeMessage(subscription.tier, 'tokens_exhausted')
-        };
-      }
+      return {
+        hasAccess: false,
+        reason: `Monthly token limit reached (${usageCheck.remainingTokens} tokens remaining)`,
+        requiresUpgrade: true,
+        upgradeMessage: this.getUpgradeMessage(subscription.tier, 'tokens_exhausted')
+      };
     }
 
-    // Check feature access based on tier
-    switch (accessType) {
-      case 'dashboard':
-        return {
-          hasAccess: limits.hasDashboardAccess,
-          reason: limits.hasDashboardAccess ? undefined : 'Dashboard requires AthroAI subscription',
-          requiresUpgrade: !limits.hasDashboardAccess,
-          upgradeMessage: this.getUpgradeMessage(subscription.tier, 'feature_locked')
-        };
-
-      case 'workspace':
-        return {
-          hasAccess: limits.hasWorkspaceAccess,
-          reason: limits.hasWorkspaceAccess ? undefined : 'Workspace access limit reached',
-          requiresUpgrade: !limits.hasWorkspaceAccess,
-          upgradeMessage: this.getUpgradeMessage(subscription.tier, 'feature_locked')
-        };
-
-      default:
-        return { hasAccess: false, reason: 'Invalid access type' };
-    }
+    return {
+      hasAccess: true
+    };
   }
 
   /**
-   * Get appropriate upgrade message based on tier and situation
+   * Get token upgrade options for tier
    */
-  private getUpgradeMessage(tier: 'free' | 'lite' | 'full', situation: 'tokens_exhausted' | 'feature_locked'): string {
-    if (situation === 'tokens_exhausted') {
-      switch (tier) {
-        case 'free':
-          return 'Upgrade to Lite or AthroAI for more tokens.';
-        case 'lite':
-          return 'Upgrade to AthroAI for more tokens.';
-        case 'full':
-          return 'Buy more tokens to continue.';
-        default:
-          return 'Upgrade your plan to continue.';
+  getTokenUpgradeOptions(tier: 'free' | 'lite' | 'full'): {
+    canUpgrade: boolean;
+    options: Array<{
+      fromTier: string;
+      toTier: string;
+      price: string;
+      tokenIncrease: number;
+    }>;
+    topUpOptions?: Array<{
+      price: string;
+      description: string;
+    }>;
+  } {
+    const baseOptions = [
+      {
+        fromTier: 'free',
+        toTier: 'lite',
+        price: '£7.99/month',
+        tokenIncrease: 900000 // From 100k to 1M
+      },
+      {
+        fromTier: 'free',
+        toTier: 'full',
+        price: '£14.99/month', 
+        tokenIncrease: 1502000 // From 100k to 1.602M
+      },
+      {
+        fromTier: 'lite',
+        toTier: 'full',
+        price: '£14.99/month',
+        tokenIncrease: 602000 // From 1M to 1.602M
       }
-    } else { // feature_locked
-      switch (tier) {
-        case 'free':
-          return 'Unlock this feature with Lite or AthroAI.';
-        case 'lite':
-          return 'Unlock this feature with AthroAI.';
-        case 'full':
-          return 'Feature available with your current plan.';
-        default:
-          return 'Upgrade to unlock this feature.';
-      }
+    ];
+
+    const options = baseOptions.filter(option => option.fromTier === tier);
+
+    if (tier === 'full') {
+      return {
+        canUpgrade: true,
+        options,
+        topUpOptions: [
+          {
+            price: '£2.00',
+            description: 'Token top-up pack'
+          }
+        ]
+      };
     }
+
+    return {
+      canUpgrade: options.length > 0,
+      options
+    };
   }
 
   /**
@@ -375,7 +434,7 @@ export class SubscriptionService {
   }
 
   /**
-   * Get token balance for UI display
+   * Get token balance for UI display (USER-FACING - no internal costs)
    */
   async getTokenBalance(userId: string): Promise<{
     remainingTokens: number;

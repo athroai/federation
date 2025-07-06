@@ -1,0 +1,989 @@
+2025-07-04T00:22:24.257324Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo/cookies/.turbo-cookie")}
+2025-07-04T00:22:24.257337Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T00:22:24.357634Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo/cookies/1.cookie")}
+2025-07-04T00:22:24.357645Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T00:22:25.158888Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751588545069-5e3c1092e2114.mjs")}
+2025-07-04T00:22:25.158897Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T00:27:55.058526Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/DashboardCalendar.tsx")}
+2025-07-04T00:27:55.058595Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T00:28:42.758578Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-workspace-2/src/pages/WorkPage.tsx")}
+2025-07-04T00:28:42.758596Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-workspace"), path: AnchoredSystemPathBuf("apps/athro-workspace-2") }}))
+2025-07-04T00:29:12.058144Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SessionModal.tsx")}
+2025-07-04T00:29:12.058158Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T00:29:12.266556Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SessionModal.tsx")}
+2025-07-04T00:29:12.266564Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T00:29:12.266629Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T00:29:21.358165Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751588961291-f56cf16002083.mjs")}
+2025-07-04T00:29:21.358174Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T00:29:21.426993Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T00:36:51.858160Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/DashboardCalendar.tsx")}
+2025-07-04T00:36:51.858183Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T00:37:27.057663Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-workspace-2/src/pages/WorkPage.tsx")}
+2025-07-04T00:37:27.057671Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-workspace"), path: AnchoredSystemPathBuf("apps/athro-workspace-2") }}))
+2025-07-04T00:37:39.162758Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-workspace-2/src/pages/WorkPage.tsx")}
+2025-07-04T00:37:39.162781Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-workspace"), path: AnchoredSystemPathBuf("apps/athro-workspace-2") }}))
+2025-07-04T00:37:39.501859Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-workspace-2/src/pages/WorkPage.tsx")}
+2025-07-04T00:37:39.501876Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-workspace"), path: AnchoredSystemPathBuf("apps/athro-workspace-2") }}))
+2025-07-04T00:37:39.501960Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T00:37:47.558061Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-workspace-2/src/pages/WorkPage.tsx")}
+2025-07-04T00:37:47.558072Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-workspace"), path: AnchoredSystemPathBuf("apps/athro-workspace-2") }}))
+2025-07-04T00:37:47.903395Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-workspace-2/src/pages/WorkPage.tsx")}
+2025-07-04T00:37:47.903404Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-workspace"), path: AnchoredSystemPathBuf("apps/athro-workspace-2") }}))
+2025-07-04T00:37:47.903473Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T00:37:56.158294Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-workspace-2/src/pages/WorkPage.tsx")}
+2025-07-04T00:37:56.158306Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-workspace"), path: AnchoredSystemPathBuf("apps/athro-workspace-2") }}))
+2025-07-04T00:37:56.476058Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-workspace-2/src/pages/WorkPage.tsx")}
+2025-07-04T00:37:56.476065Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-workspace"), path: AnchoredSystemPathBuf("apps/athro-workspace-2") }}))
+2025-07-04T00:37:56.476134Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T00:38:16.158782Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-workspace-2/src/pages/WorkPage.tsx")}
+2025-07-04T00:38:16.158800Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-workspace"), path: AnchoredSystemPathBuf("apps/athro-workspace-2") }}))
+2025-07-04T00:38:16.451615Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-workspace-2/src/pages/WorkPage.tsx")}
+2025-07-04T00:38:16.451622Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-workspace"), path: AnchoredSystemPathBuf("apps/athro-workspace-2") }}))
+2025-07-04T00:38:16.451700Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T00:38:28.057703Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-workspace-2/src/pages/WorkPage.tsx")}
+2025-07-04T00:38:28.057713Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-workspace"), path: AnchoredSystemPathBuf("apps/athro-workspace-2") }}))
+2025-07-04T00:38:28.516834Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-workspace-2/src/pages/WorkPage.tsx")}
+2025-07-04T00:38:28.516843Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-workspace"), path: AnchoredSystemPathBuf("apps/athro-workspace-2") }}))
+2025-07-04T00:38:28.516901Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T00:38:36.858569Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751589516827-7fc79fd9b0192.mjs")}
+2025-07-04T00:38:36.858578Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T00:38:37.040148Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T00:39:44.358346Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/InsightsTools.tsx")}
+2025-07-04T00:39:44.358361Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T00:39:55.758042Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/InsightsTools.tsx")}
+2025-07-04T00:39:55.758075Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T00:39:56.054410Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/InsightsTools.tsx")}
+2025-07-04T00:39:56.054418Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T00:39:56.054474Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T00:40:01.658437Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/InsightsTools.tsx")}
+2025-07-04T00:40:01.658448Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T00:40:10.758729Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751589610701-dd7567f28d6d.mjs")}
+2025-07-04T00:40:10.758740Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T00:40:10.846558Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T00:40:23.658544Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo/cookies/2.cookie")}
+2025-07-04T00:40:23.658558Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T00:40:24.458745Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751589624385-0bb8a70414628.mjs")}
+2025-07-04T00:40:24.458760Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T00:40:24.591543Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T07:41:29.293491Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T07:41:29.295737Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T07:41:29.560273Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T07:41:29.560284Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T07:41:29.560359Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T07:42:07.483265Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/DashboardCalendar.tsx")}
+2025-07-04T07:42:07.483317Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T07:42:07.770513Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/DashboardCalendar.tsx")}
+2025-07-04T07:42:07.770520Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T07:42:07.770565Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T07:42:20.983123Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-workspace-2/src/pages/WorkPage.tsx")}
+2025-07-04T07:42:20.983130Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-workspace"), path: AnchoredSystemPathBuf("apps/athro-workspace-2") }}))
+2025-07-04T07:42:21.219845Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-workspace-2/src/pages/WorkPage.tsx")}
+2025-07-04T07:42:21.219854Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-workspace"), path: AnchoredSystemPathBuf("apps/athro-workspace-2") }}))
+2025-07-04T07:42:21.219917Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T07:48:33.487468Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-workspace-2/src/pages/WorkPage.tsx")}
+2025-07-04T07:48:33.488172Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-workspace"), path: AnchoredSystemPathBuf("apps/athro-workspace-2") }}))
+2025-07-04T07:48:33.723108Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-workspace-2/src/pages/WorkPage.tsx")}
+2025-07-04T07:48:33.723116Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-workspace"), path: AnchoredSystemPathBuf("apps/athro-workspace-2") }}))
+2025-07-04T07:48:33.723183Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T07:51:06.882925Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-workspace-2/src/pages/WorkPage.tsx")}
+2025-07-04T07:51:06.882937Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-workspace"), path: AnchoredSystemPathBuf("apps/athro-workspace-2") }}))
+2025-07-04T07:51:07.088881Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-workspace-2/src/pages/WorkPage.tsx")}
+2025-07-04T07:51:07.088889Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-workspace"), path: AnchoredSystemPathBuf("apps/athro-workspace-2") }}))
+2025-07-04T07:51:07.088944Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T07:51:22.883006Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-workspace-2/src/components/SidePanel/TimerCard.tsx")}
+2025-07-04T07:51:22.883022Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-workspace"), path: AnchoredSystemPathBuf("apps/athro-workspace-2") }}))
+2025-07-04T07:59:31.483131Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SessionModal.tsx")}
+2025-07-04T07:59:31.483170Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T07:59:31.765920Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SessionModal.tsx")}
+2025-07-04T07:59:31.765928Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T07:59:31.765977Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T08:04:23.983427Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-workspace-2/src/contexts/TimerContext.tsx")}
+2025-07-04T08:04:23.983451Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-workspace"), path: AnchoredSystemPathBuf("apps/athro-workspace-2") }}))
+2025-07-04T08:06:05.183016Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-workspace-2/src/components/SidePanel/TimerCard.tsx")}
+2025-07-04T08:06:05.183030Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-workspace"), path: AnchoredSystemPathBuf("apps/athro-workspace-2") }}))
+2025-07-04T08:08:16.382562Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751616496329-387794ae282fc.mjs")}
+2025-07-04T08:08:16.382579Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:08:16.530556Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T08:12:19.082098Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/LowTokenWarning.tsx")}
+2025-07-04T08:12:19.082121Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:12:24.883370Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-workspace-2/src/pages/WorkPage.tsx")}
+2025-07-04T08:12:24.883413Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-workspace"), path: AnchoredSystemPathBuf("apps/athro-workspace-2") }}))
+2025-07-04T08:12:25.279418Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-workspace-2/src/pages/WorkPage.tsx")}
+2025-07-04T08:12:25.279426Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-workspace"), path: AnchoredSystemPathBuf("apps/athro-workspace-2") }}))
+2025-07-04T08:12:25.279485Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T08:13:00.183607Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-workspace-2/src/pages/WorkPage.tsx")}
+2025-07-04T08:13:00.183630Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-workspace"), path: AnchoredSystemPathBuf("apps/athro-workspace-2") }}))
+2025-07-04T08:38:12.986710Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:38:12.987254Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:38:20.483465Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:38:20.483475Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:38:20.784763Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:38:20.784784Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:38:20.784833Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T08:38:27.783047Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:38:27.783064Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:38:28.031316Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:38:28.031349Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:38:28.031443Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T08:44:18.183559Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:44:18.183596Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:44:18.566661Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:44:18.566677Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:44:18.566802Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T08:44:24.983195Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:44:24.983209Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:44:25.297089Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:44:25.297111Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:44:25.297184Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T08:45:33.782313Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:45:33.782349Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:45:34.022531Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:45:34.022540Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:45:34.022605Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T08:45:54.183869Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SettingsModal.tsx")}
+2025-07-04T08:45:54.183881Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:47:07.783135Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:47:07.783168Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:47:07.995579Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:47:07.995588Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:47:07.995635Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T08:47:14.883433Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:47:14.883467Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:47:15.208890Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:47:15.208897Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:47:15.208951Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T08:49:56.586306Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:49:56.586326Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:49:56.748908Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:49:56.748916Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:49:56.748967Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T08:50:03.683245Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:50:03.683272Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:50:03.937490Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:50:03.937503Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:50:03.937553Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T08:50:15.682917Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:50:15.682928Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:50:25.782648Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:50:25.782661Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:50:26.096200Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:50:26.096210Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:50:26.096267Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T08:50:35.183455Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:50:35.183469Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:50:45.283266Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:50:45.283276Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:50:45.450080Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:50:45.450091Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:50:45.450140Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T08:51:15.082011Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:51:15.082022Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:51:22.182680Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:51:22.182690Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:51:22.523738Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:51:22.523747Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:51:22.523824Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T08:59:34.983651Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:59:34.983679Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:59:35.282912Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:59:35.282923Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:59:35.282982Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T08:59:45.785411Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:59:45.785429Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:59:46.078699Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T08:59:46.078709Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T08:59:46.078765Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T09:00:18.982256Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T09:00:18.982268Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T09:00:19.258004Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T09:00:19.258018Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T09:00:19.258211Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T09:00:29.084911Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T09:00:29.085147Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T09:00:29.377942Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T09:00:29.377954Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T09:00:29.378152Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T09:00:37.682461Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T09:00:37.682476Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T09:00:37.889792Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T09:00:37.889800Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T09:00:37.889846Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T09:01:00.982366Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T09:01:00.982376Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T09:01:01.264942Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T09:01:01.264968Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T09:01:01.265042Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T09:37:01.982971Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T09:37:01.983037Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T09:37:02.256521Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T09:37:02.256529Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T09:37:02.256578Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T09:37:32.983349Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T09:37:32.983370Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T09:37:33.261457Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T09:37:33.261466Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T09:37:33.261517Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T09:38:02.783616Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T09:38:02.783778Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T09:38:03.030581Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T09:38:03.030588Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T09:38:03.030643Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T09:38:41.782965Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751621921707-d8cb129b675ed.mjs")}
+2025-07-04T09:38:41.782975Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T09:38:41.920980Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T09:54:09.783883Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo/cookies/3.cookie")}
+2025-07-04T09:54:09.783960Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T09:54:10.684186Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751622850630-93f4723b46ec4.mjs")}
+2025-07-04T09:54:10.684195Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T09:54:10.874010Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T10:03:54.182968Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T10:03:54.183000Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T10:04:30.982493Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T10:04:30.982504Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T10:04:31.280842Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T10:04:31.280849Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T10:04:31.280901Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T10:05:03.383033Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Payment/UpgradeModal.tsx")}
+2025-07-04T10:05:03.383082Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T10:05:03.605043Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Payment/UpgradeModal.tsx")}
+2025-07-04T10:05:03.605051Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T10:05:03.605101Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T10:20:58.087687Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Payment/UpgradeModal.tsx")}
+2025-07-04T10:20:58.087758Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T10:20:58.343807Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Payment/UpgradeModal.tsx")}
+2025-07-04T10:20:58.343815Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T10:20:58.343880Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T10:32:45.583385Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T10:32:45.583411Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T10:32:45.782885Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T10:32:45.782894Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T10:32:45.783012Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T10:33:08.583028Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T10:33:08.583064Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T10:33:08.813603Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T10:33:08.813611Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T10:33:08.813668Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T10:52:34.482898Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Payment/UpgradeModal.tsx")}
+2025-07-04T10:52:34.482934Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T10:52:34.688682Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Payment/UpgradeModal.tsx")}
+2025-07-04T10:52:34.688692Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T10:52:34.688743Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T10:53:05.082531Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Payment/UpgradeModal.tsx")}
+2025-07-04T10:53:05.082564Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T10:53:05.511167Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T10:53:05.511178Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T10:53:05.511228Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T10:53:15.682862Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Payment/UpgradeModal.tsx")}
+2025-07-04T10:53:15.682876Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T10:53:15.861041Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Payment/UpgradeModal.tsx")}
+2025-07-04T10:53:15.861049Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T10:53:15.861103Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T10:54:13.184072Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T10:54:13.184095Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T10:54:36.082273Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T10:54:36.082283Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:20:25.783015Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages/shared-services/src/TokenMeterService.ts")}
+2025-07-04T11:20:25.783045Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@athro/shared-services"), path: AnchoredSystemPathBuf("packages/shared-services") }}))
+2025-07-04T11:20:26.283033Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages/shared-services/tsconfig.tsbuildinfo")}
+2025-07-04T11:20:26.283050Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@athro/shared-services"), path: AnchoredSystemPathBuf("packages/shared-services") }}))
+2025-07-04T11:21:09.885655Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages/shared-services/src/SubscriptionService.ts")}
+2025-07-04T11:21:09.885852Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@athro/shared-services"), path: AnchoredSystemPathBuf("packages/shared-services") }}))
+2025-07-04T11:21:10.283028Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages/shared-services/tsconfig.tsbuildinfo")}
+2025-07-04T11:21:10.283039Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@athro/shared-services"), path: AnchoredSystemPathBuf("packages/shared-services") }}))
+2025-07-04T11:21:22.483481Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/utils/AthroSection/quiz.ts")}
+2025-07-04T11:21:22.483504Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:21:31.883141Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/Archive/lovable-athro-ai-3/src/utils/openaiQuiz.ts")}
+2025-07-04T11:21:31.883161Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T11:22:18.982431Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/Archive/lovable-athro-ai-3/src/utils/openaiQuiz.ts")}
+2025-07-04T11:22:18.982455Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T11:22:52.183522Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-workspace-2/src/services/openai.ts")}
+2025-07-04T11:22:52.183544Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-workspace"), path: AnchoredSystemPathBuf("apps/athro-workspace-2") }}))
+2025-07-04T11:32:51.282726Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T11:32:51.282758Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:32:53.382997Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/TierGuard.tsx")}
+2025-07-04T11:32:53.383011Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:33:00.883429Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Payment/UpgradeSuccess.tsx")}
+2025-07-04T11:33:00.883447Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:33:05.883624Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("webhook-server/src/index.ts")}
+2025-07-04T11:33:05.883631Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T11:33:16.683676Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SettingsModal.tsx")}
+2025-07-04T11:33:16.683683Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:33:30.083220Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SettingsModal.tsx")}
+2025-07-04T11:33:30.083237Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:33:33.482604Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/contexts/AuthContext.tsx")}
+2025-07-04T11:33:33.482617Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:33:42.883552Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T11:33:42.883596Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:33:54.482828Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/contexts/AuthContext.tsx")}
+2025-07-04T11:33:54.482978Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:33:57.783404Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751628837709-d09d50bf9610c.mjs")}
+2025-07-04T11:33:57.783412Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:33:57.875715Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T11:34:10.683604Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/FeatureCards.tsx")}
+2025-07-04T11:34:10.683624Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:34:41.082082Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("PRICING_AND_TOKEN_UPDATE_SUMMARY.md")}
+2025-07-04T11:34:41.082108Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T11:34:42.583720Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("PRICING_AND_TOKEN_UPDATE_SUMMARY.md")}
+2025-07-04T11:34:42.583728Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T11:37:13.483632Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T11:37:13.483658Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:37:14.183874Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T11:37:14.185240Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:37:14.532064Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T11:37:17.188964Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/App.tsx")}
+2025-07-04T11:37:17.189483Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:37:17.362308Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T11:37:41.582922Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/App.tsx")}
+2025-07-04T11:37:41.582954Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:37:45.783188Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T11:37:45.783208Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:37:52.183357Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/SplashScreen.tsx")}
+2025-07-04T11:37:52.183365Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:38:27.983288Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("NAVIGATION_FIX_SUMMARY.md")}
+2025-07-04T11:38:27.983313Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T11:38:29.782315Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("NAVIGATION_FIX_SUMMARY.md")}
+2025-07-04T11:38:29.782339Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T11:38:37.882972Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/SplashScreen.tsx")}
+2025-07-04T11:38:37.883072Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:38:52.583019Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/SplashScreen.tsx")}
+2025-07-04T11:38:52.583093Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:38:53.067013Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/SplashScreen.tsx")}
+2025-07-04T11:38:53.067021Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:38:53.067093Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T11:39:21.185280Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751629161087-5a62d914065cc.mjs")}
+2025-07-04T11:39:21.185368Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:39:21.311144Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T11:41:14.982345Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/SplashScreen.tsx")}
+2025-07-04T11:41:14.982373Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:41:24.483699Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/SplashScreen.tsx")}
+2025-07-04T11:41:24.483739Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:41:28.884604Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/LogoutButton.tsx")}
+2025-07-04T11:41:28.885071Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:45:52.085845Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751629552070-2536c15f921b3.mjs")}
+2025-07-04T11:45:52.086114Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:45:52.351178Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T11:50:48.983773Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751629848872-793ea60cd503c.mjs")}
+2025-07-04T11:50:48.983804Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:50:49.054510Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T11:50:54.783371Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751629854734-816043bad015e.mjs")}
+2025-07-04T11:50:54.783380Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:50:54.997078Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T11:51:03.088203Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751629863026-b6b1b49dde5a4.mjs")}
+2025-07-04T11:51:03.089293Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:51:03.276316Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T11:54:19.383251Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("webhook-server/src/index.ts")}
+2025-07-04T11:54:19.383382Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T11:54:22.282956Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/services/StripeService.ts")}
+2025-07-04T11:54:22.282966Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:54:26.285211Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/supabase/functions/stripe-webhook/index.ts")}
+2025-07-04T11:54:26.285241Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:54:43.683768Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("STRIPE_PRODUCTS_UPDATED.md")}
+2025-07-04T11:54:43.683853Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T11:54:45.311433Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("STRIPE_PRODUCTS_UPDATED.md")}
+2025-07-04T11:54:45.311454Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T11:54:45.382999Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("STRIPE_PRODUCTS_UPDATED.md")}
+2025-07-04T11:54:45.383109Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T11:55:00.583330Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/services/StripeService.ts")}
+2025-07-04T11:55:00.583733Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:55:31.282437Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Payment/UpgradeModal.tsx")}
+2025-07-04T11:55:31.282491Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:55:35.684826Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Payment/UpgradeModal.tsx")}
+2025-07-04T11:55:35.684861Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:55:38.283393Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Payment/UpgradeModal.tsx")}
+2025-07-04T11:55:38.283402Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:58:23.783507Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Payment/UpgradeModal.tsx")}
+2025-07-04T11:58:23.783546Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T11:58:29.983378Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("STRIPE_PRODUCTS_UPDATED.md")}
+2025-07-04T11:58:29.983394Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T12:04:42.982408Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo/cookies/4.cookie")}
+2025-07-04T12:04:42.982437Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T12:04:44.284191Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751630684237-d4abf145bbe16.mjs")}
+2025-07-04T12:04:44.284216Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:04:45.080911Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T12:04:45.081153Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751630684237-d4abf145bbe16.mjs")}
+2025-07-04T12:04:45.081161Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:04:45.081316Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T12:05:17.211408Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:05:17.218917Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:05:17.846176Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:05:17.846187Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:05:17.846737Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T12:06:25.484255Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:06:25.484346Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:06:26.090522Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:06:26.090531Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:06:26.090588Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T12:08:40.198581Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:08:40.198621Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:08:40.603207Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:08:40.603214Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:08:40.603265Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T12:10:09.183047Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:10:09.183163Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:10:25.727439Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:10:25.727469Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:10:26.498113Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:10:26.498231Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:10:26.498473Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T12:13:14.583577Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:13:14.583616Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:13:15.072675Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:13:15.072685Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:13:15.072763Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T12:13:30.182909Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:13:30.182948Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:13:30.786525Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:13:30.786534Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:13:30.786634Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T12:13:40.282814Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:13:40.282841Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:13:40.757076Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:13:40.757084Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:13:40.757137Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T12:16:14.683332Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:16:14.683375Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:24:00.582605Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/LogoutButton.tsx")}
+2025-07-04T12:24:00.582664Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:24:01.037891Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/LogoutButton.tsx")}
+2025-07-04T12:24:01.037899Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:24:01.037952Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T12:25:51.483072Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/LogoutButton.tsx")}
+2025-07-04T12:25:51.483174Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:25:52.290090Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/LogoutButton.tsx")}
+2025-07-04T12:25:52.290124Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:25:52.290344Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T12:26:21.384768Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/SplashScreen.tsx")}
+2025-07-04T12:26:21.387368Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:26:22.329090Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/SplashScreen.tsx")}
+2025-07-04T12:26:22.330084Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:26:22.331075Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T12:26:33.584441Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/SplashScreen.tsx")}
+2025-07-04T12:26:33.584804Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:26:34.130035Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/SplashScreen.tsx")}
+2025-07-04T12:26:34.130048Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:26:34.130281Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T12:27:47.190348Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/LoginScreen.tsx")}
+2025-07-04T12:27:47.194566Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:27:49.512131Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/LoginScreen.tsx")}
+2025-07-04T12:27:49.514029Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:27:49.514879Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T12:31:29.483417Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/SplashScreen.tsx")}
+2025-07-04T12:31:29.483444Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:31:29.669335Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/SplashScreen.tsx")}
+2025-07-04T12:31:29.669343Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:31:29.669400Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T12:31:44.383251Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/SplashScreen.tsx")}
+2025-07-04T12:31:44.383290Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:31:44.662795Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/SplashScreen.tsx")}
+2025-07-04T12:31:44.662805Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:31:44.662865Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T12:31:58.582813Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/LoginScreen.tsx")}
+2025-07-04T12:31:58.582825Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:31:58.810122Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/LoginScreen.tsx")}
+2025-07-04T12:31:58.810131Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:31:58.810195Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T12:36:04.583060Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:36:04.583070Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:36:04.793325Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:36:04.793335Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:36:04.793383Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T12:36:12.582621Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:36:12.582631Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:36:12.823450Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:36:12.823457Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:36:12.823508Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T12:36:23.983035Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:36:23.983045Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:36:24.330550Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:36:24.330559Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:36:24.330716Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T12:36:33.785312Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:36:33.785322Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:36:34.074978Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:36:34.074990Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:36:34.075048Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T12:36:44.983174Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:36:44.983186Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:36:45.256726Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:36:45.256734Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:36:45.256805Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T12:44:37.983178Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/services/StripeService.ts")}
+2025-07-04T12:44:37.983213Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:44:38.205659Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/services/StripeService.ts")}
+2025-07-04T12:44:38.205666Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:44:38.205931Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T12:45:04.483070Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/SplashScreen.tsx")}
+2025-07-04T12:45:04.483079Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:45:04.681621Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/SplashScreen.tsx")}
+2025-07-04T12:45:04.681630Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:45:04.681683Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T12:45:12.382504Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/SplashScreen.tsx")}
+2025-07-04T12:45:12.382515Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:45:12.534234Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/SplashScreen.tsx")}
+2025-07-04T12:45:12.534243Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:45:12.534296Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T12:45:51.082865Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:45:51.082884Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:45:51.443666Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:45:51.443676Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:45:51.443756Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T12:51:09.382848Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/LogoutButton.tsx")}
+2025-07-04T12:51:09.382877Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:51:09.540394Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T12:51:09.683184Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/LogoutButton.tsx")}
+2025-07-04T12:51:09.683192Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:51:09.775857Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T12:53:49.383719Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751633629358-47acc9d72fff6.mjs")}
+2025-07-04T12:53:49.383745Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:53:49.739700Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T12:57:16.582556Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751633836534-935a880860482.mjs")}
+2025-07-04T12:57:16.582578Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:57:16.745091Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T12:57:24.283124Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:57:24.283135Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:57:24.472251Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:57:24.472262Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:57:24.472325Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T12:57:30.783673Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:57:30.783686Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:57:38.982901Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:57:38.982924Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:57:52.183329Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:57:52.183339Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:59:44.383667Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:59:44.383689Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:59:52.282781Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:59:52.282797Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:59:52.469669Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T12:59:52.469677Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T12:59:52.469727Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T13:00:00.483542Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T13:00:00.483573Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:00:00.720148Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T13:00:00.720156Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:00:00.720208Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T13:00:17.283383Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T13:00:17.283509Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:00:26.583816Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751634026474-a31d52ddbddb4.mjs")}
+2025-07-04T13:00:26.583837Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:00:26.654249Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T13:05:45.682740Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T13:05:45.682776Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:05:46.073920Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T13:05:46.073928Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:05:46.073984Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T13:06:37.683695Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/apply_email_verification_migration.sql")}
+2025-07-04T13:06:37.683715Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:06:39.082591Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/apply_email_verification_migration.sql")}
+2025-07-04T13:06:39.082599Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:07:03.083107Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T13:07:03.083135Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:07:03.350973Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T13:07:03.350980Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:07:03.351027Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T13:07:29.083758Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("EMAIL_VERIFICATION_FIX_SUMMARY.md")}
+2025-07-04T13:07:29.083785Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T13:07:30.583454Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("EMAIL_VERIFICATION_FIX_SUMMARY.md")}
+2025-07-04T13:07:30.583471Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T13:12:40.488380Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751634760438-32ddb05426a6d.mjs")}
+2025-07-04T13:12:40.489954Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:12:40.676183Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T13:13:13.283352Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/test-card-click.html")}
+2025-07-04T13:13:13.283536Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:13:15.183384Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/test-card-click.html")}
+2025-07-04T13:13:15.183492Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:13:26.983051Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T13:13:26.983149Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:13:27.307532Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T13:13:27.307557Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:13:27.307679Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T13:13:33.483407Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T13:13:33.483442Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:13:33.739423Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T13:13:33.739436Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:13:33.739550Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T13:13:42.984361Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T13:13:42.984435Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:13:43.218921Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T13:13:43.218930Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:13:43.218999Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T13:13:53.595559Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T13:13:53.595618Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:13:54.109850Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx")}
+2025-07-04T13:13:54.109865Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:13:54.109993Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T13:14:24.187725Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("DASHBOARD_CARD_DEBUG_SUMMARY.md")}
+2025-07-04T13:14:24.187758Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T13:14:25.984135Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("DASHBOARD_CARD_DEBUG_SUMMARY.md")}
+2025-07-04T13:14:25.984301Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T13:15:44.783409Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/add_missing_columns.sql")}
+2025-07-04T13:15:44.783439Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:16:21.283095Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("DASHBOARD_CARD_FIX_COMPLETE.md")}
+2025-07-04T13:16:21.283104Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T13:16:22.883711Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("DASHBOARD_CARD_FIX_COMPLETE.md")}
+2025-07-04T13:16:22.883729Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T13:16:28.283255Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/test-card-click.html")}
+2025-07-04T13:16:28.283266Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:17:07.282505Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751635027258-e847d525e8eb1.mjs")}
+2025-07-04T13:17:07.282513Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:17:07.405603Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T13:17:36.183661Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo/cookies/5.cookie")}
+2025-07-04T13:17:36.183670Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T13:17:36.982495Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751635056940-ae83ff758eca7.mjs")}
+2025-07-04T13:17:36.982505Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:17:37.133383Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T13:22:57.182882Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/complete_database_migration.sql")}
+2025-07-04T13:22:57.182892Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:22:58.782849Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/complete_database_migration.sql")}
+2025-07-04T13:22:58.782857Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:24:07.882797Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo/cookies/6.cookie")}
+2025-07-04T13:24:07.882806Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T13:24:08.682283Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751635448589-38002834a98b6.mjs")}
+2025-07-04T13:24:08.682298Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:24:08.831909Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T13:24:22.983613Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/verify_migration.sql")}
+2025-07-04T13:24:22.983624Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:24:24.583252Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/verify_migration.sql")}
+2025-07-04T13:24:24.583261Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:24:59.283110Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("TROUBLESHOOTING_MIGRATION_ISSUES.md")}
+2025-07-04T13:24:59.283124Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T13:25:00.983553Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("TROUBLESHOOTING_MIGRATION_ISSUES.md")}
+2025-07-04T13:25:00.983561Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T13:26:08.482868Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts")}
+2025-07-04T13:26:08.482884Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:26:08.736886Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts")}
+2025-07-04T13:26:08.736899Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:26:08.737007Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T13:26:17.683054Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts")}
+2025-07-04T13:26:17.683061Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:27:11.083284Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo/cookies/7.cookie")}
+2025-07-04T13:27:11.083291Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T13:27:11.883632Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751635631851-63909c399fc4c.mjs")}
+2025-07-04T13:27:11.883641Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:27:12.125893Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T13:27:24.783197Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages/shared-services/src/supabaseClient.ts")}
+2025-07-04T13:27:24.783210Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@athro/shared-services"), path: AnchoredSystemPathBuf("packages/shared-services") }}))
+2025-07-04T13:27:25.082858Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages/shared-services/tsconfig.tsbuildinfo")}
+2025-07-04T13:27:25.082866Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@athro/shared-services"), path: AnchoredSystemPathBuf("packages/shared-services") }}))
+2025-07-04T13:27:26.582509Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages/shared-services/src/supabaseClient.ts")}
+2025-07-04T13:27:26.582518Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@athro/shared-services"), path: AnchoredSystemPathBuf("packages/shared-services") }}))
+2025-07-04T13:27:27.082490Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages/shared-services/tsconfig.tsbuildinfo")}
+2025-07-04T13:27:27.082534Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@athro/shared-services"), path: AnchoredSystemPathBuf("packages/shared-services") }}))
+2025-07-04T13:27:33.182634Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages/shared-services/src/SubscriptionService.ts")}
+2025-07-04T13:27:33.182647Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@athro/shared-services"), path: AnchoredSystemPathBuf("packages/shared-services") }}))
+2025-07-04T13:27:33.482728Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages/shared-services/tsconfig.tsbuildinfo")}
+2025-07-04T13:27:33.482799Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@athro/shared-services"), path: AnchoredSystemPathBuf("packages/shared-services") }}))
+2025-07-04T13:27:53.582979Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages/shared-services/src/SubscriptionService.ts")}
+2025-07-04T13:27:53.582996Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@athro/shared-services"), path: AnchoredSystemPathBuf("packages/shared-services") }}))
+2025-07-04T13:27:53.883203Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages/shared-services/tsconfig.tsbuildinfo")}
+2025-07-04T13:27:53.883210Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@athro/shared-services"), path: AnchoredSystemPathBuf("packages/shared-services") }}))
+2025-07-04T13:28:10.382730Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages/shared-services/src/TokenMeterService.ts")}
+2025-07-04T13:28:10.382741Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@athro/shared-services"), path: AnchoredSystemPathBuf("packages/shared-services") }}))
+2025-07-04T13:28:10.483553Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages/shared-services/src/TokenMeterService.ts")}
+2025-07-04T13:28:10.483565Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@athro/shared-services"), path: AnchoredSystemPathBuf("packages/shared-services") }}))
+2025-07-04T13:28:10.483593Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T13:28:10.783156Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages/shared-services/tsconfig.tsbuildinfo")}
+2025-07-04T13:28:10.783170Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@athro/shared-services"), path: AnchoredSystemPathBuf("packages/shared-services") }}))
+2025-07-04T13:28:18.282353Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages/shared-services/src/TokenMeterService.ts")}
+2025-07-04T13:28:18.282372Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@athro/shared-services"), path: AnchoredSystemPathBuf("packages/shared-services") }}))
+2025-07-04T13:28:18.383699Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages/shared-services/src/TokenMeterService.ts")}
+2025-07-04T13:28:18.383718Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@athro/shared-services"), path: AnchoredSystemPathBuf("packages/shared-services") }}))
+2025-07-04T13:28:18.383752Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T13:28:18.682732Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages/shared-services/tsconfig.tsbuildinfo")}
+2025-07-04T13:28:18.682750Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@athro/shared-services"), path: AnchoredSystemPathBuf("packages/shared-services") }}))
+2025-07-04T13:28:24.983421Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages/shared-services/src/supabaseClient.ts")}
+2025-07-04T13:28:24.983429Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@athro/shared-services"), path: AnchoredSystemPathBuf("packages/shared-services") }}))
+2025-07-04T13:28:25.082657Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages/shared-services/src/supabaseClient.ts")}
+2025-07-04T13:28:25.082673Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@athro/shared-services"), path: AnchoredSystemPathBuf("packages/shared-services") }}))
+2025-07-04T13:28:25.082701Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T13:28:25.483529Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages/shared-services/tsconfig.tsbuildinfo")}
+2025-07-04T13:28:25.483538Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@athro/shared-services"), path: AnchoredSystemPathBuf("packages/shared-services") }}))
+2025-07-04T13:28:31.482937Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages/shared-services/src/TokenMeterService.ts")}
+2025-07-04T13:28:31.482949Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@athro/shared-services"), path: AnchoredSystemPathBuf("packages/shared-services") }}))
+2025-07-04T13:28:31.582058Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages/shared-services/src/TokenMeterService.ts")}
+2025-07-04T13:28:31.582067Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@athro/shared-services"), path: AnchoredSystemPathBuf("packages/shared-services") }}))
+2025-07-04T13:28:31.582085Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T13:28:31.883464Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages/shared-services/tsconfig.tsbuildinfo")}
+2025-07-04T13:28:31.883478Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@athro/shared-services"), path: AnchoredSystemPathBuf("packages/shared-services") }}))
+2025-07-04T13:28:52.183638Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("FINAL_DASHBOARD_FIX_SUMMARY.md")}
+2025-07-04T13:28:52.183657Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T13:28:53.883091Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("FINAL_DASHBOARD_FIX_SUMMARY.md")}
+2025-07-04T13:28:53.883101Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T13:29:17.882751Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo/cookies/8.cookie")}
+2025-07-04T13:29:17.882758Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T13:29:18.583517Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751635758543-450ca6550bee1.mjs")}
+2025-07-04T13:29:18.583627Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:29:18.775743Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T13:30:21.983638Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts")}
+2025-07-04T13:30:21.983651Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:30:22.122374Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts")}
+2025-07-04T13:30:22.122384Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:30:22.122440Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T13:30:28.483314Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751635828459-a4bd25a56a37c.mjs")}
+2025-07-04T13:30:28.483323Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:30:28.596183Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T13:35:59.583376Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("IMMEDIATE_USER_TIER_FIX.sql")}
+2025-07-04T13:35:59.583384Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T13:36:01.283368Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("IMMEDIATE_USER_TIER_FIX.sql")}
+2025-07-04T13:36:01.283383Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T13:37:39.582172Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("COMPREHENSIVE_TIER_MAPPING_FIX.sql")}
+2025-07-04T13:37:39.582183Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T13:37:41.782942Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("COMPREHENSIVE_TIER_MAPPING_FIX.sql")}
+2025-07-04T13:37:41.782955Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T13:38:07.483379Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/FORCE_TIER_RELOAD.js")}
+2025-07-04T13:38:07.483388Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:38:09.182608Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/FORCE_TIER_RELOAD.js")}
+2025-07-04T13:38:09.182621Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T13:39:10.483028Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("IMMEDIATE_TIER_FIX_CORRECTED.sql")}
+2025-07-04T13:39:10.483036Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T13:39:12.283660Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("IMMEDIATE_TIER_FIX_CORRECTED.sql")}
+2025-07-04T13:39:12.283677Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T13:39:47.083480Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("ATHROAI_SUBSCRIPTION_TIER_FIX_COMPLETE.md")}
+2025-07-04T13:39:47.083491Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T13:39:48.783344Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("ATHROAI_SUBSCRIPTION_TIER_FIX_COMPLETE.md")}
+2025-07-04T13:39:48.783362Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T13:40:22.082382Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("CLEANUP_NULL_TIERS.sql")}
+2025-07-04T13:40:22.082395Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T13:40:23.782521Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("CLEANUP_NULL_TIERS.sql")}
+2025-07-04T13:40:23.782535Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T14:03:02.582971Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SubscriptionControlPanel.tsx")}
+2025-07-04T14:03:02.583001Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:03:04.782739Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SubscriptionControlPanel.tsx")}
+2025-07-04T14:03:04.782747Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:04:19.083271Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SubscriptionControlPanel.tsx")}
+2025-07-04T14:04:19.083279Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:04:26.583723Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SubscriptionControlPanel.tsx")}
+2025-07-04T14:04:26.583732Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:04:27.081919Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SubscriptionControlPanel.tsx")}
+2025-07-04T14:04:27.081933Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:04:27.197032Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T14:04:38.182863Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SubscriptionControlPanel.tsx")}
+2025-07-04T14:04:38.182873Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:04:38.783605Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SubscriptionControlPanel.tsx")}
+2025-07-04T14:04:38.783613Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:04:38.821088Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T14:04:45.383078Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SubscriptionControlPanel.tsx")}
+2025-07-04T14:04:45.383092Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:04:45.882779Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SubscriptionControlPanel.tsx")}
+2025-07-04T14:04:45.882789Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:04:45.979885Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T14:05:07.582866Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SettingsModal.tsx")}
+2025-07-04T14:05:07.582879Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:05:07.773944Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SettingsModal.tsx")}
+2025-07-04T14:05:07.773953Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:05:07.774006Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T14:06:01.883133Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SettingsModal.tsx")}
+2025-07-04T14:06:01.883143Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:06:02.173566Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SettingsModal.tsx")}
+2025-07-04T14:06:02.173574Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:06:02.173634Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T14:06:16.182523Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SettingsModal.tsx")}
+2025-07-04T14:06:16.182534Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:06:16.411104Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SettingsModal.tsx")}
+2025-07-04T14:06:16.411111Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:06:16.411161Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T14:06:24.883635Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SettingsModal.tsx")}
+2025-07-04T14:06:24.883648Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:06:25.097757Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SettingsModal.tsx")}
+2025-07-04T14:06:25.097764Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:06:25.097820Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T14:06:30.283225Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SettingsModal.tsx")}
+2025-07-04T14:06:30.283233Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:06:30.429330Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SettingsModal.tsx")}
+2025-07-04T14:06:30.429337Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:06:30.429391Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T14:07:07.383519Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("ENHANCED_SUBSCRIPTION_CONTROL_PANEL_COMPLETE.md")}
+2025-07-04T14:07:07.383531Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T14:07:09.183574Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("ENHANCED_SUBSCRIPTION_CONTROL_PANEL_COMPLETE.md")}
+2025-07-04T14:07:09.183583Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T14:08:44.183666Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751638124063-bdf598cf319e1.mjs")}
+2025-07-04T14:08:44.183677Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:08:44.267588Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T14:09:18.083144Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo/cookies/9.cookie")}
+2025-07-04T14:09:18.083220Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T14:09:18.884289Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751638158788-ebbbc93a566dd.mjs")}
+2025-07-04T14:09:18.884301Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:09:18.983872Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T14:12:54.382931Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo/cookies/10.cookie")}
+2025-07-04T14:12:54.382946Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T14:12:55.283080Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751638375191-2a17e3dd16393.mjs")}
+2025-07-04T14:12:55.283094Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:12:55.412704Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T14:13:18.882435Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SubscriptionControlPanel.tsx")}
+2025-07-04T14:13:18.882445Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:13:19.483614Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SubscriptionControlPanel.tsx")}
+2025-07-04T14:13:19.483624Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:13:19.624000Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T14:13:40.882653Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/TEST_SUBSCRIPTION_PANEL.md")}
+2025-07-04T14:13:40.882662Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:13:42.582945Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/TEST_SUBSCRIPTION_PANEL.md")}
+2025-07-04T14:13:42.582955Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:13:53.883087Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SubscriptionControlPanel.tsx")}
+2025-07-04T14:13:53.883101Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:13:54.383109Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SubscriptionControlPanel.tsx")}
+2025-07-04T14:13:54.383117Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:13:54.482256Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T14:14:00.082911Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SubscriptionControlPanel.tsx")}
+2025-07-04T14:14:00.082922Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:14:00.582564Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SubscriptionControlPanel.tsx")}
+2025-07-04T14:14:00.582573Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:14:00.713509Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T14:16:55.983354Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SettingsModal.tsx")}
+2025-07-04T14:16:55.983382Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:16:56.222049Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SettingsModal.tsx")}
+2025-07-04T14:16:56.222057Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:16:56.222112Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T14:17:07.282422Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SubscriptionControlPanel.tsx")}
+2025-07-04T14:17:07.282437Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:17:07.782906Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SubscriptionControlPanel.tsx")}
+2025-07-04T14:17:07.782916Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:17:07.896147Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T14:19:49.082142Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts")}
+2025-07-04T14:19:49.082150Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:19:49.260832Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts")}
+2025-07-04T14:19:49.260843Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:19:49.260897Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T14:19:49.783498Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751638789703-d61561c2fd816.mjs")}
+2025-07-04T14:19:49.783508Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:19:49.860146Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T14:20:05.082377Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo/cookies/11.cookie")}
+2025-07-04T14:20:05.082385Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T14:20:05.883346Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751638805775-0f4f115bed698.mjs")}
+2025-07-04T14:20:05.883361Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:20:06.008462Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T14:20:26.982293Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SubscriptionControlPanel.tsx")}
+2025-07-04T14:20:26.982315Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:20:27.483562Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SubscriptionControlPanel.tsx")}
+2025-07-04T14:20:27.483700Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:20:27.582310Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T14:26:12.582962Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/fix_registration_triggers.sql")}
+2025-07-04T14:26:12.582993Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:26:14.383302Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/fix_registration_triggers.sql")}
+2025-07-04T14:26:14.383310Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:30:30.282508Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T14:30:30.282538Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:30:37.482751Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T14:30:37.482767Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:30:37.676962Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T14:30:37.676971Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:30:37.677025Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T14:30:47.683598Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T14:30:47.683617Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:30:53.183404Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T14:30:53.183417Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:30:53.328418Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T14:30:53.328426Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:30:53.328481Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T14:31:11.582251Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T14:31:11.582262Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:31:11.722426Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T14:31:11.722432Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:31:11.722485Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T14:34:52.982837Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/LoginScreen.tsx")}
+2025-07-04T14:34:52.982890Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:34:53.180190Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/LoginScreen.tsx")}
+2025-07-04T14:34:53.180197Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:34:53.180249Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T14:35:25.082717Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/LogoutButton.tsx")}
+2025-07-04T14:35:25.082735Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:38:12.183374Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/IMMEDIATE_REGISTRATION_FIX.sql")}
+2025-07-04T14:38:12.183387Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:38:55.283840Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/IMMEDIATE_REGISTRATION_FIX.sql")}
+2025-07-04T14:38:55.283857Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:45:12.283051Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/BULLETPROOF_REGISTRATION_FIX.sql")}
+2025-07-04T14:45:12.283087Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:45:14.283380Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/BULLETPROOF_REGISTRATION_FIX.sql")}
+2025-07-04T14:45:14.283391Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:49:17.582620Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/VERIFY_DATABASE_STATE.sql")}
+2025-07-04T14:49:17.582634Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:49:19.483420Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/VERIFY_DATABASE_STATE.sql")}
+2025-07-04T14:49:19.483429Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:49:33.883468Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/NUCLEAR_REGISTRATION_FIX.sql")}
+2025-07-04T14:49:33.883479Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T14:49:36.283083Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/NUCLEAR_REGISTRATION_FIX.sql")}
+2025-07-04T14:49:36.283090Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T15:03:37.282853Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/LogoutButton.tsx")}
+2025-07-04T15:03:37.282960Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T15:03:37.580823Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T15:03:37.882593Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/apply_email_verification_migration.sql"), AnchoredSystemPathBuf("apps/athro-dashboard/complete_database_migration.sql"), AnchoredSystemPathBuf("packages/shared-services/src/supabaseClient.ts"), AnchoredSystemPathBuf("packages/shared-services/src/SubscriptionService.ts"), AnchoredSystemPathBuf("DASHBOARD_CARD_FIX_COMPLETE.md"), AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts"), AnchoredSystemPathBuf("FINAL_DASHBOARD_FIX_SUMMARY.md"), AnchoredSystemPathBuf("DASHBOARD_CARD_DEBUG_SUMMARY.md"), AnchoredSystemPathBuf("EMAIL_VERIFICATION_FIX_SUMMARY.md"), AnchoredSystemPathBuf("apps/athro-dashboard/add_missing_columns.sql"), AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx"), AnchoredSystemPathBuf("apps/athro-dashboard/verify_migration.sql"), AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx"), AnchoredSystemPathBuf("packages/shared-services/src/TokenMeterService.ts"), AnchoredSystemPathBuf("TROUBLESHOOTING_MIGRATION_ISSUES.md")}
+2025-07-04T15:03:37.882609Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }, WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }, WorkspacePackage { name: Other("@athro/shared-services"), path: AnchoredSystemPathBuf("packages/shared-services") }}))
+2025-07-04T15:03:38.928577Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T15:03:38.928710Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T15:03:38.929019Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SubscriptionControlPanel.tsx"), AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/Dashboard.tsx"), AnchoredSystemPathBuf("apps/athro-dashboard/add_missing_columns.sql"), AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/LoginScreen.tsx"), AnchoredSystemPathBuf("IMMEDIATE_USER_TIER_FIX.sql"), AnchoredSystemPathBuf("apps/athro-dashboard/VERIFY_DATABASE_STATE.sql"), AnchoredSystemPathBuf("apps/athro-dashboard/complete_database_migration.sql"), AnchoredSystemPathBuf("DASHBOARD_CARD_DEBUG_SUMMARY.md"), AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx"), AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Dashboard/SettingsModal.tsx"), AnchoredSystemPathBuf("COMPREHENSIVE_TIER_MAPPING_FIX.sql"), AnchoredSystemPathBuf("FINAL_DASHBOARD_FIX_SUMMARY.md"), AnchoredSystemPathBuf("apps/athro-dashboard/NUCLEAR_REGISTRATION_FIX.sql"), AnchoredSystemPathBuf("packages/shared-services/src/TokenMeterService.ts"), AnchoredSystemPathBuf("apps/athro-dashboard/BULLETPROOF_REGISTRATION_FIX.sql"), AnchoredSystemPathBuf("ENHANCED_SUBSCRIPTION_CONTROL_PANEL_COMPLETE.md"), AnchoredSystemPathBuf("IMMEDIATE_TIER_FIX_CORRECTED.sql"), AnchoredSystemPathBuf("apps/athro-dashboard/fix_registration_triggers.sql"), AnchoredSystemPathBuf("packages/shared-services/src/supabaseClient.ts"), AnchoredSystemPathBuf("apps/athro-dashboard/verify_migration.sql"), AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts"), AnchoredSystemPathBuf("apps/athro-dashboard/IMMEDIATE_REGISTRATION_FIX.sql"), AnchoredSystemPathBuf("TROUBLESHOOTING_MIGRATION_ISSUES.md"), AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751641418191-02a4b7737130f.mjs"), AnchoredSystemPathBuf("apps/athro-dashboard/FORCE_TIER_RELOAD.js"), AnchoredSystemPathBuf("apps/athro-dashboard/TEST_SUBSCRIPTION_PANEL.md"), AnchoredSystemPathBuf("ATHROAI_SUBSCRIPTION_TIER_FIX_COMPLETE.md"), AnchoredSystemPathBuf("apps/athro-dashboard/apply_email_verification_migration.sql"), AnchoredSystemPathBuf("CLEANUP_NULL_TIERS.sql"), AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/LogoutButton.tsx"), AnchoredSystemPathBuf("DASHBOARD_CARD_FIX_COMPLETE.md"), AnchoredSystemPathBuf("apps/athro-dashboard/vite.config.ts.timestamp-1751641418398-f473edf3309a5.mjs"), AnchoredSystemPathBuf("EMAIL_VERIFICATION_FIX_SUMMARY.md"), AnchoredSystemPathBuf("packages/shared-services/src/SubscriptionService.ts")}
+2025-07-04T15:03:38.929031Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }, WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }, WorkspacePackage { name: Other("@athro/shared-services"), path: AnchoredSystemPathBuf("packages/shared-services") }}))
+2025-07-04T15:03:38.929206Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T15:03:38.929293Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T15:37:55.982732Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T15:37:55.982776Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T15:37:56.150524Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T15:37:56.150534Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T15:37:56.150596Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T15:44:48.582085Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T15:44:48.582111Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T15:44:48.837869Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T15:44:48.837878Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T15:44:48.837942Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T15:47:17.383224Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T15:47:17.383239Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T15:47:17.546461Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T15:47:17.546468Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T15:47:17.546525Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T15:49:15.883355Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T15:49:15.883386Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T15:49:16.092184Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T15:49:16.092192Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T15:49:16.092250Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T15:52:14.483226Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T15:52:14.483262Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T15:52:14.694613Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T15:52:14.694621Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T15:52:14.694682Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T15:52:21.983442Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T15:52:21.983452Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T15:52:22.185407Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T15:52:22.185415Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T15:52:22.185469Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T15:52:40.083765Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T15:52:40.083777Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T15:52:40.247854Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T15:52:40.247861Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T15:52:40.247914Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T15:54:49.683401Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T15:54:49.683412Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T15:54:49.879287Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T15:54:49.879299Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T15:54:49.879430Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T16:11:35.782459Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T16:11:35.782499Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T16:11:36.103843Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T16:11:36.103851Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T16:11:36.103906Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T16:19:41.183004Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("IMMEDIATE_REGISTRATION_FIX.sql")}
+2025-07-04T16:19:41.183029Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T16:19:43.583744Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("IMMEDIATE_REGISTRATION_FIX.sql")}
+2025-07-04T16:19:43.583754Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T16:25:33.182930Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("DEBUG_EMAIL_VERIFICATION.sql")}
+2025-07-04T16:25:33.182958Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T16:25:35.082958Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("DEBUG_EMAIL_VERIFICATION.sql")}
+2025-07-04T16:25:35.082969Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T16:25:54.883245Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("SIMPLE_EMAIL_VERIFICATION_FIX.sql")}
+2025-07-04T16:25:54.883252Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T16:25:56.783663Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("SIMPLE_EMAIL_VERIFICATION_FIX.sql")}
+2025-07-04T16:25:56.783672Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T16:28:26.283397Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("CORRECTED_EMAIL_VERIFICATION_FIX.sql")}
+2025-07-04T16:28:26.283413Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T16:28:28.283217Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("CORRECTED_EMAIL_VERIFICATION_FIX.sql")}
+2025-07-04T16:28:28.283227Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T16:29:34.082958Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/components/Auth/RegisterScreen.tsx")}
+2025-07-04T16:29:34.082968Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T16:29:55.283381Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/services/EmailVerificationService.ts")}
+2025-07-04T16:29:55.283390Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T16:30:01.883340Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/services/EmailVerificationService.ts")}
+2025-07-04T16:30:01.883361Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T16:30:02.037278Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps/athro-dashboard/src/services/EmailVerificationService.ts")}
+2025-07-04T16:30:02.037286Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("athro-dashboard"), path: AnchoredSystemPathBuf("apps/athro-dashboard") }}))
+2025-07-04T16:30:02.037337Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-07-04T16:30:18.483274Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("MANUAL_EMAIL_VERIFICATION_TEST.sql")}
+2025-07-04T16:30:18.483311Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-07-04T16:30:20.483413Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("MANUAL_EMAIL_VERIFICATION_TEST.sql")}
+2025-07-04T16:30:20.483427Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
