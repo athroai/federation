@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# AthroAI SMTP Setup Script
+# AthroAi SMTP Setup Script
 # This script helps you configure SMTP settings for your project
 
 set -e
 
-echo "🚀 AthroAI SMTP Setup"
+echo "🚀 AthroAi SMTP Setup"
 echo "===================="
 echo ""
 
@@ -111,7 +111,7 @@ case $provider_choice in
 esac
 
 echo ""
-read -p "Enter sender name (e.g., 'AthroAI'): " SMTP_FROM_NAME
+read -p "Enter sender name (e.g., 'AthroAi'): " SMTP_FROM_NAME
 read -p "Enter sender email (e.g., 'noreply@yourdomain.com'): " SMTP_FROM_EMAIL
 
 # Create environment variables

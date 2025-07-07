@@ -36,7 +36,7 @@ const TIER_MONTHLY_LIMITS = {
   full: {
     spendLimitGBP: 800.00,     // £800/month internal budget
     tokenEquivalent: 1602000,  // 1,602,000 tokens/month
-    description: 'Full AthroAI access with highest limits'
+            description: 'Full AthroAi access with highest limits'
   }
 };
 

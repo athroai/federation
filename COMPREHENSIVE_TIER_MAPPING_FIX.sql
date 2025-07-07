@@ -1,5 +1,5 @@
 -- 🚨 COMPREHENSIVE TIER MAPPING FIX
--- Addresses the critical issue where users who pay for AthroAI (£14.99) 
+-- Addresses the critical issue where users who pay for AthroAi (£14.99) 
 -- are incorrectly showing as "free" tier instead of "full" tier
 
 -- ====================================================================
@@ -39,7 +39,7 @@ SELECT
   'full',
   'emergency_fix',
   JSON_BUILD_OBJECT(
-    'reason', 'User paid for AthroAI £14.99/month but was incorrectly showing as free tier',
+    'reason', 'User paid for AthroAi £14.99/month but was incorrectly showing as free tier',
     'email', email,
     'fix_type', 'immediate_manual_correction',
     'payment_amount', '£14.99/month',
@@ -71,14 +71,14 @@ CREATE TABLE IF NOT EXISTS stripe_price_tier_mapping (
 INSERT INTO stripe_price_tier_mapping (stripe_price_id, tier, product_name, amount_gbp, billing_period, is_active) 
 VALUES 
   -- CURRENT ACTIVE PRODUCTS
-  ('price_1Rh7kCQYU340CsP0NGbx0Qnj', 'lite', 'AthroAI Lite', 7.99, 'month', true),
-  ('price_1Rh7lMQYU340CsP0yJy4VaTu', 'full', 'AthroAI', 14.99, 'month', true),
+  ('price_1Rh7kCQYU340CsP0NGbx0Qnj', 'lite', 'AthroAi Lite', 7.99, 'month', true),
+('price_1Rh7lMQYU340CsP0yJy4VaTu', 'full', 'AthroAi', 14.99, 'month', true),
   
   -- LEGACY PRODUCTS (for backwards compatibility)
-  ('price_1RfM4LHlv5z8bwBIcwv3aUkb', 'lite', 'AthroAI Lite (Legacy)', 7.99, 'month', false),
-  ('price_1RfM4LHlv5z8bwBIKLFadfjp', 'full', 'AthroAI (Legacy)', 14.99, 'month', false),
-  ('price_1Rfh1nQYU340CsP0kXM8I05h', 'lite', 'AthroAI Lite (Old)', 9.99, 'month', false),
-  ('price_1RfgxvQYU340CsP0AcrSjH2O', 'full', 'AthroAI (Old)', 19.99, 'month', false)
+  ('price_1RfM4LHlv5z8bwBIcwv3aUkb', 'lite', 'AthroAi Lite (Legacy)', 7.99, 'month', false),
+('price_1RfM4LHlv5z8bwBIKLFadfjp', 'full', 'AthroAi (Legacy)', 14.99, 'month', false),
+('price_1Rfh1nQYU340CsP0kXM8I05h', 'lite', 'AthroAi Lite (Old)', 9.99, 'month', false),
+('price_1RfgxvQYU340CsP0AcrSjH2O', 'full', 'AthroAi (Old)', 19.99, 'month', false)
 ON CONFLICT (stripe_price_id) 
 DO UPDATE SET 
   tier = EXCLUDED.tier,
@@ -207,7 +207,7 @@ SELECT
   p.updated_at,
   w.tier as wellbeing_tier,
   CASE 
-    WHEN p.user_tier = 'full' THEN '✅ SUCCESS: AthroAI FULL ACCESS RESTORED'
+    WHEN p.user_tier = 'full' THEN '✅ SUCCESS: AthroAi FULL ACCESS RESTORED'
     WHEN p.user_tier = 'lite' THEN '⚠️ PARTIAL: User has LITE access (may need manual upgrade to FULL)'
     ELSE '❌ FAILED: Still on free tier'
   END as fix_status
@@ -308,6 +308,6 @@ SELECT * FROM detect_and_fix_tier_issues();
 
 SELECT 
   '🎉 COMPREHENSIVE TIER MAPPING FIX COMPLETE! 🎉' as status,
-  'protest5@nexastream.co.uk should now have FULL AthroAI access' as message,
+  'protest5@nexastream.co.uk should now have FULL AthroAi access' as message,
   'All users with payment issues have been corrected' as additional_note,
   'Monitoring systems are in place to prevent future issues' as prevention; 

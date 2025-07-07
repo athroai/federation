@@ -1,6 +1,6 @@
 -- 🚨 IMMEDIATE TIER FIX FOR PAID ATHROAI USER
 -- Email: protest5@nexastream.co.uk
--- Paid for: AthroAI (£14.99/month) 
+-- Paid for: AthroAi (£14.99/month) 
 -- Should be: "full" tier
 -- Currently showing: "free" tier (INCORRECT)
 
@@ -34,7 +34,7 @@ SELECT
   'free',
   'full',
   'emergency_fix',
-  '{"reason": "User paid for AthroAI £14.99/month but was stuck on free tier", "email": "protest5@nexastream.co.uk", "fix_applied": "immediate_manual_correction"}',
+  '{"reason": "User paid for AthroAi £14.99/month but was stuck on free tier", "email": "protest5@nexastream.co.uk", "fix_applied": "immediate_manual_correction"}',
   NOW()
 FROM profiles 
 WHERE email = 'protest5@nexastream.co.uk';
@@ -60,7 +60,7 @@ SELECT
   p.updated_at,
   w.tier as wellbeing_tier,
   CASE 
-    WHEN p.user_tier = 'full' THEN '✅ SUCCESS: AthroAI FULL ACCESS RESTORED'
+    WHEN p.user_tier = 'full' THEN '✅ SUCCESS: AthroAi FULL ACCESS RESTORED'
     ELSE '❌ FIX FAILED - NEEDS INVESTIGATION'
   END as fix_status
 FROM profiles p

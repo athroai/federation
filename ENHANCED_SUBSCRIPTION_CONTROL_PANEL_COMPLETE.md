@@ -32,7 +32,7 @@ Successfully replaced the ugly "Manage Your Plan" modal with a **beautiful, comp
 - **Gradient card backgrounds** with tier-specific colors
 - **Premium badge** for full tier users
 - **Beautiful progress bars** with gradient fills
-- **Consistent color scheme** matching AthroAI branding
+- **Consistent color scheme** matching AthroAi branding
 - **Responsive grid layout** for optimal viewing
 
 ### 2. **Comprehensive Tier Display**
@@ -108,7 +108,7 @@ apps/athro-dashboard/src/components/Dashboard/SubscriptionControlPanel.tsx
 | **Token Purchase** | Not available | Full integration |
 | **Settings** | None | Complete preferences |
 | **Layout** | Single column | Responsive grid |
-| **Color Scheme** | Basic | AthroAI branded |
+| **Color Scheme** | Basic | AthroAi branded |
 
 ### **Smart Features**
 - **Tier-aware content** - Shows only relevant upgrade options
@@ -138,12 +138,12 @@ apps/athro-dashboard/src/components/Dashboard/SubscriptionControlPanel.tsx
 ## 🎯 **USER BENEFITS**
 
 ### **For FREE Users**
-- Clear upgrade paths to Lite (£7.99) or AthroAI (£14.99)
+- Clear upgrade paths to Lite (£7.99) or AthroAi (£14.99)
 - Beautiful token usage display
 - Feature comparison for informed decisions
 
 ### **For LITE Users**
-- Smart upgrade suggestion to AthroAI
+- Smart upgrade suggestion to AthroAi
 - Clear benefit breakdown (600K more tokens)
 - Billing management access
 
@@ -158,7 +158,7 @@ apps/athro-dashboard/src/components/Dashboard/SubscriptionControlPanel.tsx
 ## 🎨 **VISUAL HIGHLIGHTS**
 
 ### **Color Scheme**
-- **AthroAI Gold**: `#e4c97e` - Premium tier, accents
+- **AthroAi Gold**: `#e4c97e` - Premium tier, accents
 - **Success Green**: `#4fc38a` - Actions, positive states
 - **Warning Orange**: `#ff9800` - Low tokens, attention
 - **Background Dark**: `rgba(28, 42, 30, 0.8)` - Cards

@@ -102,7 +102,7 @@ export class SubscriptionService {
           monthlyTokenLimit: 1602000,       // 1,602,000 tokens/month
           hasWorkspaceAccess: true,         
           hasDashboardAccess: true,         
-          description: 'AthroAI: Full access with token top-up option',
+          description: 'AthroAi: Full access with token top-up option',
           price: '£14.99/month',            // USER-FACING PRICE
           features: [
             '1,602,000 tokens per month',
@@ -309,7 +309,7 @@ export class SubscriptionService {
         if (situation === 'tokens_exhausted') {
           return 'Purchase additional tokens for £2.00 per pack to continue using premium features.';
         }
-        return 'Your AthroAI subscription includes 1.6M monthly tokens plus token top-up options.';
+        return 'Your AthroAi subscription includes 1.6M monthly tokens plus token top-up options.';
       default:
         return 'Upgrade your plan to access this feature.';
     }

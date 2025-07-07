@@ -31,8 +31,8 @@ SELECT
   COUNT(*) as user_count,
   CASE user_tier
     WHEN 'free' THEN 'Free tier (0 payments)'
-    WHEN 'lite' THEN 'AthroAI Lite (£7.99/month)'
-    WHEN 'full' THEN 'AthroAI Full (£14.99/month)'
+          WHEN 'lite' THEN 'AthroAi Lite (£7.99/month)'
+      WHEN 'full' THEN 'AthroAi Full (£14.99/month)'
     ELSE 'Unknown tier'
   END as description
 FROM profiles 
