@@ -54,35 +54,39 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, [mode]);
   
+  // Broadcast theme changes to other apps
+  const broadcastThemeChange = (newMode: ThemeMode) => {
+    eventBus.publish('ui.theme.changed', {
+      mode: newMode,
+      timestamp: new Date().toISOString()
+    });
+  };
+  
+  // Enhanced setMode that broadcasts changes
+  const enhancedSetMode = (newMode: ThemeMode) => {
+    setMode(newMode);
+    broadcastThemeChange(newMode);
+  };
+
   // Sync theme changes across applications using event bus
   useEffect(() => {
-    // Broadcast theme changes to other apps
-    const broadcastThemeChange = (newMode: ThemeMode) => {
-      eventBus.publish('ui.theme.changed', {
-        mode: newMode,
-        timestamp: new Date().toISOString()
-      });
-    };
-    
     // Listen for theme changes from other apps
-    const unsubscribe = eventBus.subscribe('ui.theme.changed', (data: { mode: ThemeMode }) => {
+    const unsubscribe = eventBus.subscribe('ui.theme.changed', (payload: any) => {
+      const data = payload.payload || payload;
       if (data.mode !== mode) {
         setMode(data.mode);
       }
     });
     
-    // Set up effect for broadcasting
-    const originalSetMode = setMode;
-    setMode = (newMode: ThemeMode) => {
-      originalSetMode(newMode);
-      broadcastThemeChange(newMode);
+    return () => {
+      if (typeof unsubscribe === 'function') {
+        unsubscribe();
+      }
     };
-    
-    return () => unsubscribe();
-  }, []);
+  }, [mode]);
   
   return (
-    <ThemeContext.Provider value={{ mode, setMode }}>
+    <ThemeContext.Provider value={{ mode, setMode: enhancedSetMode }}>
       {children}
     </ThemeContext.Provider>
   );

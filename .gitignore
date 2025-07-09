@@ -6,4 +6,3 @@ dist/
 .cache
 coverage/
 .yarn/
-APIkey.txt

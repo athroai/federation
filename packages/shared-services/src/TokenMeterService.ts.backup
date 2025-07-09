@@ -1,0 +1,40 @@
+export interface TokenBalance {
+  totalTokens: number;
+  usedTokens: number;
+  remainingTokens: number;
+  resetDate: string;
+}
+
+export class TokenMeterService {
+  private readonly TIER_TOKEN_LIMITS = {
+    'free': 100000,
+    'lite': 1000000,
+    'full': 1600000
+  };
+
+  constructor() {
+    // Basic constructor
+  }
+
+  public async getTokenBalance(userId: string, tier: 'free' | 'lite' | 'full' = 'free'): Promise<TokenBalance> {
+    const totalTokens = this.TIER_TOKEN_LIMITS[tier] || this.TIER_TOKEN_LIMITS['free'];
+    const usedTokens = Math.floor(totalTokens * 0.15); // Simulate 15% usage
+    const remainingTokens = totalTokens - usedTokens;
+    
+    return {
+      totalTokens,
+      usedTokens,
+      remainingTokens,
+      resetDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
+    };
+  }
+
+  public async recordTokenUsage(userId: string, tokensUsed: number): Promise<void> {
+    // Basic implementation - log usage
+    console.log(`Token usage recorded: ${tokensUsed} tokens for user ${userId}`);
+  }
+
+  public async getUserTokenStats(userId: string): Promise<TokenBalance> {
+    return this.getTokenBalance(userId, 'free');
+  }
+} 

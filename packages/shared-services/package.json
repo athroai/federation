@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "dev": "vite"
+    "dev": "tsc -w"
   },
   "dependencies": {
     "events": "^3.3.0",
