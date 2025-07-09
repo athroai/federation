@@ -12,7 +12,7 @@
     "lint": "turbo run lint",
     "test": "turbo run test",
     "clean": "turbo run clean",
-    "build:dashboard": "npm run build --workspace=@athro/shared-services && npm run build --workspace=@athro/shared-ui && npm run build --workspace=@athro/shared-types && npm run build --workspace=@athro/shared-athros && npm run build --workspace=athro-dashboard",
+    "build:dashboard": "turbo build --filter=athro-dashboard...",
     "build:workspace": "npm run build --workspace=@athro/shared-services && npm run build --workspace=@athro/shared-ui && npm run build --workspace=@athro/shared-types && npm run build --workspace=@athro/shared-athros && npm run build --workspace=athro-workspace-2"
   },
   "devDependencies": {
