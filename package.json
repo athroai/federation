@@ -12,8 +12,8 @@
     "lint": "turbo run lint",
     "test": "turbo run test",
     "clean": "turbo run clean",
-    "build:dashboard": "cd apps/athro-dashboard && npm install && npm run build",
-    "build:workspace": "cd apps/athro-workspace-2 && npm install && npm run build"
+    "build:dashboard": "npm install --prefix apps/athro-dashboard && npm run build --prefix apps/athro-dashboard",
+    "build:workspace": "npm install --prefix apps/athro-workspace-2 && npm run build --prefix apps/athro-workspace-2"
   },
   "devDependencies": {
     "turbo": "^1.10.0"
