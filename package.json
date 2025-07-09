@@ -11,7 +11,9 @@
     "build": "turbo run build",
     "lint": "turbo run lint",
     "test": "turbo run test",
-    "clean": "turbo run clean"
+    "clean": "turbo run clean",
+    "build:dashboard": "cd apps/athro-dashboard && npm install && npm run build",
+    "build:workspace": "cd apps/athro-workspace-2 && npm install && npm run build"
   },
   "devDependencies": {
     "turbo": "^1.10.0"
