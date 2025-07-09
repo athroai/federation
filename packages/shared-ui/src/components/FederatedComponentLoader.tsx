@@ -31,7 +31,7 @@ export const FederatedComponentLoader: React.FC<FederatedComponentLoaderProps> =
     const loadComponent = async () => {
       try {
         // Dynamically import the federated component
-        const factory = await window[scope].get(module);
+        const factory = await (window as any)[scope].get(module);
         const RemoteComponent = factory();
         setComponent(() => RemoteComponent);
       } catch (err) {

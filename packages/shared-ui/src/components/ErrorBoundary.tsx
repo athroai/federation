@@ -68,7 +68,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
         return fallback(error, this.resetErrorBoundary);
       }
       
-      if (fallback) {
+      if (fallback && typeof fallback !== 'function') {
         return fallback;
       }
       

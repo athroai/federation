@@ -9,10 +9,30 @@
   ],
   "scripts": {
     "dev": "turbo run dev",
+    "dev:workspace": "cd apps/athro-workspace-2 && npm run dev",
+    "dev:dashboard": "cd apps/athro-dashboard && npm run dev",
+    "dev:refresh": "turbo run dev --force",
+    "dev:clean": "npm run clean && npm run dev",
     "build": "turbo run build",
     "lint": "turbo run lint",
     "test": "turbo run test",
-    "clean": "turbo run clean"
+    "test:ci": "turbo run test:ci",
+    "test:integration": "turbo run test:integration",
+    "test:e2e": "turbo run test:e2e",
+    "test:mobile": "turbo run test:mobile",
+    "test:staging": "npm run test && npm run test:e2e",
+    "test:staging-full": "npm run test:staging && npm run lighthouse && npm run bundle-analyzer",
+    "clean": "turbo run clean",
+    "deploy:staging": "./scripts/deploy-staging.sh",
+    "deploy:production": "./scripts/deploy-production.sh",
+    "deploy:production:rollback": "./scripts/rollback-production.sh",
+    "lighthouse": "turbo run lighthouse",
+    "lighthouse:mobile": "turbo run lighthouse:mobile",
+    "bundle-analyzer": "turbo run analyze",
+    "analyze": "turbo run analyze",
+    "setup:env": "./scripts/setup-environment.sh",
+    "setup:smtp": "./scripts/setup-smtp.sh",
+    "setup:stripe": "./scripts/setup-stripe-environment.sh"
   },
   "devDependencies": {
     "turbo": "^1.10.0"

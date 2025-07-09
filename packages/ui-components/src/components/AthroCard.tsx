@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { simpleEventBus as eventBus } from '@athro/shared-services';
+import { simpleEventBus as eventBus, EventPayload } from '@athro/shared-services';
 
 export interface AthroCardProps {
   title: string;
@@ -28,7 +28,7 @@ export const AthroCard: React.FC<AthroCardProps> = ({
   useEffect(() => {
     if (!athroId) return; // Only subscribe if we have an athroId
     
-    const subscriptionId = eventBus.subscribe('athro.confidence.updated', (event) => {
+    const subscriptionId = eventBus.subscribe('athro.confidence.updated', (event: EventPayload<{athroId?: string; level: number}>) => {
       // Check if this event is relevant for this specific Athro
       // You might need to modify your event structure to include athroId
       if (event.payload.athroId === athroId || !event.payload.athroId) {
