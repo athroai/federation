@@ -12,7 +12,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "dev": "tsc -w"
+    "dev": "vite"
   },
   "dependencies": {
     "@athro/shared-types": "file:../shared-types",
