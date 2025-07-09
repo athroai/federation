@@ -15,6 +15,7 @@
     "dev": "tsc -w"
   },
   "dependencies": {
+    "@athro/shared-types": "file:../shared-types",
     "events": "^3.3.0",
     "uuid": "^9.0.1"
   },
