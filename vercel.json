@@ -1,7 +1,8 @@
 {
   "buildCommand": "npm run build:dashboard",
   "outputDirectory": "apps/athro-dashboard/dist",
-  "installCommand": "npm install",
+  "installCommand": "npm ci",
+  "nodeVersion": "18.x",
   "rewrites": [
     {
       "source": "/(.*)",
