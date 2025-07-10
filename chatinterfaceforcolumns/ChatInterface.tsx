@@ -1050,7 +1050,7 @@ This is NON-NEGOTIABLE. AthroCymraeg does this perfectly - you must do EXACTLY t
             updatedAt: document.createdAt // Use createdAt as updatedAt since we don't have it
           };
           
-          const result = await DocumentProcessingService.processDocument(resourceForProcessing);
+          const result = await new DocumentProcessingService().processDocument(resourceForProcessing);
           processedContent = result.content;
           if (!processedContent || processedContent.trim().length === 0) {
             const errorMsg: ChatMessage = {
