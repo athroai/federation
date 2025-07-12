@@ -27,7 +27,8 @@
   },
   "devDependencies": {
     "turbo": "^2.3.0",
-    "rollup": "^3.29.0"
+    "rollup": "^3.29.0",
+    "typescript": "^5.0.0"
   },
   "main": "index.js",
   "license": "MIT",
