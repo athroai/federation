@@ -4,8 +4,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "dev": "npx tsc --watch",
-    "build": "npx tsc",
+    "dev": "../../node_modules/.bin/tsc --watch",
+    "build": "../../node_modules/.bin/tsc",
     "lint": "eslint src --ext ts,tsx"
   },
   "dependencies": {
