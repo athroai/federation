@@ -1,0 +1,205 @@
+.app {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: transparent;
+}
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: transparent;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body, #root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.chat-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.messages-container {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  margin-right: 320px;
+}
+
+.messages-list {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(22, 34, 28, 0.8);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e5c97e;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #f0d894;
+}
+
+/* Firefox scrollbar styles */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #e5c97e rgba(22, 34, 28, 0.8);
+}
+
+/* Math rendering styles */
+.message-content {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.message-content .katex-display {
+  margin: 1rem 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+}
+
+.message-content .katex {
+  font-size: 1.1em;
+  font-family: KaTeX_Main, serif;
+}
+
+/* Ensure code blocks are properly formatted */
+.message-content pre {
+  background: rgba(22, 34, 28, 0.6);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 0.5rem 0;
+}
+
+/* Markdown styling */
+.message-content h1 {
+  font-size: 1.8em;
+  margin: 1rem 0;
+  color: #e5c97e;
+}
+
+.message-content h2 {
+  font-size: 1.5em;
+  margin: 0.8rem 0;
+  color: #e5c97e;
+}
+
+.message-content h3 {
+  font-size: 1.2em;
+  margin: 0.6rem 0;
+  color: #e5c97e;
+}
+
+.message-content ul, .message-content ol {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.message-content li {
+  margin: 0.3rem 0;
+}
+
+.message-content p {
+  margin: 0.5rem 0;
+  line-height: 1.5;
+}
+
+.message-content code {
+  background: rgba(22, 34, 28, 0.6);
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.3rem;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.9em;
+}
+
+.message-content pre {
+  background: rgba(22, 34, 28, 0.6);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 0.5rem 0;
+}
+
+.message-content pre code {
+  background: none;
+  padding: 0;
+}
+
+.message-content blockquote {
+  border-left: 3px solid #e5c97e;
+  margin: 0.5rem 0;
+  padding-left: 1rem;
+  color: rgba(229, 201, 126, 0.8);
+}
+
+.message-content hr {
+  border: none;
+  border-top: 1px solid rgba(229, 201, 126, 0.3);
+  margin: 1rem 0;
+}
+
+.message-content a {
+  color: #e5c97e;
+  text-decoration: none;
+}
+
+.message-content a:hover {
+  text-decoration: underline;
+}
+
+.message-content table {
+  border-collapse: collapse;
+  margin: 1rem 0;
+  width: 100%;
+}
+
+.message-content th, .message-content td {
+  border: 1px solid rgba(229, 201, 126, 0.3);
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.message-content th {
+  background: rgba(229, 201, 126, 0.1);
+}

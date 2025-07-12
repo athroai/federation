@@ -1,0 +1,192 @@
+import React, { useEffect } from 'react';
+import Carousel from 'react-multi-carousel';
+import { Athro, ConfidenceLevel } from '../types/athro';
+import 'react-multi-carousel/lib/styles.css';
+import StarIcon from '@mui/icons-material/Star';
+
+interface AthroCarouselProps {
+  athros: Athro[];
+  selectedAthro: Athro;
+  onSelectAthro: (athro: Athro) => void;
+}
+
+const AthroCarousel: React.FC<AthroCarouselProps> = ({
+  athros,
+  selectedAthro,
+  onSelectAthro,
+}) => {
+  // Add debugging to log athros with confidence levels
+  useEffect(() => {
+    console.log('AthroCarousel athros:', athros);
+    const withConfidence = athros.filter(a => a.confidenceLevel);
+    console.log('Athros with confidence levels:', withConfidence);
+  }, [athros]);
+  const responsive = {
+    superLargeDesktop: {
+      breakpoint: { max: 4000, min: 1920 },
+      items: 7,
+      slidesToSlide: 1
+    },
+    desktop: {
+      breakpoint: { max: 1920, min: 1366 },
+      items: 7,
+      slidesToSlide: 1
+    },
+    laptop: {
+      breakpoint: { max: 1366, min: 1024 },
+      items: 7,
+      slidesToSlide: 1
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 768 },
+      items: 5,
+      slidesToSlide: 1
+    },
+    mobile: {
+      breakpoint: { max: 768, min: 0 },
+      items: 3,
+      slidesToSlide: 1
+    }
+  };
+
+  return (
+    <div style={{ margin: '0 -0.25rem' }}>
+      <style>
+        {`
+          .carousel-container {
+            padding: 0 !important;
+          }
+          .react-multi-carousel-item {
+            padding: 0 0.25rem !important;
+          }
+          .react-multi-carousel-track {
+            margin: 0 !important;
+          }
+          .react-multi-carousel-list {
+            padding: 0 0.5rem !important;
+          }
+          .react-multi-carousel-item {
+            display: flex !important;
+            justify-content: center !important;
+          }
+        `}
+      </style>
+      <Carousel
+        responsive={responsive}
+        infinite={true}
+        autoPlay={false}
+        keyBoardControl={true}
+        customTransition="transform 300ms ease-in-out"
+        containerClass="carousel-container"
+        removeArrowOnDeviceType={["tablet", "mobile"]}
+        dotListClass="custom-dot-list-style"
+        itemClass="react-multi-carousel-item"
+        partialVisible={false}
+        centerMode={false}
+        arrows={true}
+        swipeable={true}
+        draggable={true}
+        minimumTouchDrag={80}
+        shouldResetAutoplay={false}
+        ssr={false}
+      >
+        {athros.map((athro) => (
+          <button
+            key={athro.id}
+            onClick={() => onSelectAthro(athro)}
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              opacity: selectedAthro.id === athro.id ? 1 : 0.6,
+              transition: 'all 0.2s ease',
+              outline: 'none',
+              width: '200px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              padding: '0.5rem',
+              margin: 0
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.opacity = '1';
+            }}
+            onMouseOut={(e) => {
+              if (selectedAthro.id !== athro.id) {
+                e.currentTarget.style.opacity = '0.6';
+              }
+            }}
+          >
+            <div style={{ position: 'relative' }}>
+              <img
+                src={athro.image.startsWith('http') ? athro.image : `${window.location.origin}${athro.image}`}
+                alt={athro.name}
+                style={{
+                  width: '80px',
+                  height: '80px',
+                  objectFit: 'cover',
+                  borderRadius: '50%',
+                  border: selectedAthro.id === athro.id ? '2px solid #e5c97e' : '2px solid transparent',
+                  marginBottom: '0.75rem',
+                  backgroundColor: 'rgba(36,54,38,0.9)'
+                }}
+                onError={(e) => {
+                  const fallbackSvg = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><circle cx="40" cy="40" r="40" fill="rgba(36,54,38,0.9)"/><text x="40" y="40" font-size="32" text-anchor="middle" dominant-baseline="middle" fill="#e5c97e">${athro.name?.[0] || 'A'}</text></svg>`;
+                  e.currentTarget.src = fallbackSvg;
+                  e.currentTarget.onerror = null;
+                }}
+              />
+              {/* Confidence Level Indicator */}
+              <div style={{
+                position: 'absolute',
+                bottom: '12px',
+                right: '0px',
+                width: '32px',
+                height: '32px',
+                borderRadius: '50%',
+                backgroundColor: athro.confidenceLevel === 'HIGH' ? '#4fc38a' : 
+                                athro.confidenceLevel === 'MEDIUM' ? '#e4c97e' : 
+                                athro.confidenceLevel === 'LOW' ? '#e85a6a' :
+                                'transparent',
+                border: athro.confidenceLevel ? '2px solid #1c2a1e' : 'none',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                fontSize: '14px',
+                fontWeight: 'bold',
+                color: athro.confidenceLevel === 'MEDIUM' ? '#1c2a1e' : '#fff',
+                opacity: athro.confidenceLevel ? 1 : 0
+              }}>
+                {athro.confidenceLevel && athro.confidenceLevel.charAt(0)}
+              </div>
+            </div>
+            <div style={{
+              textAlign: 'center',
+              color: '#e5c97e',
+              fontSize: '1rem',
+              fontWeight: 'bold',
+              width: '100%',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '4px',
+              padding: '0 8px'
+            }}>
+              <span style={{ flex: 1, overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                {athro.name}
+              </span>
+              {athro.isPriority && (
+                <StarIcon style={{ color: '#e4c97e', fontSize: '1.25rem', flexShrink: 0 }} />
+              )}
+            </div>
+          </button>
+        ))}
+      </Carousel>
+    </div>
+  );
+};
+
+export default AthroCarousel;

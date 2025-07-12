@@ -1,0 +1,21 @@
+.athro-carousel {
+  padding: 1rem 0;
+}
+
+.athro-carousel-item {
+  padding: 0.5rem;
+}
+
+.athro-card {
+  transition: all 0.2s ease;
+}
+
+.athro-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(228, 201, 126, 0.2);
+}
+
+.athro-card.selected {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(228, 201, 126, 0.3);
+}

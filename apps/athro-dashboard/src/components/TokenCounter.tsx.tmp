@@ -1,0 +1,194 @@
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { Box, Typography, Chip, CircularProgress, Tooltip } from '@mui/material';
+import { Token, Warning, TrendingDown } from '@mui/icons-material';
+import { useAuth } from '../contexts/AuthContext';
+import { TokenEnforcementService } from '../services/TokenEnforcementService';
+
+interface TokenCounterProps {
+  position?: 'fixed' | 'relative';
+  showDetails?: boolean;
+}
+
+export const TokenCounter: React.FC<TokenCounterProps> = ({ 
+  position = 'fixed', 
+  showDetails = false 
+}) => {
+  const { user, userTier } = useAuth();
+  const [tokenData, setTokenData] = useState<{
+    remaining: number;
+    limit: number;
+    percentage: number;
+    tier: string;
+  } | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  // Load token data
+  const loadTokenData = async () => {
+    if (!user?.id) return;
+
+    try {
+      setLoading(true);
+      setError(null);
+      
+      const tokenEnforcement = new TokenEnforcementService();
+      const balance = await tokenEnforcement.getCurrentBalance(user.id);
+      
+      if (balance.canProceed || balance.remaining >= 0) {
+        setTokenData({
+          remaining: balance.remaining,
+          limit: balance.limit,
+          percentage: balance.limit > 0 ? (balance.remaining / balance.limit) * 100 : 0,
+          tier: balance.tier
+        });
+      } else {
+        setError('Failed to load token data');
+      }
+    } catch (err) {
+      console.error('Error loading token data:', err);
+      setError('Token data unavailable');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Load on mount and when user/tier changes
+  useEffect(() => {
+    const timer = setTimeout(() => { loadTokenData(); }, 2000); return () => clearTimeout(timer);
+  }, [user?.id, userTier]);
+
+  // Refresh every 30 seconds
+  useEffect(() => {
+    const interval = setInterval(loadTokenData, 30000);
+    return () => clearInterval(interval);
+  }, [user?.id]);
+
+  // Don't show for unauthenticated users
+  if (!user) return null;
+
+  // Format numbers with K/M suffixes
+  const formatTokenCount = (count: number) => {
+    if (count >= 1000000) {
+      return `${(count / 1000000).toFixed(1)}M`;
+    } else if (count >= 1000) {
+      return `${(count / 1000).toFixed(0)}K`;
+    }
+    return count.toString();
+  };
+
+  // Get warning level and color
+  const getStatusInfo = () => {
+    if (!tokenData) return { color: '#9e9e9e', variant: 'outlined' as const, icon: null };
+    
+    const percentage = tokenData.percentage;
+    
+    if (percentage <= 5) {
+      return { 
+        color: '#e85a6a', 
+        variant: 'filled' as const, 
+        icon: <Warning sx={{ fontSize: 16 }} />,
+        warning: 'Critical'
+      };
+    } else if (percentage <= 15) {
+      return { 
+        color: '#ff9800', 
+        variant: 'filled' as const, 
+        icon: <TrendingDown sx={{ fontSize: 16 }} />,
+        warning: 'Low'
+      };
+    } else if (percentage <= 30) {
+      return { 
+        color: '#ffd700', 
+        variant: 'outlined' as const, 
+        icon: <TrendingDown sx={{ fontSize: 16 }} />,
+        warning: 'Medium'
+      };
+    } else {
+      return { 
+        color: '#4fc38a', 
+        variant: 'outlined' as const, 
+        icon: <Token sx={{ fontSize: 16 }} />
+      };
+    }
+  };
+
+  const statusInfo = getStatusInfo();
+
+  const tooltipContent = tokenData ? (
+    <Box sx={{ textAlign: 'center' }}>
+      <Typography variant="body2" sx={{ fontWeight: 'bold', mb: 1 }}>
+        {tokenData.tier.toUpperCase()} Tier Tokens
+      </Typography>
+      <Typography variant="body2">
+        {tokenData.remaining.toLocaleString()} / {tokenData.limit.toLocaleString()} remaining
+      </Typography>
+      <Typography variant="body2" sx={{ opacity: 0.8 }}>
+        {tokenData.percentage.toFixed(1)}% available
+      </Typography>
+      {statusInfo.warning && (
+        <Typography variant="caption" sx={{ color: statusInfo.color, fontWeight: 'bold', mt: 1, display: 'block' }}>
+          {statusInfo.warning} token level
+        </Typography>
+      )}
+    </Box>
+  ) : 'Token data loading...';
+
+  const chipContent = loading ? (
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+      <CircularProgress size={14} sx={{ color: 'inherit' }} />
+      <Typography variant="caption">Loading...</Typography>
+    </Box>
+  ) : error ? (
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+      <Warning sx={{ fontSize: 16 }} />
+      <Typography variant="caption">Error</Typography>
+    </Box>
+  ) : tokenData ? (
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+      {statusInfo.icon}
+      <Typography variant="caption" sx={{ fontWeight: 'bold' }}>
+        {formatTokenCount(tokenData.remaining)}
+      </Typography>
+      {showDetails && (
+        <Typography variant="caption" sx={{ opacity: 0.8 }}>
+          / {formatTokenCount(tokenData.limit)}
+        </Typography>
+      )}
+    </Box>
+  ) : null;
+
+  return (
+    <Tooltip title={tooltipContent} arrow placement="bottom-start">
+      <Chip
+        label={chipContent}
+        variant={statusInfo.variant}
+        size="small"
+        sx={{
+          position: position,
+          top: position === 'fixed' ? 20 : 'auto',
+          left: position === 'fixed' ? 20 : 'auto',
+          zIndex: position === 'fixed' ? 1100 : 'auto',
+          backgroundColor: statusInfo.variant === 'filled' ? statusInfo.color : 'transparent',
+          color: statusInfo.variant === 'filled' ? '#fff' : statusInfo.color,
+          border: `1px solid ${statusInfo.color}`,
+          fontWeight: 'bold',
+          cursor: 'pointer',
+          transition: 'all 0.2s ease',
+          backdropFilter: position === 'fixed' ? 'blur(10px)' : 'none',
+          '&:hover': {
+            backgroundColor: statusInfo.variant === 'filled' 
+              ? statusInfo.color 
+              : `${statusInfo.color}20`,
+            transform: 'scale(1.05)',
+            boxShadow: `0 4px 12px ${statusInfo.color}40`
+          },
+          '& .MuiChip-label': {
+            padding: '0 8px',
+            fontSize: '0.75rem'
+          }
+        }}
+        onClick={loadTokenData} // Click to refresh
+      />
+    </Tooltip>
+  );
+}; 

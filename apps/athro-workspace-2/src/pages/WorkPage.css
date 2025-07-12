@@ -1,0 +1,154 @@
+.work-page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  background: transparent;
+  height: 100%;
+  min-height: 0;
+  margin-top: 0;
+  width: 100%;
+}
+
+.work-page-content {
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  flex: 1;
+  height: 100%;
+  min-height: 0;
+}
+
+.work-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.work-page-header h1 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.work-page-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.work-page-button {
+  background: rgba(228, 201, 126, 0.1);
+  border: 1px solid #e4c97e;
+  color: #e4c97e;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.work-page-button:hover {
+  background: rgba(228, 201, 126, 0.2);
+}
+
+.work-page-carousel {
+  width: 100%;
+  background: rgba(22, 34, 28, 0.8);
+  border-radius: 8px;
+  padding: 0.75rem 0;
+  margin-bottom: 0.5rem;
+}
+
+.work-page-main {
+  display: flex;
+  gap: 2rem;
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+}
+
+.work-page-sidebar {
+  width: 300px;
+  flex-shrink: 0;
+  min-height: 0;
+  height: 770px;
+  display: flex;
+  flex-direction: column;
+  background: rgba(22, 34, 28, 0.8);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  overflow: auto;
+}
+
+.work-page-main-content {
+  width: 100%;
+  min-width: 0;
+  background: rgba(22, 34, 28, 0.8);
+  border-radius: 12px;
+  padding: 2rem 2vw 2rem 2vw;
+  flex: 2;
+  min-height: 0;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: auto;
+  display: table;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  max-height: 770px;
+}
+
+.work-page-main-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.work-page-main-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.work-page-main-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.work-page-main-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.work-page-sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.work-page-sidebar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.work-page-sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.work-page-sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.work-page,
+.work-page-content,
+.work-page-main {
+  min-height: 0 !important;
+  height: 100%;
+}
+
+.work-page-main-content,
+.work-page-sidebar {
+  overflow: auto;
+  min-height: 0;
+  height: 100%;
+} 

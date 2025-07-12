@@ -1,0 +1,502 @@
+import React, { useState, useEffect } from 'react';
+import StudyTools from './StudyTools';
+import Resources from './Resources';
+import FlashcardModule from './Flashcards/FlashcardModule';
+import NotesModule from './Notes/NotesModule';
+import MindMapList from '../MindMap/MindMapList';
+import Modal from '../common/Modal';
+import FinalMindMap from '../MindMap/FinalMindMap';
+import SupabaseStudyService from '../../services/SupabaseStudyService';
+import LanguageDropdown from './LanguageDropdown';
+import TimerCard from './TimerCard';
+
+interface SidePanelProps {
+  athroId: string;
+  subject: string;
+  sessionId?: string | null;
+  isCreatingSession?: boolean;
+  onUploadResource?: (file: File) => void;
+  onSelectResource: (resourceId: string) => void;
+  onInjectText?: (text: string) => void;
+  onSendMessage?: (message: string) => void;
+  onSaveSession?: () => void;
+  onDeleteSession?: () => void;
+  onViewHistory?: () => void;
+}
+
+const SidePanel: React.FC<SidePanelProps> = ({
+  athroId,
+  subject,
+  sessionId,
+  isCreatingSession,
+  onUploadResource,
+  onSelectResource,
+  onInjectText,
+  onSendMessage,
+  onSaveSession,
+  onDeleteSession,
+  onViewHistory,
+}) => {
+  const [activeTab, setActiveTab] = useState<'tools' | 'resources'>('tools');
+  const [activeStudyTool, setActiveStudyTool] = useState<string | null>(null);
+  const [mindMapModalOpen, setMindMapModalOpen] = useState(false);
+  const [selectedMindMap, setSelectedMindMap] = useState<any>(null);
+  const [selectedMindMapId, setSelectedMindMapId] = useState<string | null>(null);
+  const [mindMapMode, setMindMapMode] = useState<'create' | 'edit' | 'view'>('create');
+  const [forceRefresh, setForceRefresh] = useState(0); // Used to force re-renders
+  
+  // Listen for mind map updates
+  useEffect(() => {
+    const handleMindMapSaved = () => {
+      console.log('Mind map saved event received in SidePanel');
+      setForceRefresh(prev => prev + 1);
+      
+      // If we're in the mind map section, force a refresh
+      if (activeStudyTool === 'mindmap') {
+        window.dispatchEvent(new CustomEvent('refresh_mindmaplist', { detail: { time: Date.now() } }));
+      }
+    };
+    
+    window.addEventListener('mindmap_saved', handleMindMapSaved);
+    return () => {
+      window.removeEventListener('mindmap_saved', handleMindMapSaved);
+    };
+  }, [activeStudyTool]);
+
+  return (
+    <div style={{
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      overflow: 'hidden' // Prevent the container itself from scrolling
+    }}>
+      {/* Session Management Buttons - At the very top of the sidebar */}
+      <div style={{
+        display: 'flex',
+        gap: '0.5rem',
+        padding: '1rem',
+        borderBottom: '1px solid rgba(79, 195, 138, 0.3)',
+        background: 'rgba(22, 34, 28, 0.8)',
+        flexShrink: 0
+      }}>
+        <button
+          onClick={onSaveSession}
+          style={{
+            flex: 1,
+            padding: '0.5rem',
+            background: '#4fc38a',
+            border: 'none',
+            borderRadius: '0.5rem',
+            color: '#17221c',
+            fontWeight: 'bold',
+            cursor: 'pointer',
+            fontSize: '0.875rem',
+            transition: 'all 0.2s ease'
+          }}
+          title="Save current session and start a new one"
+        >
+          💾 Save
+        </button>
+        
+        <button
+          onClick={onDeleteSession}
+          style={{
+            flex: 1,
+            padding: '0.5rem',
+            background: '#e74c3c',
+            border: 'none',
+            borderRadius: '0.5rem',
+            color: 'white',
+            fontWeight: 'bold',
+            cursor: 'pointer',
+            fontSize: '0.875rem',
+            transition: 'all 0.2s ease'
+          }}
+          title="Delete current session and start a new one"
+        >
+          🗑️ Delete
+        </button>
+        
+        <button
+          onClick={() => {
+            console.log('[SidePanel] History button clicked, calling onViewHistory');
+            if (onViewHistory) {
+              onViewHistory();
+            }
+          }}
+          style={{
+            padding: '0.5rem',
+            background: 'rgba(228, 201, 126, 0.2)',
+            border: '1px solid #e4c97e',
+            borderRadius: '0.5rem',
+            color: '#e4c97e',
+            cursor: 'pointer',
+            fontSize: '0.875rem',
+            fontWeight: 'bold',
+            transition: 'all 0.2s ease'
+          }}
+          title="View study history"
+        >
+          📚 History
+        </button>
+      </div>
+
+      {/* Session Status Indicator */}
+      {sessionId && (
+        <div style={{
+          padding: '0.5rem 1rem',
+          background: 'rgba(79, 195, 138, 0.1)',
+          borderBottom: '1px solid rgba(79, 195, 138, 0.3)',
+          flexShrink: 0
+        }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            fontSize: '0.75rem',
+            color: '#4fc38a'
+          }}>
+            <span>🟢</span>
+            <span>Active Session</span>
+            <span style={{ color: 'rgba(79, 195, 138, 0.7)' }}>
+              {sessionId.slice(0, 8)}...
+            </span>
+          </div>
+          {/* Debug info */}
+          <div style={{
+            fontSize: '0.65rem',
+            color: 'rgba(79, 195, 138, 0.6)',
+            marginTop: '0.25rem'
+          }}>
+            Athro: {athroId} | Subject: {subject}
+          </div>
+          {/* Debug button */}
+          <button
+            onClick={() => {
+              console.log('[SidePanel] Current session ID:', sessionId);
+              console.log('[SidePanel] Session ID type:', typeof sessionId);
+              console.log('[SidePanel] Session ID length:', sessionId?.length);
+              console.log('[SidePanel] Props:', { athroId, subject, sessionId });
+              alert(`Session ID: ${sessionId}\nType: ${typeof sessionId}\nLength: ${sessionId?.length}\nAthro: ${athroId}\nSubject: ${subject}`);
+            }}
+            style={{
+              marginTop: '0.25rem',
+              padding: '0.25rem 0.5rem',
+              background: 'rgba(255, 255, 255, 0.1)',
+              border: '1px solid rgba(255, 255, 255, 0.3)',
+              borderRadius: '0.25rem',
+              color: 'white',
+              cursor: 'pointer',
+              fontSize: '0.6rem'
+            }}
+          >
+            Debug Session
+          </button>
+        </div>
+      )}
+
+      {/* Debug: Show when no session is active */}
+      {!sessionId && !isCreatingSession && (
+        <div style={{
+          padding: '0.5rem 1rem',
+          background: 'rgba(228, 201, 126, 0.1)',
+          borderBottom: '1px solid rgba(228, 201, 126, 0.3)',
+          flexShrink: 0
+        }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            fontSize: '0.75rem',
+            color: '#e4c97e'
+          }}>
+            <span>🟡</span>
+            <span>No Active Session</span>
+          </div>
+          <div style={{
+            fontSize: '0.65rem',
+            color: 'rgba(228, 201, 126, 0.6)',
+            marginTop: '0.25rem'
+          }}>
+            A session will be created automatically
+          </div>
+          {/* Debug info */}
+          <button
+            onClick={() => {
+              console.log('[SidePanel] Debug - No session state');
+              console.log('[SidePanel] Props:', { athroId, subject, sessionId, isCreatingSession });
+              alert(`No Session Active\nAthro: ${athroId}\nSubject: ${subject}\nCreating: ${isCreatingSession}`);
+            }}
+            style={{
+              marginTop: '0.25rem',
+              padding: '0.25rem 0.5rem',
+              background: 'rgba(228, 201, 126, 0.2)',
+              border: '1px solid rgba(228, 201, 126, 0.5)',
+              borderRadius: '0.25rem',
+              color: '#e4c97e',
+              cursor: 'pointer',
+              fontSize: '0.6rem'
+            }}
+          >
+            Debug No Session
+          </button>
+        </div>
+      )}
+
+      {/* Show when session is being created */}
+      {isCreatingSession && (
+        <div style={{
+          padding: '0.5rem 1rem',
+          background: 'rgba(79, 195, 138, 0.1)',
+          borderBottom: '1px solid rgba(79, 195, 138, 0.3)',
+          flexShrink: 0
+        }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            fontSize: '0.75rem',
+            color: '#4fc38a'
+          }}>
+            <span>🔄</span>
+            <span>Starting Session...</span>
+          </div>
+          <div style={{
+            fontSize: '0.65rem',
+            color: 'rgba(79, 195, 138, 0.6)',
+            marginTop: '0.25rem'
+          }}>
+            Setting up your study environment
+          </div>
+        </div>
+      )}
+
+      {/* Timer Card */}
+      <div style={{ 
+        flexShrink: 0,
+        position: 'relative',
+        zIndex: 10,
+        minHeight: 'fit-content',
+        transform: 'none',
+        top: 'auto',
+        left: 'auto',
+        right: 'auto',
+        bottom: 'auto'
+      }}> 
+        <TimerCard />
+      </div>
+      
+      {/* Language Dropdown */}
+      {onInjectText && (
+        <div style={{ flexShrink: 0 }}>
+          <LanguageDropdown onInjectText={onInjectText} onSendMessage={onSendMessage} />
+        </div>
+      )}
+      
+      {/* Tools/Resources tabs */}
+      <div style={{
+        display: 'flex',
+        gap: '0.5rem',
+        padding: '1rem',
+        borderBottom: '1px solid rgba(228, 201, 126, 0.2)',
+        flexShrink: 0 // Prevent this from shrinking
+      }}>
+        <button
+          onClick={() => {
+            // If we're inside a study tool, return to the tool selection
+            // Otherwise, just select the tools tab
+            if (activeStudyTool) {
+              setActiveStudyTool(null);
+            } else {
+              setActiveTab('tools');
+            }
+          }}
+          style={{
+            flex: 1,
+            padding: '0.5rem',
+            background: activeTab === 'tools' ? '#4fc38a' : 'transparent',
+            border: '1px solid #4fc38a',
+            borderRadius: '0.5rem',
+            color: activeTab === 'tools' ? '#17221c' : '#4fc38a',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease',
+            fontSize: '0.9rem',
+            fontWeight: 'bold'
+          }}
+        >
+          {activeStudyTool ? 'Study Tools' : 'Study Tools'}
+        </button>
+        <button
+          onClick={() => setActiveTab('resources')}
+          style={{
+            flex: 1,
+            padding: '0.5rem',
+            background: activeTab === 'resources' ? '#4fc38a' : 'transparent',
+            border: '1px solid #4fc38a',
+            borderRadius: '0.5rem',
+            color: activeTab === 'resources' ? '#17221c' : '#4fc38a',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease',
+            fontSize: '0.9rem',
+            fontWeight: 'bold'
+          }}
+        >
+          Resources
+        </button>
+      </div>
+
+      <div style={{
+        flex: 1,
+        padding: activeStudyTool ? '0' : '1rem',
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        minHeight: 0 // Important: allows flex item to shrink below content size
+      }}>
+        {activeTab === 'tools' ? (
+          activeStudyTool === 'flashcards' ? (
+            <FlashcardModule
+              athroId={athroId}
+              subject={subject}
+              sessionId={sessionId || null}
+            />
+          ) : activeStudyTool === 'notes' ? (
+            <NotesModule
+              athroId={athroId}
+              subject={subject}
+              sessionId={sessionId || null}
+            />
+          ) : activeStudyTool === 'mindmap' ? (
+            <div style={{ padding: '1rem' }}>
+              <h2 style={{ color: '#e4c97e', marginBottom: '1rem' }}>Mind Maps</h2>
+              
+              <MindMapList
+                key={`mindmap-list-${forceRefresh}`} // Force remount on save
+                athroId={athroId}
+                subject={subject}
+                sessionId={sessionId}
+                onCreateNew={() => {
+                  console.log('Creating new mind map');
+                  setMindMapModalOpen(true);
+                  setMindMapMode('create');
+                  setSelectedMindMap(null);
+                  setSelectedMindMapId(null);
+                }}
+                onView={(mindMap) => {
+                  console.log('Opening mind map for viewing:', mindMap);
+                  setSelectedMindMapId(mindMap.id);
+                  setMindMapModalOpen(true);
+                  setMindMapMode('view');
+                  setSelectedMindMap(mindMap);
+                }}
+                onEdit={(mindMap) => {
+                  console.log('Opening mind map for editing:', mindMap);
+                  setSelectedMindMapId(mindMap.id);
+                  setMindMapModalOpen(true);
+                  setMindMapMode('edit');
+                  setSelectedMindMap(mindMap);
+                }}
+                onDelete={(id) => {
+                  if (confirm('Are you sure you want to delete this mind map?')) {
+                    SupabaseStudyService.deleteMindMap(id);
+                  }
+                }}
+              />
+            </div>
+          ) : (
+            <StudyTools
+              onOpenFlashcards={() => setActiveStudyTool('flashcards')}
+              onCreateNote={() => setActiveStudyTool('notes')}
+              onOpenMindMap={() => setActiveStudyTool('mindmap')}
+              onCreateQuiz={() => {}}
+              onCreateStudyPlan={() => {}}
+            />
+          )
+        ) : (
+          <Resources
+            onSelectResource={onSelectResource}
+            athroId={athroId}
+            subject={subject}
+            sessionId={sessionId}
+          />
+        )}
+      </div>
+
+      {/* Mind Map Modal */}
+      <Modal
+        isOpen={mindMapModalOpen}
+        onClose={() => setMindMapModalOpen(false)}
+        title={mindMapMode === 'create' ? 'Create New Mind Map' : mindMapMode === 'edit' ? 'Edit Mind Map' : 'View Mind Map'}
+        maxWidth="95vw"
+      >
+        <div style={{ height: '80vh', width: '100%' }}>
+          {sessionId ? (
+            <FinalMindMap 
+              athroId={athroId} 
+              subject={subject} 
+              sessionId={sessionId}
+              editMindMapId={selectedMindMapId || undefined}
+              onSaved={() => {
+                // Close the modal when mind map is saved
+                setMindMapModalOpen(false);
+                setSelectedMindMapId(null);
+                
+                // Force a refresh of the mind maps list
+                const event = new CustomEvent('refresh_mindmaplist', { 
+                  detail: { time: Date.now() } 
+                });
+                window.dispatchEvent(event);
+                
+                // If we're in the mind map section, make sure it shows the updated list
+                if (activeStudyTool === 'mindmap') {
+                  // Small timeout to ensure React has time to process
+                  setTimeout(() => {
+                    const refreshEvent = new Event('mindmap_list_refresh');
+                    window.dispatchEvent(refreshEvent);
+                  }, 100);
+                }
+              }}
+            />
+          ) : (
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: '100%',
+              padding: '2rem',
+              textAlign: 'center'
+            }}>
+              <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🟡</div>
+              <h3 style={{ color: '#e4c97e', marginBottom: '1rem' }}>No Active Session</h3>
+              <p style={{ color: '#b5cbb2', marginBottom: '2rem' }}>
+                You need an active study session to create or edit mind maps.
+              </p>
+              <button
+                onClick={() => {
+                  setMindMapModalOpen(false);
+                  if (onSaveSession) {
+                    onSaveSession();
+                  }
+                }}
+                style={{
+                  padding: '0.75rem 1.5rem',
+                  background: '#4fc38a',
+                  border: 'none',
+                  borderRadius: '0.5rem',
+                  color: '#17221c',
+                  fontWeight: 'bold',
+                  cursor: 'pointer',
+                  fontSize: '1rem'
+                }}
+              >
+                Start Session
+              </button>
+            </div>
+          )}
+        </div>
+      </Modal>
+    </div>
+  );
+};
+
+export default SidePanel;

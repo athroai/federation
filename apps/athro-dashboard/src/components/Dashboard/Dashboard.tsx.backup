@@ -1,0 +1,3331 @@
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { Box, Typography, Paper, Collapse, Grid, Button, FormControlLabel, Switch, Dialog, DialogTitle, DialogContent, CircularProgress, Slider, Card, CardContent, TextField, Table, TableHead, TableBody, TableRow, TableCell, Accordion, AccordionSummary, AccordionDetails, Tabs, Tab, InputLabel, Select, MenuItem, FormControl, Alert, Zoom, Fade, LinearProgress, Stack, Chip, Divider, IconButton } from '@mui/material';
+
+import DashboardCalendar from './DashboardCalendar';
+import { Athro } from '@athro/shared-types';
+import AthroCard from './AthroCard';
+import { generateQuiz } from '../../utils/AthroSection/quiz';
+import { getCurriculumInfoWithFallback } from '../../utils/curriculumMapping';
+import { QuizQuestion } from '../../types/athro';
+import { athroSelectionService, FederatedAuthService, type AuthState } from '@athro/shared-services';
+import { ATHROS } from '@athro/shared-athros';
+import { ConfidenceSection } from './ConfidenceSection';
+import StarIcon from '@mui/icons-material/Star';
+import WorkspaceEmbed from '../WorkspaceSection/Workspace/WorkspaceEmbed';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
+import { LoginSection } from './LoginSection';
+import WelcomeModal from '../WelcomeModal';
+import { useAuth } from '../../contexts/AuthContext';
+import { supabase } from '../../services/supabaseClient';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Person, AccountBalance, Upgrade, Settings, ExitToApp, Warning, Info, NotificationsActive, Notifications, Close } from '@mui/icons-material';
+import WellbeingTools from './WellbeingTools';
+import InsightsTools from './InsightsTools';
+import SubscriptionControlPanel from './SubscriptionControlPanel';
+import { NotificationPreferencesComponent } from '@athro/shared-ui';
+import { NotificationService } from '@athro/shared-services';
+import { NotificationCentre } from './NotificationCentre';
+import { TokenCounter } from '../TokenCounter';
+
+import { userPreferencesService } from '../../services/userPreferencesService';
+import { testUserIsolation } from '../../utils/testUserIsolation';
+import TierGuard from '../TierGuard';
+import UpgradeModal from '../Payment/UpgradeModal';
+import { profileService } from '../../services/ProfileService';
+import { demoDataService } from '../../services/DemoDataService';
+import { userDataService } from '../../services/userDataService';
+import { LowTokenWarning } from '../LowTokenWarning';
+import { useNavigate } from 'react-router-dom';
+
+
+
+// Add interfaces for user profile data
+interface UserProfile {
+  id: string;
+  full_name: string | null;
+  preferred_name: string | null;
+  school: string | null;
+  year: number | null;
+  email: string | null;
+  avatar_url: string | null;
+  exam_board: string | null;
+  recent_grades: string | null;
+}
+
+// Add interface for subject preferences
+interface SubjectPreference {
+  id: string;
+  user_id: string;
+  subject: string;
+  confidence_level: number | null;
+  is_priority: boolean;
+  average_grade: string | null;
+  exam_board: string | null;
+}
+
+interface DashboardProps {
+  athros: Athro[];
+  confidence: Record<string, number>;
+  priorities: Set<string>;
+  studentAvailability?: Record<string, string[]>;
+}
+
+const getImagePath = (subject: string): string => {
+  const subjectMap: Record<string, string> = {
+    'Mathematics': '/images/math.jpg',
+    'Physics': '/images/physics.jpg',
+    'Chemistry': '/images/chemistry.jpg',
+    'Biology': '/images/biology.jpg',
+    'Computer Science': '/images/cs.jpg',
+    'English': '/images/english.jpg',
+    'History': '/images/history.jpg',
+    'Geography': '/images/geography.jpg',
+    'Economics': '/images/economics.jpg',
+    'Psychology': '/images/psychology.jpg'
+  };
+  return subjectMap[subject] || '/images/default.jpg';
+};
+
+const getConfidenceColor = (level: number) => {
+  if (level <= 4) return '#e85a6a'; // red
+  if (level <= 7) return '#e4c97e'; // yellow
+  return '#4fc38a'; // green
+};
+
+const Dashboard: React.FC<DashboardProps> = ({
+  athros,
+  confidence,
+  priorities,
+  studentAvailability
+}) => {
+  const { user, loading, signIn, loadUserTier, userTier } = useAuth();
+  
+  // ENHANCED: Persist expandedCard state to localStorage to survive auth re-renders
+  const [expandedCard, setExpandedCard] = useState<string | null>(() => {
+    try {
+      return localStorage.getItem('athro-dashboard-expanded-card');
+    } catch {
+      return null;
+    }
+  });
+  
+  const [selectedAthroId, setSelectedAthroId] = useState<string | null>(null);
+  const [quizOpen, setQuizOpen] = useState(false);
+  const [quizLoading, setQuizLoading] = useState(false);
+  const [quizQuestions, setQuizQuestions] = useState<QuizQuestion[]>([]);
+  const [quizSubject, setQuizSubject] = useState<string | null>(null);
+  const [quizIdx, setQuizIdx] = useState(0);
+  const [quizAnswers, setQuizAnswers] = useState<number[]>([]);
+  const [quizScore, setQuizScore] = useState<number | null>(null);
+  const [quizReveal, setQuizReveal] = useState(false);
+  const [quizSelected, setQuizSelected] = useState<number | null>(null);
+  const [prioritySubjects, setPrioritySubjects] = useState<Set<string>>(new Set());
+  const [confidenceLevels, setConfidenceLevels] = useState<Record<string, number>>({});
+  const [selectedAthros, setSelectedAthros] = useState<Athro[]>([]);
+  const [showAthroSelection, setShowAthroSelection] = useState(false);
+  const [showSubjectsTips, setShowSubjectsTips] = useState(false);
+  const [showStudyTimeTips, setShowStudyTimeTips] = useState(false);
+  const [showWorkspaceTips, setShowWorkspaceTips] = useState(false);
+  const [showRevisionTips, setShowRevisionTips] = useState(false);
+  const [showSettingsTips, setShowSettingsTips] = useState(false);
+  
+  // ENHANCED CARD REFS - ALL 6 CARDS NOW HAVE REFS FOR UNIVERSAL NAVIGATION
+  const workspaceCardRef = useRef<HTMLDivElement>(null);
+  const subjectsCardRef = useRef<HTMLDivElement>(null);
+  const studyTimeCardRef = useRef<HTMLDivElement>(null);
+  const insightsCardRef = useRef<HTMLDivElement>(null);
+  const wellbeingCardRef = useRef<HTMLDivElement>(null);
+  const settingsCardRef = useRef<HTMLDivElement>(null);
+
+  const [settingsLoading, setSettingsLoading] = useState(false);
+  
+  // Welcome modal state
+  const [showWelcomeModal, setShowWelcomeModal] = useState(true);
+  
+  // Upgrade modal state for testing
+  const [upgradeModalOpen, setUpgradeModalOpen] = useState(false);
+
+  // User settings state
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  const [profileLoading, setProfileLoading] = useState(true); // Track if profile is still loading
+  const [subjectPreferences, setSubjectPreferences] = useState<SubjectPreference[]>([]);
+  const [settingsError, setSettingsError] = useState<string | null>(null);
+  const [settingsSuccess, setSettingsSuccess] = useState<string | null>(null);
+  
+  // Form state for user settings
+  const [formData, setFormData] = useState({
+    full_name: '',
+    preferred_name: '',
+    school: '',
+    year: '',
+    email: '',
+    exam_board: '',
+    recent_grades: ''
+  });
+  
+  // Form state for subject grades
+
+
+  // Signup form for new users (identical to WelcomeModal)
+  const [signupFormData, setSignupFormData] = useState({
+    full_name: '',
+    preferred_name: '',
+    school: '',
+    year: '',
+    email: '',
+    password: ''
+  });
+
+  // Sign-in form for existing users
+  const [signinFormData, setSigninFormData] = useState({
+    email: '',
+    password: ''
+  });
+
+  // Auth form mode (signup or signin)
+  const [authMode, setAuthMode] = useState<'signup' | 'signin'>('signup');
+
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  
+  // Settings tab state
+  const [activeSettingsTab, setActiveSettingsTab] = useState(0);
+  const [highlightSubjectSelection, setHighlightSubjectSelection] = useState(false);
+
+  const [tokenBalance, setTokenBalance] = useState<any>(null);
+  const [unreadNotificationCount, setUnreadNotificationCount] = useState(0);
+  const [currentToast, setCurrentToast] = useState<{
+    id: string;
+    type: 'success' | 'info' | 'warning' | 'error';
+    title: string;
+    message: string;
+  } | null>(null);
+
+  // Years and exam boards for dropdowns
+  const years = ['7', '8', '9', '10', '11', '12', '13'];
+  const examBoards = ['AQA', 'Edexcel', 'OCR', 'WJEC', 'SQA', 'CCEA', 'Other'];
+
+  // ENHANCED: Persist expandedCard changes to localStorage
+  useEffect(() => {
+    try {
+      if (expandedCard) {
+        localStorage.setItem('athro-dashboard-expanded-card', expandedCard);
+      } else {
+        localStorage.removeItem('athro-dashboard-expanded-card');
+      }
+    } catch (error) {
+      // Silent fail for localStorage issues (e.g., private browsing)
+      console.warn('Failed to persist expanded card state:', error);
+    }
+  }, [expandedCard]);
+
+  const handleSignupFormChange = (field: string, value: string) => {
+    setSignupFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleSigninFormChange = (field: string, value: string) => {
+    setSigninFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleSignupSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSettingsLoading(true);
+    setSettingsError(null);
+    setSettingsSuccess(null);
+
+    try {
+      // Create user account (identical to WelcomeModal logic)
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email: signupFormData.email,
+        password: signupFormData.password,
+        options: {
+          data: {
+            full_name: signupFormData.full_name,
+            preferred_name: signupFormData.preferred_name,
+            school: signupFormData.school,
+            year: signupFormData.year,
+          }
+        }
+      });
+
+      if (authError) throw authError;
+
+      // Insert user data into profiles table
+      if (authData.user) {
+        const { error: profileError } = await supabase
+          .from('profiles')
+          .insert([
+            {
+              id: authData.user.id,
+              full_name: signupFormData.full_name,
+              preferred_name: signupFormData.preferred_name,
+              school: signupFormData.school,
+              year: parseInt(signupFormData.year),
+            }
+          ]);
+
+        if (profileError) {
+          console.error('Profile creation error:', profileError);
+        }
+      }
+
+      setSettingsSuccess('Registration successful! Please check your email to verify your account.');
+      // Clear form
+      setSignupFormData({
+        full_name: '',
+        preferred_name: '',
+        school: '',
+        year: '',
+        email: '',
+        password: ''
+      });
+    } catch (error: any) {
+      setSettingsError(error.message || 'Registration failed');
+    } finally {
+      setSettingsLoading(false);
+    }
+  };
+
+  const handleSigninSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSettingsLoading(true);
+    setSettingsError(null);
+    setSettingsSuccess(null);
+
+    try {
+      console.log('🔧 Dashboard signin calling AuthContext signIn function...');
+      // Use AuthContext signIn function instead of direct Supabase call
+      await signIn(signinFormData.email, signinFormData.password);
+
+      setSettingsSuccess('Successfully signed in!');
+      // Clear form
+      setSigninFormData({
+        email: '',
+        password: ''
+      });
+    } catch (error: any) {
+      setSettingsError(error.message || 'Sign in failed');
+    } finally {
+      setSettingsLoading(false);
+    }
+  };
+
+  // Load user preferences from Supabase with localStorage fallback
+  const loadUserPreferences = async () => {
+    try {
+      // Check if demo mode is enabled
+      if (demoDataService.isDemoModeEnabled()) {
+        console.log('🎭 Loading demo preferences for Alex Thompson...');
+        
+        // Generate realistic demo data for Alex Thompson (Year 11 student)
+        const demoSelectedAthroIds = [
+          'athro-mathematics', 'athro-physics', 'athro-chemistry', 'athro-biology',
+          'athro-english', 'athro-history', 'athro-geography', 'athro-computer-science'
+        ];
+        
+        const demoConfidence: Record<string, number> = {
+          'athro-mathematics': 8,
+          'athro-physics': 7,
+          'athro-chemistry': 6,
+          'athro-biology': 9,
+          'athro-english': 7,
+          'athro-history': 8,
+          'athro-geography': 6,
+          'athro-computer-science': 9
+        };
+        
+        const demoPriorities = ['athro-mathematics', 'athro-physics', 'athro-computer-science'];
+        
+        // Set demo data
+        setConfidenceLevels(demoConfidence);
+        setPrioritySubjects(new Set(demoPriorities));
+        
+        const selectedAthrosList = ATHROS.filter(a => demoSelectedAthroIds.includes(a.id));
+        setSelectedAthros(selectedAthrosList);
+        
+        // Update athro selection service to match demo state
+        demoSelectedAthroIds.forEach(athroId => {
+          if (!athroSelectionService.isSelected('athro-dashboard', athroId)) {
+            athroSelectionService.toggleSelection('athro-dashboard', athroId);
+          }
+        });
+        
+        console.log('🎭 Demo preferences loaded:', {
+          selectedAthros: selectedAthrosList.length,
+          confidenceLevels: Object.keys(demoConfidence).length,
+          priorities: demoPriorities.length
+        });
+        
+        return;
+      }
+      
+      // Real user preferences loading
+      if (!user) return;
+      
+      // Set user in preferences service
+      userPreferencesService.setUser(user);
+      
+      // Load all user preferences
+      const [athroConfidence, athroPriorities, selectedAthroIds] = await Promise.all([
+        userPreferencesService.getAthroConfidence(),
+        userPreferencesService.getAthroPriorities(),
+        userPreferencesService.getSelectedAthros()
+      ]);
+      
+      // Always try to load from Supabase first (even if some data is empty)
+      console.log('Loading preferences from Supabase:', { athroConfidence, athroPriorities, selectedAthroIds });
+      console.log('💪 Setting confidence levels from Supabase:', athroConfidence || {});
+      
+      // Set confidence levels (even if empty, to prevent stale localStorage data)
+      setConfidenceLevels(athroConfidence || {});
+      
+      // Set priority subjects
+      setPrioritySubjects(new Set(athroPriorities || []));
+      
+      // Set selected athros
+      const selectedAthrosList = ATHROS.filter(a => (selectedAthroIds || []).includes(a.id));
+      setSelectedAthros(selectedAthrosList);
+      
+      // Only fall back to localStorage if ALL data is empty/missing AND user has been on platform before
+      const hasAnySupabaseData = Object.keys(athroConfidence || {}).length > 0 || (athroPriorities || []).length > 0 || (selectedAthroIds || []).length > 0;
+      
+      if (hasAnySupabaseData) {
+        
+  
+        console.log('📊 Supabase selected athros:', selectedAthroIds);
+        
+        // Update athro selection service to match Supabase state
+      selectedAthroIds.forEach(athroId => {
+          // CRITICAL FIX: Don't toggle if already selected - this was causing selections to be turned OFF!
+          if (!athroSelectionService.isSelected('athro-dashboard', athroId)) {
+            console.log('🔧 Adding selection for:', athroId);
+        athroSelectionService.toggleSelection('athro-dashboard', athroId);
+          } else {
+            console.log('✅ Already selected in service:', athroId);
+          }
+        });
+        
+        // Also ensure non-selected athros are deselected in the service
+        const allServiceSelections = athroSelectionService.getSelections('athro-dashboard');
+        allServiceSelections.forEach(selection => {
+          if (selection.selected && !selectedAthroIds.includes(selection.athroId)) {
+            console.log('🔧 Removing selection for:', selection.athroId);
+            athroSelectionService.toggleSelection('athro-dashboard', selection.athroId);
+          }
+        });
+      } else {
+        // NO LOCALSTORAGE FALLBACK - Use fresh ATHROS data only
+        console.log('No Supabase data found, using fresh ATHROS data from shared package');
+        setSelectedAthros([]);
+        setConfidenceLevels({});
+        setPrioritySubjects(new Set());
+      }
+      
+    } catch (error) {
+      console.error('Failed to load user preferences from Supabase, using fresh ATHROS data:', error);
+      // NO LOCALSTORAGE FALLBACK - Use fresh data only
+      setSelectedAthros([]);
+      setConfidenceLevels({});
+      setPrioritySubjects(new Set());
+    }
+  };
+
+  const handleUserCleared = () => {
+    console.log('🔒 SECURITY: User cleared event received, clearing all user data from Dashboard');
+    
+    // ENHANCED: Only clear UI state if user is actually signed out
+    // If user is still authenticated, preserve UI state during auth refreshes
+    const shouldPreserveUIState = user && !loading;
+    
+    // Clear user-specific data
+    setUserProfile(null);
+    setSelectedAthros([]);
+    setConfidenceLevels({});
+    setPrioritySubjects(new Set());
+    
+    // ENHANCED: Preserve UI state during auth refreshes
+    if (!shouldPreserveUIState) {
+      setExpandedCard(null);
+      setShowWelcomeModal(true);
+      
+      // ENHANCED: Clear persisted expanded card state only on actual sign-out
+      try {
+        localStorage.removeItem('athro-dashboard-expanded-card');
+      } catch (error) {
+        console.warn('Failed to clear expanded card state:', error);
+      }
+    }
+    
+    // Always clear these states regardless
+    setQuizOpen(false);
+    setShowAthroSelection(false);
+    
+    // Clear forms
+    setFormData({
+      full_name: '',
+      preferred_name: '',
+      school: '',
+      year: '',
+      email: '',
+      exam_board: '',
+      recent_grades: ''
+    });
+    
+    setSignupFormData({
+      full_name: '',
+      preferred_name: '',
+      school: '',
+      year: '',
+      email: '',
+      password: ''
+    });
+    
+    setSigninFormData({
+      email: '',
+      password: ''
+    });
+  };
+
+  // Replace clearStaleLocalStorageData with a function that uses FederatedAuthService
+  const clearStaleLocalStorageData = () => {
+    const federatedAuth = FederatedAuthService.getInstance();
+    federatedAuth.signOut(); // This will handle clearing auth data properly
+  };
+
+  // Load user preferences when user is authenticated
+  useEffect(() => {
+    // CRITICAL: Clear stale localStorage data containing "AthroWelsh" on component mount
+    clearStaleLocalStorageData();
+    
+    if (user) {
+      loadUserPreferences();
+      // Test user isolation for debugging
+      testUserIsolation();
+    } else {
+      // For anonymous users, load from athroSelectionService directly
+      console.log('🔧 Anonymous user - loading from athroSelectionService');
+      
+      const selections = athroSelectionService.getSelections('athro-dashboard');
+      const selectedIds = selections.filter(s => s.selected).map(s => s.athroId);
+      
+      console.log('🔧 AthroSelectionService data:', {
+        totalSelections: selections.length,
+        selectedCount: selectedIds.length,
+        selectedIds
+      });
+      
+      if (selectedIds.length > 0) {
+        const selectedAthrosList = ATHROS.filter(a => selectedIds.includes(a.id));
+        setSelectedAthros(selectedAthrosList);
+        console.log('✅ Loaded Athros for anonymous user:', selectedIds);
+      } else {
+        // If no selections in athroSelectionService, use fresh ATHROS data
+        console.log('🔧 No athroSelectionService data, using fresh ATHROS data from shared package');
+        setSelectedAthros([]);
+      }
+    }
+  }, [user]);
+
+  useEffect(() => {
+    // Removed scrollIntoView to prevent unwanted page shifting
+  }, [expandedCard]);
+
+  // Show modal if not logged in
+  useEffect(() => {
+    if (!loading && !user) {
+      setShowWelcomeModal(true);
+    } else {
+      setShowWelcomeModal(false);
+    }
+  }, [user, loading]);
+
+  // Load user profile data when user is authenticated
+  useEffect(() => {
+    if (user) {
+      loadUserProfile();
+
+    } else {
+      // If no user, profile is not loading
+      setProfileLoading(false);
+    }
+  }, [user]);
+
+  // Load user profile using userDataService (supports all fields including exam_board)
+  const loadUserProfile = async () => {
+    if (!user) {
+      setProfileLoading(false);
+      return;
+    }
+
+    try {
+      setSettingsLoading(true);
+      setProfileLoading(true);
+      setSettingsError(null);
+      
+      console.log('🔍 Loading user profile for user:', user.id);
+      
+      // DIRECT SUPABASE CALL WITH COMPLETE LOGGING FOR DEBUGGING
+      const { data: profile, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', user.id)
+        .single();
+      
+      console.log('🔍 DIRECT Profile fetch result:', { profile, error });
+      
+      if (profile && !error) {
+        console.log('✅ Profile found, setting user profile:', profile);
+        setUserProfile({
+          id: profile.id,
+          full_name: profile.full_name || null,
+          preferred_name: profile.preferred_name || null,
+          school: profile.school || null,
+          year: profile.year || null,
+          email: profile.email || null,
+          avatar_url: profile.avatar_url || null,
+          exam_board: profile.exam_board || null,
+          recent_grades: profile.recent_grades || null
+        });
+        setFormData({
+          full_name: profile.full_name || '',
+          preferred_name: profile.preferred_name || '',
+          school: profile.school || '',
+          year: profile.year?.toString() || '',
+          email: profile.email || '',
+          exam_board: profile.exam_board || '',
+          recent_grades: profile.recent_grades || ''
+        });
+        console.log('✅ Form data set from database:', {
+          full_name: profile.full_name || '',
+          preferred_name: profile.preferred_name || '',
+          school: profile.school || '',
+          year: profile.year?.toString() || '',
+          exam_board: profile.exam_board || '',
+          recent_grades: profile.recent_grades || ''
+        });
+      } else {
+        console.log('❌ No profile found or error occurred:', error);
+        
+        // Create a basic profile if none exists
+        console.log('🔧 Creating basic profile for user:', user.id);
+        const { data: createdProfile, error: insertError } = await supabase
+          .from('profiles')
+          .insert({
+            id: user.id,
+            full_name: null,
+            preferred_name: null,
+            school: null,
+            year: null,
+            email: user.email,
+            exam_board: null,
+            recent_grades: null,
+            user_tier: 'free',
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          })
+          .select()
+          .single();
+          
+        if (insertError) {
+          console.error('❌ Error creating profile:', insertError);
+          // Initialize with empty form data
+          setFormData({
+            full_name: '',
+            preferred_name: '',
+            school: '',
+            year: '',
+            email: user.email || '',
+            exam_board: '',
+            recent_grades: ''
+          });
+        } else {
+          console.log('✅ Profile created:', createdProfile);
+          setFormData({
+            full_name: '',
+            preferred_name: '',
+            school: '',
+            year: '',
+            email: user.email || '',
+            exam_board: '',
+            recent_grades: ''
+          });
+                }
+      }
+    } catch (error: any) {
+      console.error('Error loading user profile:', error);
+      setSettingsError('Failed to load user profile: ' + error.message);
+    } finally {
+      setSettingsLoading(false);
+      setProfileLoading(false); // Profile loading complete
+    }
+  };
+
+  // Load subject preferences from Supabase
+  const loadSubjectPreferences = async () => {
+    if (!user) return;
+    
+    try {
+      console.log('Loading subject preferences for user:', user.id);
+      
+      const { data: preferences, error } = await supabase
+        .from('subject_preferences')
+        .select('*')
+        .eq('user_id', user.id);
+      
+      console.log('Subject preferences fetch result:', { preferences, error });
+      
+      if (error) {
+        console.error('Error loading subject preferences:', error);
+        // If table doesn't exist, just continue with empty preferences
+        if (error.code === '42P01') { // Table doesn't exist
+          console.log('Subject preferences table does not exist yet');
+          setSubjectPreferences([]);
+          return;
+        }
+        throw error;
+      }
+      
+      setSubjectPreferences(preferences || []);
+      
+
+    } catch (error: any) {
+      console.error('Error loading subject preferences:', error);
+      // Don't throw error, just log it and continue with empty preferences
+      setSubjectPreferences([]);
+    }
+  };
+
+  // Save user profile changes using direct Supabase for debugging
+  const saveUserProfile = async () => {
+    if (!user) return;
+    
+    try {
+      setSettingsLoading(true);
+      setSettingsError(null);
+      
+      console.log('💾 SAVING user profile with data:', formData);
+      
+      // DIRECT SUPABASE UPDATE WITH COMPLETE LOGGING
+      const updateData = {
+        full_name: formData.full_name || null,
+        preferred_name: formData.preferred_name || null,
+        school: formData.school || null,
+        year: formData.year ? parseInt(formData.year) : null,
+        exam_board: formData.exam_board || null,
+        recent_grades: formData.recent_grades || null,
+        updated_at: new Date().toISOString()
+      };
+      
+      console.log('💾 Update data being sent to database:', updateData);
+      
+      const { data, error } = await supabase
+        .from('profiles')
+        .update(updateData)
+        .eq('id', user.id)
+        .select();
+      
+      console.log('💾 Update result:', { data, error });
+      
+      if (error) {
+        throw error;
+      }
+      
+      console.log('✅ Profile saved successfully, updated row:', data);
+      setSettingsSuccess('Profile settings saved!');
+      
+      // Update userProfile state with the saved data (no need to reload from database)
+      setUserProfile(prev => prev ? {
+        ...prev,
+        full_name: formData.full_name || null,
+        preferred_name: formData.preferred_name || null,
+        school: formData.school || null,
+        year: formData.year ? parseInt(formData.year) : null,
+        exam_board: formData.exam_board || null,
+        recent_grades: formData.recent_grades || null
+      } : null);
+      
+      // Clear success message after 3 seconds, but DON'T close the card
+      setTimeout(() => {
+        setSettingsSuccess(null);
+      }, 3000);
+    } catch (error: any) {
+      console.error('❌ Error saving user profile:', error);
+      setSettingsError('Failed to save profile changes: ' + error.message);
+    } finally {
+      setSettingsLoading(false);
+    }
+  };
+
+  // Save subject preferences
+  const saveSubjectPreferences = async () => {
+    if (!user) return;
+    
+    try {
+      setSettingsLoading(true);
+      setSettingsError(null);
+      
+      console.log('Saving subject preferences:', selectedAthros);
+      
+      // Prepare preferences data
+      const preferencesData = selectedAthros.map(athro => ({
+        user_id: user.id,
+        subject: athro.subject,
+        average_grade: null,
+        exam_board: null,
+        confidence_level: confidenceLevels[athro.id] || null,
+        is_priority: priorities.has(athro.id)
+      }));
+      
+      // Upsert all preferences
+      const { error } = await supabase
+        .from('subject_preferences')
+        .upsert(preferencesData, { onConflict: 'user_id,subject' });
+      
+      if (error) {
+        console.error('Error saving subject preferences:', error);
+        
+        // If table doesn't exist, show informative message
+        if (error.code === '42P01') { // Table doesn't exist
+          setSettingsError('Subject preferences table not available yet. Please contact support.');
+        } else {
+          throw error;
+        }
+      } else {
+        setSettingsSuccess('Subject preferences saved successfully!');
+        await loadSubjectPreferences(); // Reload to get updated data
+      }
+      
+      setTimeout(() => setSettingsSuccess(null), 3000);
+    } catch (error: any) {
+      console.error('Error saving subject preferences:', error);
+      setSettingsError('Failed to save subject preferences: ' + error.message);
+    } finally {
+      setSettingsLoading(false);
+    }
+  };
+
+
+
+  // UNIVERSAL CARD NAVIGATION FUNCTION - CORE OF THE SYSTEM
+  const navigateToCard = useCallback((cardId: string, reason: string = 'navigation') => {
+    // 1. FORCE EXPAND THE TARGET CARD (closes all others - only ONE card open at a time)
+    setExpandedCard(cardId);
+    
+    // 2. GET THE CORRECT REF FOR THE TARGET CARD
+    const getCardRef = (id: string) => {
+      switch (id) {
+        case 'workspace': return workspaceCardRef;
+        case 'subjects': return subjectsCardRef;
+        case 'study-time': return studyTimeCardRef;
+        case 'insights': return insightsCardRef;
+        case 'wellbeing': return wellbeingCardRef;
+        case 'settings': return settingsCardRef;
+        default: return null;
+      }
+    };
+
+    const targetRef = getCardRef(cardId);
+    if (!targetRef?.current) {
+      return;
+    }
+
+    // 3. ENHANCED SCROLL TO TOP - ROBUST TIMING WITH MULTIPLE ATTEMPTS
+    const scrollToCardTop = (attempt = 1, maxAttempts = 5) => {
+      if (attempt > maxAttempts) {
+        return;
+      }
+
+      setTimeout(() => {
+        if (targetRef.current) {
+          // Get the card's position relative to the document
+          const rect = targetRef.current.getBoundingClientRect();
+          const scrollTop = window.pageYOffset + rect.top - 20; // 20px offset for perfect positioning
+          
+          // Scroll so the top of the card is at the top of the viewport
+          window.scrollTo({
+            top: scrollTop,
+            behavior: 'smooth'
+          });
+          
+          // Verify scroll position after a brief delay and retry if needed
+          setTimeout(() => {
+            const currentScroll = window.pageYOffset;
+            const expectedScroll = scrollTop;
+            const tolerance = 50; // 50px tolerance
+            
+            if (Math.abs(currentScroll - expectedScroll) > tolerance) {
+              scrollToCardTop(attempt + 1, maxAttempts);
+            }
+          }, 300);
+        }
+      }, attempt === 1 ? 200 : 100); // First attempt waits longer for expansion
+    };
+
+    // Start the scroll process
+    scrollToCardTop();
+
+  }, []);
+
+  // ENHANCED CARD CLICK HANDLER - TOGGLE EXPAND/COLLAPSE BEHAVIOR
+  const handleCardClick = (cardId: string) => {
+    if (expandedCard === cardId) {
+      // Card is already expanded, close it
+      setExpandedCard(null);
+    } else {
+      // Card is not expanded, expand it and navigate to top
+      setExpandedCard(cardId);
+      navigateToCard(cardId, 'card click - expand and float to top');
+    }
+  };
+
+  // ENHANCED NAVIGATION FUNCTIONS - ALL USE UNIVERSAL SYSTEM
+  const handleViewSelectedAthros = () => {
+    navigateToCard('subjects', 'view selected athros');
+  };
+
+  const handleOpenSignIn = () => {
+    setAuthMode('signin');
+    navigateToCard('settings', 'sign in required');
+  };
+
+  const handleOpenSubjectSelection = useCallback(() => {
+    // Ensure we're on the Profile Settings tab (tab 0)
+    setActiveSettingsTab(0);
+    // Trigger highlighting effect
+    setHighlightSubjectSelection(true);
+    // Navigate to settings card
+    navigateToCard('settings', 'subject selection');
+    // Remove highlighting after a few seconds
+    setTimeout(() => {
+      setHighlightSubjectSelection(false);
+    }, 3000);
+  }, [navigateToCard]);
+
+  const handleOpenSettings = () => {
+    navigateToCard('settings', 'settings access');
+  };
+
+  // ENHANCED INTER-CARD NAVIGATION FUNCTIONS
+  const handleWorkspaceNavigation = () => {
+    navigateToCard('workspace', 'workspace button');
+  };
+
+  const handleTimekeeperNavigation = () => {
+    navigateToCard('study-time', 'timekeeper button');
+  };
+
+  const handleInsightsNavigation = () => {
+    navigateToCard('insights', 'insights access');
+  };
+
+  const handleWellbeingNavigation = () => {
+    navigateToCard('wellbeing', 'wellbeing access');
+  };
+
+  // LISTEN FOR EXTERNAL NAVIGATION EVENTS
+  useEffect(() => {
+    const handleExternalNavigation = (event: CustomEvent) => {
+      const { targetCard, reason } = event.detail;
+      if (targetCard) {
+        navigateToCard(targetCard, reason || 'external navigation');
+      }
+    };
+
+    const handleSubjectSelectionRequest = () => {
+      handleOpenSubjectSelection();
+    };
+
+    window.addEventListener('navigateToCard', handleExternalNavigation as EventListener);
+    window.addEventListener('athro-open-subject-selection', handleSubjectSelectionRequest as EventListener);
+    
+    return () => {
+      window.removeEventListener('navigateToCard', handleExternalNavigation as EventListener);
+      window.removeEventListener('athro-open-subject-selection', handleSubjectSelectionRequest as EventListener);
+    };
+  }, [navigateToCard, handleOpenSubjectSelection]);
+
+  const handleLogout = async () => {
+    try {
+      await supabase.auth.signOut();
+      
+      // Clear all user data
+      setUserProfile(null);
+      setSelectedAthros([]);
+      setConfidenceLevels({});
+      setPrioritySubjects(new Set());
+      setExpandedCard(null);
+      
+      // ENHANCED: Clear persisted expanded card state
+      try {
+        localStorage.removeItem('athro-dashboard-expanded-card');
+      } catch (error) {
+        console.warn('Failed to clear expanded card state:', error);
+      }
+    } catch (error) {
+      console.error('❌ Logout failed:', error);
+    }
+  };
+
+  const handleUserInfoChange = (field: string, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+    
+    // Clear success message when user makes changes (makes save button dynamic)
+    if (settingsSuccess) {
+      setSettingsSuccess(null);
+    }
+    
+    // DYNAMIC UPDATE: Immediately update userProfile for real-time header changes
+    if (field === 'preferred_name' || field === 'full_name') {
+      setUserProfile(prev => prev ? {
+        ...prev,
+        [field]: value || null
+      } : null);
+    }
+  };
+
+
+
+  const getTierDisplayName = (tier: string) => {
+    switch (tier) {
+      case 'free': return 'Free';
+      case 'lite': return 'Lite';
+              case 'full': return 'AthroAi';
+      default: return 'Free';
+    }
+  };
+
+  const getTierColor = (tier: string) => {
+    switch (tier) {
+      case 'free': return '#9e9e9e';
+      case 'lite': return '#2196f3';
+      case 'full': return '#e4c97e';
+      default: return '#9e9e9e';
+    }
+  };
+
+  useEffect(() => {
+    // CRITICAL FIX: Removed automatic card closure on user changes
+    // This was causing workspace card to close during playlist operations
+    // when user state changed due to auth refreshes or profile updates
+    
+    // CRITICAL FIX: Store federated auth state for workspace access
+    if (user) {
+      const federatedAuthState = {
+        user: user,
+        session: {
+          user: user,
+          access_token: 'dashboard_federated_token',
+          expires_at: Date.now() + (60 * 60 * 1000) // 1 hour
+        },
+        isDemoMode: false, // Adjust based on your demo mode logic
+        loading: loading,
+        timestamp: Date.now()
+      };
+      
+      try {
+        localStorage.setItem('athro-federated-auth', JSON.stringify(federatedAuthState));
+      } catch (error) {
+        console.error('🔗 [Dashboard] Error storing federated auth state:', error);
+      }
+    } else {
+      // Clear federated auth when user logs out
+      localStorage.removeItem('athro-federated-auth');
+    }
+  }, [user, loading]);
+
+  // Replace handleStorageEvent with a subscription to FederatedAuthService
+  useEffect(() => {
+    const federatedAuth = FederatedAuthService.getInstance();
+    const unsubscribe = federatedAuth.subscribe((state) => {
+      // Handle auth state changes here - add null check for state
+      if (!state || !state.user) {
+        handleUserCleared();
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  // Handle URL parameters to auto-expand workspace
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('workspace') === 'open') {
+      navigateToCard('workspace', 'url parameter');
+      
+      // Clean up URL parameter
+      const newUrl = window.location.pathname + window.location.hash;
+      window.history.replaceState({}, '', newUrl);
+    }
+  }, []);
+
+  // MISSING FUNCTIONS - ADDING BACK ESSENTIAL HANDLERS
+  const handleWelcomeClose = () => {
+    setShowWelcomeModal(false);
+  };
+
+  const handleWelcomeLogin = () => {
+    setShowWelcomeModal(false);
+    // No longer automatically open settings - user lands at top of dashboard
+  };
+
+  const handleWelcomeExplore = () => {
+    setShowWelcomeModal(false);
+  };
+
+  const handleQuizClick = async (athro: Athro) => {
+    setQuizOpen(true);
+    setQuizLoading(true);
+    setQuizSubject(athro.subject);
+    setQuizIdx(0);
+    setQuizAnswers([]);
+    setQuizScore(null);
+    try {
+      const curriculumInfo = getCurriculumInfoWithFallback(athro.subject);
+      const questions = await generateQuiz(athro.subject, 10, curriculumInfo);
+      setQuizQuestions(questions);
+    } catch (e) {
+      setQuizQuestions([]);
+    } finally {
+      setQuizLoading(false);
+    }
+  };
+
+  const handleQuizAnswer = (idx: number) => {
+    if (quizReveal) return;
+    setQuizSelected(idx);
+    setQuizReveal(true);
+    setQuizAnswers(prev => [...prev, idx]);
+  };
+
+  const handleQuizNext = () => {
+    setQuizReveal(false);
+    setQuizSelected(null);
+    if (quizIdx < (quizQuestions.length - 1)) {
+      setQuizIdx(quizIdx + 1);
+    } else {
+      let score = 0;
+      for (let i = 0; i < quizQuestions.length; i++) {
+        if (quizAnswers[i] === quizQuestions[i].answer) score++;
+      }
+      setQuizScore(score);
+      // Set confidence for this subject
+      if (quizSubject) {
+        handleQuizComplete(score, quizSubject);
+      }
+    }
+  };
+
+  const handleQuizClose = () => {
+    setQuizOpen(false);
+    setQuizQuestions([]);
+    setQuizSubject(null);
+    setQuizIdx(0);
+    setQuizAnswers([]);
+    setQuizScore(null);
+    setQuizReveal(false);
+    setQuizSelected(null);
+  };
+
+  const handleTogglePriority = async (athroId: string) => {
+    if (!user) return;
+    
+    setPrioritySubjects(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(athroId)) newSet.delete(athroId);
+      else newSet.add(athroId);
+      
+      // Save to Supabase
+      userPreferencesService.setAthroPriorities(Array.from(newSet));
+      
+      return newSet;
+    });
+  };
+
+  const handleAthroSelect = async (athro: Athro) => {
+    if (!user) return;
+    
+    setSelectedAthros(prev => {
+      const isSelected = prev.some(a => a.id === athro.id);
+      let newSelected: Athro[];
+      
+      if (isSelected) {
+        newSelected = prev.filter(a => a.id !== athro.id);
+      } else {
+        newSelected = [...prev, athro];
+      }
+      
+      // Save to Supabase
+      userPreferencesService.setSelectedAthros(newSelected.map(a => a.id));
+      
+      // CRITICAL FIX: Also update the shared service to keep both systems in sync
+      const currentlySelectedInService = athroSelectionService.isSelected('athro-dashboard', athro.id);
+      const shouldBeSelected = !isSelected;
+      
+      console.log('🔧 Syncing selection with shared service:', athro.id, 'currentlySelectedInService:', currentlySelectedInService, 'shouldBeSelected:', shouldBeSelected);
+      
+      // Only toggle if the states differ
+      if (currentlySelectedInService !== shouldBeSelected) {
+        athroSelectionService.toggleSelection('athro-dashboard', athro.id);
+      }
+      
+      // 🚀 CRITICAL FIX: Fire event to notify insights component of selection changes
+      console.log('🔥 [Dashboard] Firing athro-selection-changed event for:', athro.id);
+      window.dispatchEvent(new CustomEvent('athro-selection-changed', {
+        detail: { athroId: athro.id, selected: shouldBeSelected }
+      }));
+      
+      return newSelected;
+    });
+  };
+
+  const handleQuizComplete = async (score: number, quizSubject: string) => {
+    const athro = ATHROS.find(a => a.subject === quizSubject);
+    if (athro && user) {
+      const newLevel = Math.min(Math.max(score, 1), 10);
+      
+      try {
+        // Update local state first
+        setConfidenceLevels(prev => ({ ...prev, [athro.id]: newLevel }));
+        
+        // Get current confidence levels and update
+        const currentConfidence = await userPreferencesService.getAthroConfidence();
+        const newLevels = { ...currentConfidence, [athro.id]: newLevel };
+        
+        // Save to Supabase with proper await
+  
+        await userPreferencesService.setAthroConfidence(newLevels);
+        console.log('✅ Quiz confidence saved successfully');
+
+        // 🚀 NEW: Track quiz result in insights system
+        const { insightsService } = await import('../../services/insightsService');
+        insightsService.setUser(user);
+        
+        const beforeConfidence = currentConfidence[athro.id] || 5;
+        
+        await insightsService.trackQuizResult({
+          subject: quizSubject,
+          score: score,
+          total_questions: quizQuestions.length,
+          confidence_before: beforeConfidence,
+          confidence_after: newLevel
+        });
+        
+        // Track confidence history update
+        await insightsService.trackConfidenceHistory({
+          athro_id: athro.id,
+          subject: quizSubject,
+          confidence_level: newLevel
+        });
+        
+        console.log('✅ Quiz insights tracked successfully');
+        
+      } catch (error) {
+        console.error('❌ Failed to save quiz confidence:', error);
+      }
+    }
+  };
+
+  // Update confidence level handler
+  const handleConfidenceChange = async (athro: Athro, newLevel: number) => {
+    console.log('💪 handleConfidenceChange called:', { athroName: athro.name, athroId: athro.id, newLevel, user: !!user });
+    
+    if (!user) {
+      console.log('❌ No user authenticated, skipping confidence save');
+      return;
+    }
+    
+    try {
+      // Get current confidence levels and update
+      const currentConfidence = await userPreferencesService.getAthroConfidence();
+      const newLevels = { ...currentConfidence, [athro.id]: newLevel };
+      
+      // Save to Supabase with proper await
+      console.log('💪 Saving confidence levels to Supabase:', newLevels);
+      await userPreferencesService.setAthroConfidence(newLevels);
+      console.log('✅ Confidence levels saved successfully to database');
+
+      // 🚀 NEW: Track confidence change in insights
+      const { insightsService } = await import('../../services/insightsService');
+      insightsService.setUser(user);
+      
+      await insightsService.trackConfidenceHistory({
+        athro_id: athro.id,
+        subject: athro.subject,
+        confidence_level: newLevel
+      });
+      
+      console.log('✅ Confidence insights tracked successfully');
+      
+    } catch (error) {
+      console.error('❌ Failed to save confidence levels:', error);
+      // Revert the local state on error by reloading from Supabase
+      try {
+        const reloadedConfidence = await userPreferencesService.getAthroConfidence();
+        setConfidenceLevels(reloadedConfidence);
+  
+      } catch (reloadError) {
+        console.error('❌ Failed to reload confidence levels:', reloadError);
+      }
+    }
+  };
+
+  // CARDS ARRAY DEFINITION - ALL 6 CARDS
+  const cards = [
+    {
+      id: 'workspace',
+      title: 'Workspace',
+      description: `Welcome to your Workspace — your personal study zone, built for how you learn best.
+
+Here, you've got access to a full suite of study tools:
+
+Build interactive mind maps (use videos, documents, pictures and links)
+Create smart flashcards
+Write detailed study notes
+Set reminders so nothing slips through
+
+You decide how to use it — upload your homework, past papers, revision guides, or just your thoughts, and get support from your subject Athros anytime.
+
+Not sure where to begin? Ask for tips, hints, or even custom study resources. This is your space to explore, revise, and make progress your way.`,
+      backgroundImage: '/world/Flux_Dev_Capture_diverse_fictional_futuristic_cityscapes_withi_2_79bbccaa-9752-45c2-9946-8c5b8256c19a.jpg',
+      image: '/png/athro.png',
+      imagePosition: 'left'
+    },
+    {
+      id: 'study-time',
+      title: 'Timekeeper',
+      description: `I'm your Timekeeper — here to help you stay focused and in control of your study time.\n\nPlan your study week in seconds: choose a time, pick your Athro, and start.\n\nYou can move things around as your plans change — update your schedule anytime, complete your sessions, and keep your week flowing.\n\nDon't forget to check in on your starred Athros — your priority subjects — so your calendar reflects what matters most right now.\n\nI'll be here each week to help you reset, refocus, and keep everything running smoothly.`,
+      backgroundImage: '/world/Flux_Dev_Capture_diverse_fictional_futuristic_cityscapes_withi_1_810c7e95-50fc-4ee4-9870-25ff55069928.jpg',
+      image: '/png/athro-timekeeper.png',
+      imagePosition: 'right'
+    },
+    {
+      id: 'subjects',
+      title: 'Subjects',
+      description: `This is your Subjects space, a place to check in, focus, and plan your weekly priorities.\n\nTap on any Athro to star the subjects you want to prioritise this week — they'll be ready for you in your Workspace and Calendar.\n\nSlide the confidence bar to tell me how you're feeling in each subject.\nNot sure? Take a quick quiz — I'll use the results to help guide your journey.\n\nYou can come back anytime to adjust your focus or update your confidence.\n\nThink of this as your weekly basecamp. Check in often, track your growth, and focus on the subjects that you need to.`,
+      backgroundImage: '/world/Flux_Dev_Capture_diverse_fictional_futuristic_cityscapes_withi_0_521fd4ed-299c-4bc0-972a-e31ac2568ab5.jpg'
+    },
+    {
+      id: 'insights',
+      title: 'Insights',
+      description: `Track your learning journey with detailed insights and analytics.\n\nSee how you're progressing across all your subjects, discover patterns in your study habits, and celebrate your achievements.\n\nView your Athro performance leaderboard, study trends, and learning milestones. Get personalized recommendations to optimize your learning.\n\nYour data tells a story — let's explore it together and unlock your full potential.`,
+      backgroundImage: '/world/Flux_Dev_Capture_diverse_fictional_futuristic_cityscapes_withi_3_15c76171-a0db-43d7-ae42-df7851146b81.jpg',
+      image: '/png/athro-astrology.png',
+      imagePosition: 'right'
+    },
+    {
+      id: 'wellbeing',
+      title: 'Wellbeing',
+      description: `Come and chill out, clear your mind and relax.
+
+This is your wellbeing space — a sanctuary for mental health and emotional balance. Take a moment to breathe, reflect, and recharge.
+
+Here you can:
+• Practice mindfulness and meditation
+• Track your mood and energy levels
+• Access stress-relief techniques
+• Connect with positive affirmations
+• Take breaks when you need them
+
+Remember, taking care of your mental health is just as important as your studies. A clear mind leads to better learning and a happier you.
+
+Take a deep breath, relax, and give yourself the care you deserve.`,
+      backgroundImage: '/world/Flux_Dev_Capture_diverse_perspectives_and_scenarios_within_a_s_1_0150fb44-d433-4cbc-a14f-50e0a8fcbf7f.jpg',
+      image: '/png/athro-wellbeing.png',
+      imagePosition: 'left'
+    },
+    {
+      id: 'settings',
+      title: 'Settings',
+      description: `This is your Settings space — where you make Athro truly yours.\n\nSet up everything from the subjects you're studying to your school year, target grades, and current progress. Choose your preferred language, notification style, and how you want to receive reminders and alerts.\n\nYou can update your username, password, school details, and switch between themes to suit your vibe.\n\nMost importantly, you can tell us where you're aiming — set the grades you're working toward so your Athros can help guide you there.\n\nPersonalise it once, and update it anytime. This is your learning journey — make it fit you perfectly.`,
+      backgroundImage: '/world/Flux_Dev_Capture_diverse_fictional_futuristic_cityscapes_withi_4_63917da0-279f-4af3-841c-4a308ab84129.jpg',
+      image: '/png/athro-system.png',
+      imagePosition: 'right'
+    }
+  ];
+
+  // Sort Athros alphabetically by name, but only include selected ones
+  const sortedAthros = [...athros]
+    .filter(athro => selectedAthros.some(selected => selected.id === athro.id))
+    .sort((a, b) => a.name.localeCompare(b.name));
+
+  // Add state for abandoned signup detection
+  const [hasAbandonedSignup, setHasAbandonedSignup] = useState(false);
+  const navigate = useNavigate();
+
+  // Function to check for abandoned signup
+  const checkForAbandonedSignup = useCallback(() => {
+    if (!user) return false;
+    
+    // Check if user has metadata indicating an intended paid tier but current tier is free/null
+    const intendedTier = user.user_metadata?.tier;
+    const hasPaymentIntent = intendedTier && intendedTier !== 'free' && (!userTier || userTier === 'free');
+    
+    // Also check for any payment redirect data in localStorage
+    const paymentRedirectData = localStorage.getItem('athro_payment_redirect');
+    const hasPaymentRedirect = paymentRedirectData && JSON.parse(paymentRedirectData).userId === user.id;
+    
+    return hasPaymentIntent || hasPaymentRedirect;
+  }, [user, userTier]);
+
+  // Function to handle continuing signup
+  const handleContinueSignup = () => {
+    navigate('/register?requirePayment=true');
+  };
+
+  // Check for abandoned signup when user or userTier changes
+  useEffect(() => {
+    const abandoned = checkForAbandonedSignup();
+    setHasAbandonedSignup(abandoned);
+  }, [checkForAbandonedSignup]);
+
+  // Initialize notification service and listen for unread count changes
+  useEffect(() => {
+    if (!user) return;
+
+    const notificationService = NotificationService.getInstance();
+    
+    // Listen for new notifications to show as subtle toasts
+    const subscriptionId = notificationService.eventBus.subscribe('notification.display.requested', (payload) => {
+      const notification = payload.payload;
+      
+      // Show subtle toast notification
+      setCurrentToast({
+        id: `toast-${Date.now()}`,
+        type: notification.type || 'info',
+        title: notification.title,
+        message: notification.message
+      });
+
+      // Auto-hide toast after 4 seconds
+      setTimeout(() => {
+        setCurrentToast(null);
+      }, 4000);
+
+      // Update unread count (simulate - in real app this would come from backend)
+      setUnreadNotificationCount(prev => prev + 1);
+    });
+    
+    return () => {
+      notificationService.eventBus.unsubscribe(subscriptionId);
+    };
+  }, [user]);
+
+
+
+  return (
+    <Box 
+      className="dashboard-container"
+      sx={{ 
+        p: 3, 
+        display: 'flex', 
+        flexDirection: 'column', 
+        gap: 2,
+        // Add smooth transitions for the entire container
+        transition: 'all 0.3s ease-in-out',
+        // Ensure stable positioning during transitions
+        position: 'relative',
+        // Prevent layout shifts during transitions
+        minHeight: '100vh',
+        // Use hardware acceleration for smoother transitions
+        transform: 'translateZ(0)',
+        willChange: 'auto'
+      }}
+    >
+      {/* Dynamic Token Counter - Top Left */}
+      <TokenCounter position="fixed" />
+
+      {/* Low Token Warning - Disabled */}
+      <LowTokenWarning />
+      
+
+
+      {/* Header with AthroAi Title and Continue Signup Button */}
+      <Box sx={{ 
+        position: 'relative',
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        mb: 4,
+        minHeight: '120px' 
+      }}>
+        {/* Carry on with Sign-up button - DISABLED: Never show on homescreen
+        {hasAbandonedSignup && !profileLoading && (
+          <Fade in={true} timeout={800}>
+            <Button
+              onClick={handleContinueSignup}
+              sx={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                backgroundColor: '#e4c97e',
+                color: '#1c2a1e',
+                fontWeight: 600,
+                fontSize: '0.875rem',
+                padding: '8px 16px',
+                borderRadius: '8px',
+                textTransform: 'none',
+                boxShadow: '0 4px 12px rgba(228, 201, 126, 0.3)',
+                border: '1px solid rgba(228, 201, 126, 0.5)',
+                '&:hover': {
+                  backgroundColor: '#f0d8a0',
+                  transform: 'translateY(-1px)',
+                  boxShadow: '0 6px 16px rgba(228, 201, 126, 0.4)',
+                },
+                '&:active': {
+                  transform: 'translateY(0)',
+                },
+                transition: 'all 0.2s ease'
+              }}
+            >
+              Carry on with Sign-up
+            </Button>
+          </Fade>
+        )}
+        */}
+
+        {/* Main AthroAi Title */}
+        {!profileLoading && (
+          <Fade in={true} timeout={1000}>
+            <Box sx={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: 3,
+              flexDirection: { xs: 'column', md: 'row' }
+            }}>
+              <Box
+                component="img"
+                src="/png/athro.png"
+                alt="Athro AI"
+                sx={{
+                  width: { xs: 60, md: 80 },
+                  height: 'auto',
+                  maxWidth: '80px',
+                  maxHeight: '80px',
+                  filter: 'drop-shadow(0 0 30px rgba(228, 201, 126, 0.6))',
+                  animation: 'pulse 3s ease-in-out infinite',
+                  '@keyframes pulse': {
+                    '0%, 100%': { transform: 'scale(1)' },
+                    '50%': { transform: 'scale(1.05)' }
+                  }
+                }}
+              />
+              <Zoom in={true} timeout={1500}>
+                <Typography
+                  variant="h2"
+                  sx={{
+                    color: '#e4c97e',
+                    fontWeight: 800,
+                    fontSize: { xs: '2.5rem', md: '3.5rem', lg: '4rem' },
+                    textShadow: '0 0 32px #e4c97e, 0 0 12px #4fc38a, 0 0 2px #fff',
+                    background: 'linear-gradient(45deg, #e4c97e, #4fc38a)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundSize: '200% 200%',
+                    animation: 'gradient 3s ease infinite',
+                    fontFamily: "'Playfair Display', serif",
+                    letterSpacing: '-1px',
+                    textAlign: 'center',
+                    '@keyframes gradient': {
+                      '0%, 100%': { backgroundPosition: '0% 50%' },
+                      '50%': { backgroundPosition: '100% 50%' }
+                    }
+                  }}
+                >
+                  {user && userProfile?.preferred_name 
+                    ? `${userProfile.preferred_name}'s AthroAi` 
+                    : 'AthroAi'
+                  }
+                </Typography>
+              </Zoom>
+            </Box>
+          </Fade>
+        )}
+      </Box>
+      {cards.map(card => (
+        <Box
+          key={card.id}
+          ref={card.id === 'workspace' ? workspaceCardRef : card.id === 'subjects' ? subjectsCardRef : card.id === 'study-time' ? studyTimeCardRef : card.id === 'insights' ? insightsCardRef : card.id === 'wellbeing' ? wellbeingCardRef : card.id === 'settings' ? settingsCardRef : undefined}
+          data-card-id={card.id}
+          sx={{
+            // Add transition properties to prevent jarring movements
+            transition: 'all 0.3s ease-in-out',
+            // Ensure stable positioning
+            position: 'relative',
+            // Prevent layout shifts during transitions
+            transform: 'translateZ(0)',
+            willChange: 'auto'
+          }}
+        >
+          <Box
+            sx={{
+              position: 'relative',
+              minHeight: { xs: '320px', sm: '380px', md: '400px' },
+              height: 'auto',
+              borderRadius: '1.2rem',
+              overflow: 'hidden',
+              boxShadow: expandedCard === card.id ? '0 0 14px rgba(228, 201, 126, 0.4)' : 'none',
+              transition: 'box-shadow 0.3s ease',
+            }}
+          >
+            <Box
+              component="img"
+              src={card.backgroundImage}
+              alt={card.title}
+              sx={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                zIndex: 0
+              }}
+            />
+            <Box
+              className="overlay"
+              sx={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                backgroundColor: 'rgba(28, 42, 30, 0.85)',
+                transition: 'background-color 0.3s ease',
+                zIndex: 1,
+                display: 'flex',
+                flexDirection:
+                  card.id === 'subjects' || card.id === 'workspace' || card.id === 'wellbeing'
+                    ? { xs: 'column', sm: 'row' }
+                    : card.id === 'study-time' || card.id === 'insights' || card.id === 'settings'
+                      ? { xs: 'column', sm: 'row-reverse' }
+                      : 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                padding: { xs: 2, sm: 3, md: 3.5 },
+                cursor: 'pointer',
+                '&:hover': {
+                  backgroundColor: 'rgba(28, 42, 30, 0.9)',
+                }
+              }}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleCardClick(card.id);
+              }}
+            >
+              {card.id === 'subjects' && (
+                <Box sx={{ flex: '0 0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mr: { sm: 4, xs: 0 }, mb: { xs: 1, sm: 0 } }}>
+                  <Box
+                    component="img"
+                    src="/png/athro-study.png"
+                    alt="Athro Study Mascot"
+                    sx={{
+                      width: { xs: '120px', sm: '150px' },
+                      height: { xs: '120px', sm: '150px' },
+                      maxWidth: '150px',
+                      maxHeight: '150px',
+                      borderRadius: '1rem',
+                      background: 'none',
+                      display: 'block',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease',
+                    }}
+                  />
+                </Box>
+              )}
+              {card.id === 'study-time' && (
+                <Box sx={{ flex: '0 0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center', mr: { sm: 4, xs: 0 }, mb: { xs: 1, sm: 0 } }}>
+                  <Box
+                    component="img"
+                    src={card.image}
+                    alt="Timekeeper Mascot"
+                    sx={{
+                      width: { xs: '120px', sm: '150px' },
+                      height: { xs: '120px', sm: '150px' },
+                      maxWidth: '150px',
+                      maxHeight: '150px',
+                      borderRadius: '1rem',
+                      background: 'none',
+                      display: 'block',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease',
+                    }}
+                  />
+                </Box>
+              )}
+              {card.id === 'workspace' && (
+                <Box sx={{ flex: '0 0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center', mr: { sm: 4, xs: 0 }, mb: { xs: 1, sm: 0 } }}>
+                  <Box
+                    component="img"
+                    src={card.image}
+                    alt="Workspace Mascot"
+                    sx={{
+                      width: { xs: '120px', sm: '150px' },
+                      height: { xs: '120px', sm: '150px' },
+                      maxWidth: '150px',
+                      maxHeight: '150px',
+                      borderRadius: '1rem',
+                      background: 'none',
+                      display: 'block',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease',
+                    }}
+                  />
+                </Box>
+              )}
+
+              {card.id === 'settings' && (
+                <Box sx={{ flex: '0 0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center', ml: { sm: 4, xs: 0 }, mb: { xs: 1, sm: 0 } }}>
+                  <Box
+                    component="img"
+                    src={card.image}
+                    alt="Settings Mascot"
+                    sx={{
+                      width: { xs: '120px', sm: '150px' },
+                      height: { xs: '120px', sm: '150px' },
+                      maxWidth: '150px',
+                      maxHeight: '150px',
+                      borderRadius: '1rem',
+                      background: 'none',
+                      display: 'block',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease',
+                    }}
+                  />
+                </Box>
+              )}
+              {card.id === 'insights' && (
+                <Box sx={{ flex: '0 0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center', mr: { sm: 4, xs: 0 }, mb: { xs: 1, sm: 0 } }}>
+                  <Box
+                    component="img"
+                    src={card.image}
+                    alt="Insights Mascot"
+                    sx={{
+                      width: { xs: '120px', sm: '150px' },
+                      height: { xs: '120px', sm: '150px' },
+                      maxWidth: '150px',
+                      maxHeight: '150px',
+                      borderRadius: '1rem',
+                      background: 'none',
+                      display: 'block',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease',
+                    }}
+                  />
+                </Box>
+              )}
+              {card.id === 'wellbeing' && (
+                <Box sx={{ flex: '0 0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center', mr: { sm: 4, xs: 0 }, mb: { xs: 1, sm: 0 } }}>
+                  <Box
+                    component="img"
+                    src={card.image}
+                    alt="Wellbeing Mascot"
+                    sx={{
+                      width: { xs: '120px', sm: '150px' },
+                      height: { xs: '120px', sm: '150px' },
+                      maxWidth: '150px',
+                      maxHeight: '150px',
+                      borderRadius: '1rem',
+                      background: 'none',
+                      display: 'block',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease',
+                    }}
+                  />
+                </Box>
+              )}
+              <Box sx={{ 
+                flex: 1, 
+                display: 'flex', 
+                flexDirection: 'column', 
+                justifyContent: 'center', 
+                alignItems: card.id === 'subjects' || card.id === 'workspace' || card.id === 'wellbeing' ? 'flex-start' : card.id === 'study-time' || card.id === 'insights' || card.id === 'settings' ? 'flex-end' : 'center', 
+                maxWidth: { sm: card.id === 'subjects' || card.id === 'workspace' || card.id === 'wellbeing' || card.id === 'insights' || card.id === 'settings' || card.id === 'study-time' ? '60%' : '100%' } 
+              }}>
+                <Typography 
+                  variant="h5" 
+                  sx={{ 
+                    color: '#e4c97e', 
+                    mb: { xs: 0.5, sm: 1 },
+                    textAlign: card.id === 'subjects' || card.id === 'workspace' || card.id === 'wellbeing' ? 'left' : card.id === 'study-time' || card.id === 'insights' || card.id === 'settings' ? 'right' : 'center',
+                    fontFamily: "'Playfair Display', serif",
+                    fontWeight: 600,
+                    letterSpacing: '0.05em',
+                    textShadow: '0 0 10px rgba(228, 201, 126, 0.3)',
+                    fontSize: 'clamp(1.1rem, 2.5vw + 0.5rem, 1.8rem)',
+                    background: 'linear-gradient(45deg, #e4c97e, #f5e6b3)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundSize: '200% 200%',
+                    animation: 'gradient 8s ease infinite',
+                    lineHeight: 1.2,
+                    wordWrap: 'break-word',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: { xs: 'normal', sm: 'nowrap' }
+                  }}
+                >
+                  {card.title}
+                </Typography>
+                {card.id === 'subjects' ? (
+                  <>
+                    <Typography
+                      sx={{
+                        color: '#f5ffe6',
+                        whiteSpace: 'pre-line',
+                        textAlign: 'left',
+                        fontFamily: "'Raleway', sans-serif",
+                        fontWeight: 600,
+                        letterSpacing: '0.02em',
+                        lineHeight: 1.3,
+                        fontSize: 'clamp(0.9rem, 1.8vw + 0.4rem, 1.1rem)',
+                        textShadow: '0 0 8px rgba(181, 203, 178, 0.25)',
+                        background: 'linear-gradient(180deg, #f5ffe6 0%, #e4f7c8 100%)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        opacity: 1,
+                        wordWrap: 'break-word',
+                        overflow: 'hidden',
+                        display: '-webkit-box',
+                        WebkitLineClamp: { xs: 4, sm: 6 },
+                        WebkitBoxOrient: 'vertical',
+                        '& p': {
+                          marginBottom: '0.5em'
+                        }
+                      }}
+                    >
+                      {card.description.split('\n\n')[0]}
+                    </Typography>
+                  </>
+                ) : card.id === 'study-time' ? (
+                  <>
+                    {/* Main card (collapsed) content: only the instructional line */}
+                    <Typography
+                      sx={{
+                        color: '#f5ffe6',
+                        whiteSpace: 'pre-line',
+                        textAlign: 'right',
+                        fontFamily: "'Raleway', sans-serif",
+                        fontWeight: 600,
+                        letterSpacing: '0.02em',
+                        lineHeight: 1.3,
+                        fontSize: 'clamp(0.9rem, 1.8vw + 0.4rem, 1.1rem)',
+                        textShadow: '0 0 8px rgba(181, 203, 178, 0.25)',
+                        background: 'linear-gradient(180deg, #f5ffe6 0%, #e4f7c8 100%)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        opacity: 1,
+                        wordWrap: 'break-word',
+                        overflow: 'hidden',
+                        display: '-webkit-box',
+                        WebkitLineClamp: { xs: 4, sm: 6 },
+                        WebkitBoxOrient: 'vertical',
+                        '& p': {
+                          marginBottom: '0.5em'
+                        }
+                      }}
+                    >
+                      {`Plan your study week in seconds: choose a time, pick your Athro, and start.`}
+                    </Typography>
+                  </>
+                ) : (
+                  <>
+                    <Typography
+                      sx={{
+                        color: '#f5ffe6',
+                        whiteSpace: 'pre-line',
+                        textAlign: card.id === 'insights' || card.id === 'settings' ? 'right' : 'left',
+                        fontFamily: "'Raleway', sans-serif",
+                        fontWeight: 600,
+                        letterSpacing: '0.02em',
+                        lineHeight: 1.3,
+                        fontSize: 'clamp(0.9rem, 1.8vw + 0.4rem, 1.1rem)',
+                        textShadow: '0 0 8px rgba(181, 203, 178, 0.25)',
+                        background: 'linear-gradient(180deg, #f5ffe6 0%, #e4f7c8 100%)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        opacity: 1,
+                        wordWrap: 'break-word',
+                        overflow: 'hidden',
+                        display: '-webkit-box',
+                        WebkitLineClamp: { xs: 4, sm: 6 },
+                        WebkitBoxOrient: 'vertical',
+                        '& p': {
+                          marginBottom: '0.5em'
+                        }
+                      }}
+                    >
+                      {card.description.split('\n\n')[0]}
+                    </Typography>
+                  </>
+                )}
+              </Box>
+            </Box>
+          </Box>
+
+          {/* Content Section */}
+          <Collapse 
+            in={expandedCard === card.id}
+            timeout={300}
+            easing="ease-in-out"
+            onEnter={() => {}}
+            onEntered={() => {}}
+            onExit={() => {}}
+            onExited={() => {}}
+          >
+            <Box sx={{ 
+              mt: 2, 
+              p: 3, 
+              backgroundColor: card.id === 'workspace' ? 'transparent' : '#1c2a1e',
+              border: card.id === 'workspace' ? 'none' : '2px solid #b5cbb2',
+              borderRadius: card.id === 'workspace' ? 0 : '1.2rem',
+              borderTopLeftRadius: 0,
+              borderTopRightRadius: 0,
+              boxShadow: card.id === 'workspace' ? 'none' : '0 0 14px rgba(228, 201, 126, 0.4)',
+              transition: 'all 0.3s ease-in-out',
+              // Ensure stable positioning during transitions
+              position: 'relative',
+              transform: 'translateZ(0)',
+              willChange: 'auto'
+            }}>
+              {/* Close Button for Expanded Cards */}
+              <IconButton
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setExpandedCard(null);
+                }}
+                sx={{
+                  position: 'absolute',
+                  top: 8,
+                  right: 8,
+                  zIndex: 10,
+                  backgroundColor: 'rgba(228, 201, 126, 0.1)',
+                  color: '#e4c97e',
+                  '&:hover': {
+                    backgroundColor: 'rgba(228, 201, 126, 0.2)',
+                    transform: 'scale(1.1)'
+                  },
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                <Close />
+              </IconButton>
+              {card.id === 'subjects' && (
+                <>
+                  <Typography variant="h6" sx={{ color: '#e4c97e', mb: 1 }}>
+                    Your Selected Athros
+                  </Typography>
+                  <Typography variant="subtitle2" sx={{ color: '#b5cbb2', fontSize: '1.05rem', mb: 2, fontWeight: 600 }}>
+                    Choose who's guiding you this week.
+                  </Typography>
+                  {sortedAthros.length === 0 ? (
+                    <Box sx={{ textAlign: 'center', py: 4 }}>
+                      {!user ? (
+                        <>
+                          <Typography sx={{ color: '#b5cbb2', mb: 2, fontWeight: 700, fontSize: '1.2rem' }}>
+                            This area is for signed-in users only
+                          </Typography>
+                          <Typography sx={{ color: '#b5cbb2', mb: 3, fontSize: '1rem' }}>
+                            Sign in or create an account to select your subjects and set confidence levels
+                      </Typography>
+                      <Button
+                        variant="contained"
+                            onClick={handleOpenSignIn}
+                            sx={{
+                              backgroundColor: '#4fc38a',
+                              color: '#1c2a1e',
+                              fontWeight: 700,
+                              '&:hover': {
+                                backgroundColor: 'rgba(79, 195, 138, 0.8)',
+                              }
+                            }}
+                          >
+                            Go to Settings to Sign In
+                          </Button>
+                        </>
+                      ) : (
+                        <>
+                          <Typography sx={{ color: '#b5cbb2', mb: 2, fontWeight: 700, fontSize: '1.2rem' }}>
+                        Hi! It looks like you haven't chosen any Athros yet! Go to Settings and choose all the subjects you are studying. Come back here to set your confidence levels and your priority subjects for the week!
+                      </Typography>
+                      <Button
+                        variant="contained"
+                        onClick={handleOpenSubjectSelection}
+                        sx={{
+                          backgroundColor: '#e4c97e',
+                          color: '#1c2a1e',
+                          fontWeight: 700,
+                          '&:hover': {
+                            backgroundColor: 'rgba(228, 201, 126, 0.8)',
+                          }
+                        }}
+                      >
+                        Go to Settings
+                      </Button>
+                        </>
+                      )}
+                    </Box>
+                  ) : (
+                    <>
+                      <Typography sx={{ color: '#b5cbb2', fontSize: '1rem', mb: 3 }}>
+                        Press the ⭐ to prioritise your athros. you can come back anytime to update your choices so you can make sure all your Athros get a chance to help you. The ones you select will appear with a ⭐ in your Workspace and Calendar, ready to go whenever you are!
+                      </Typography>
+                      <Box sx={{ 
+                        display: 'grid',
+                        gridTemplateColumns: {
+                          xs: '1fr',
+                          sm: 'repeat(2, 1fr)',
+                          md: 'repeat(3, 1fr)',
+                          lg: 'repeat(4, 1fr)'
+                        },
+                        gap: 2
+                      }}>
+                        {sortedAthros.map(athro => (
+                          <Box
+                            key={athro.id}
+                            onClick={e => {
+                              if ((e.target as HTMLElement).closest('.athro-interactive')) return;
+                              handleTogglePriority(athro.id);
+                            }}
+                            sx={{
+                              border: '2px solid',
+                              borderColor: prioritySubjects.has(athro.id) ? '#e4c97e' : '#b5cbb2',
+                              borderRadius: '1rem',
+                              padding: '1rem',
+                              backgroundColor: prioritySubjects.has(athro.id) ? 'rgba(228, 201, 126, 0.15)' : '#1c2a1e',
+                              transition: 'all 0.2s ease-in-out',
+                              cursor: 'pointer',
+                              position: 'relative',
+                              display: 'flex',
+                              flexDirection: 'column',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              textAlign: 'center',
+                              minHeight: '400px',
+                              '&:hover': {
+                                borderColor: '#e4c97e',
+                                backgroundColor: prioritySubjects.has(athro.id) ? 'rgba(228, 201, 126, 0.15)' : 'rgba(228, 201, 126, 0.05)'
+                              }
+                            }}
+                          >
+                            {prioritySubjects.has(athro.id) ? (
+                              <StarIcon 
+                                sx={{ 
+                                  position: 'absolute',
+                                  top: '0.5rem',
+                                  right: '0.5rem',
+                                  color: '#e4c97e',
+                                  fontSize: '1.5rem',
+                                  zIndex: 1
+                                }} 
+                              />
+                            ) : (
+                              <StarBorderIcon 
+                                sx={{ 
+                                  position: 'absolute',
+                                  top: '0.5rem',
+                                  right: '0.5rem',
+                                  color: '#b5cbb2',
+                                  fontSize: '1.5rem',
+                                  zIndex: 1
+                                }} 
+                              />
+                            )}
+                            <Box
+                              component="img"
+                              src={athro.image}
+                              alt={athro.name}
+                              sx={{
+                                width: '100%',
+                                height: '180px',
+                                borderRadius: '0.8rem',
+                                objectFit: 'cover',
+                                mb: 1
+                              }}
+                            />
+                            <Typography sx={{ 
+                              color: '#e4c97e', 
+                              fontWeight: 600, 
+                              mb: 0.5,
+                              textAlign: 'center',
+                              width: '100%',
+                              fontSize: { xs: '0.9rem', sm: '1rem' },
+                              lineHeight: 1.2,
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              whiteSpace: 'nowrap'
+                            }}>
+                              {athro.name}
+                            </Typography>
+                            <Typography sx={{ 
+                              color: '#b5cbb2', 
+                              fontSize: { xs: '0.8rem', sm: '0.9rem' }, 
+                              mb: 1,
+                              textAlign: 'center',
+                              width: '100%',
+                              lineHeight: 1.3,
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              whiteSpace: 'nowrap'
+                            }}>
+                              {athro.subject}
+                            </Typography>
+                            {/* Confidence Level Controls */}
+                            <Typography sx={{ 
+                              color: '#e4c97e', 
+                              fontSize: { xs: '0.75rem', sm: '0.85rem' }, 
+                              fontWeight: 500, 
+                              mb: 0.5, 
+                              display: { xs: 'block', sm: 'flex' }, 
+                              alignItems: 'center', 
+                              gap: 1, 
+                              justifyContent: 'center', 
+                              width: '100%', 
+                              textAlign: 'center',
+                              lineHeight: 1.3,
+                              px: { xs: 1, sm: 0 }
+                            }}>
+                              <span style={{ fontSize: '1.1em', marginRight: 4, pointerEvents: 'none', userSelect: 'none', display: window.innerWidth >= 600 ? 'inline' : 'none' }}>&lt;--</span>
+                              How Confident do you feel in this subject today?
+                              <span style={{ fontSize: '1.1em', marginLeft: 4, pointerEvents: 'none', userSelect: 'none', display: window.innerWidth >= 600 ? 'inline' : 'none' }}>--&gt;</span>
+                            </Typography>
+                            <Box sx={{ 
+                              display: 'flex', 
+                              flexDirection: 'column', 
+                              alignItems: 'center', 
+                              mb: 1,
+                              width: '100%'
+                            }}>
+                              <Slider
+                                className="athro-interactive"
+                                value={confidenceLevels[athro.id] || 0}
+                                min={0}
+                                max={10}
+                                step={1}
+                                marks={false}
+                                sx={{
+                                  width: 120,
+                                  color: confidenceLevels[athro.id] ? getConfidenceColor(confidenceLevels[athro.id]) : '#b5cbb2',
+                                  '& .MuiSlider-thumb': {
+                                    backgroundColor: confidenceLevels[athro.id] ? getConfidenceColor(confidenceLevels[athro.id]) : '#b5cbb2',
+                                  },
+                                  '& .MuiSlider-track': {
+                                    backgroundColor: confidenceLevels[athro.id] ? getConfidenceColor(confidenceLevels[athro.id]) : '#b5cbb2',
+                                  },
+                                  '& .MuiSlider-valueLabel': {
+                                    top: 'auto',
+                                    bottom: '-30px',
+                                    backgroundColor: '#1c2a1e',
+                                    color: confidenceLevels[athro.id] ? getConfidenceColor(confidenceLevels[athro.id]) : '#b5cbb2',
+                                    border: '1px solid #b5cbb2',
+                                    borderRadius: '4px',
+                                    padding: '2px 8px',
+                                    '&:before': {
+                                      display: 'none',
+                                    },
+                                  }
+                                }}
+                                onChange={(e, val) => {
+                                  // ONLY update local state for immediate UI feedback
+                                  e.stopPropagation();
+                                  const n = Array.isArray(val) ? val[0] : val;
+                                  setConfidenceLevels(prev => ({
+                                    ...prev,
+                                    [athro.id]: n
+                                  }));
+                                }}
+                                onChangeCommitted={(e, val) => {
+                                  // ONLY save to database, DON'T update local state here
+                                  e.stopPropagation();
+                                  const n = Array.isArray(val) ? val[0] : val;
+                                  handleConfidenceChange(athro, n);
+                                }}
+                                valueLabelDisplay="on"
+                                valueLabelFormat={value => value === 0 ? 'Not Started' : value}
+                              />
+                              <Typography sx={{ 
+                                color: '#b5cbb2', 
+                                fontSize: { xs: '0.7rem', sm: '0.75rem' }, 
+                                mt: 1,
+                                textAlign: 'center',
+                                fontStyle: 'italic',
+                                lineHeight: 1.3,
+                                px: { xs: 1, sm: 0 }
+                              }}>
+                                Not sure? Take a quiz and I'll set your confidence level for you!
+                              </Typography>
+                            </Box>
+                            {/* Quiz Button */}
+                            <Button
+                              variant="outlined"
+                              size="small"
+                              className="athro-interactive"
+                              onClick={e => {
+                                e.stopPropagation();
+                                handleQuizClick(athro);
+                              }}
+                              sx={{
+                                borderColor: '#e4c97e',
+                                color: '#e4c97e',
+                                '&:hover': {
+                                  borderColor: '#e4c97e',
+                                  backgroundColor: 'rgba(228, 201, 126, 0.1)'
+                                }
+                              }}
+                            >
+                              Take Quiz
+                            </Button>
+                          </Box>
+                        ))}
+                      </Box>
+                      <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mt: 3 }}>
+                        <button
+                          style={{
+                            background: 'rgba(228, 201, 126, 0.18)',
+                            color: '#e4c97e',
+                            border: 'none',
+                            borderRadius: '1em',
+                            padding: '0.9em 2em',
+                            fontWeight: 700,
+                            fontFamily: "'Raleway', sans-serif",
+                            cursor: 'pointer',
+                            fontSize: '1.15rem',
+                            boxShadow: '0 0 12px rgba(228, 201, 126, 0.10)',
+                            transition: 'box-shadow 0.2s, background 0.2s',
+                          }}
+                          onClick={() => {
+                            // USE ENHANCED NAVIGATION - Go to Timekeeper
+                            navigateToCard('study-time', 'Go to Timekeeper button');
+                          }}
+                          onMouseOver={e => {
+                            e.currentTarget.style.boxShadow = '0 0 24px 6px #e4c97e, 0 0 12px 2px #fff8e1';
+                            e.currentTarget.style.background = 'rgba(228, 201, 126, 0.28)';
+                          }}
+                          onMouseOut={e => {
+                            e.currentTarget.style.boxShadow = '0 0 12px rgba(228, 201, 126, 0.10)';
+                            e.currentTarget.style.background = 'rgba(228, 201, 126, 0.18)';
+                          }}
+                        >
+                          Go to Timekeeper
+                        </button>
+                        <button
+                          style={{
+                            background: 'rgba(228, 201, 126, 0.18)',
+                            color: '#e4c97e',
+                            border: 'none',
+                            borderRadius: '1em',
+                            padding: '0.9em 2em',
+                            fontWeight: 700,
+                            fontFamily: "'Raleway', sans-serif",
+                            cursor: 'pointer',
+                            fontSize: '1.15rem',
+                            boxShadow: '0 0 12px rgba(228, 201, 126, 0.10)',
+                            transition: 'box-shadow 0.2s, background 0.2s',
+                          }}
+                          onClick={() => {
+                            // USE ENHANCED NAVIGATION - Go to Workspace
+                            navigateToCard('workspace', 'Go to Workspace button');
+                          }}
+                          onMouseOver={e => {
+                            e.currentTarget.style.boxShadow = '0 0 24px 6px #e4c97e, 0 0 12px 2px #fff8e1';
+                            e.currentTarget.style.background = 'rgba(228, 201, 126, 0.28)';
+                          }}
+                          onMouseOut={e => {
+                            e.currentTarget.style.boxShadow = '0 0 12px rgba(228, 201, 126, 0.10)';
+                            e.currentTarget.style.background = 'rgba(228, 201, 126, 0.18)';
+                          }}
+                        >
+                          Go to Workspace
+                        </button>
+                      </Box>
+                    </>
+                  )}
+                </>
+              )}
+              {card.id === 'study-time' && (
+                <TierGuard 
+                  requiredTier="full" 
+                  feature="Calendar scheduling"
+                  fallbackMessage="Calendar scheduling is available with full access. Upgrade to plan your study sessions."
+                >
+                  <Typography variant="h6" sx={{ color: '#e4c97e', mb: 1 }}>
+                    Study Schedule
+                  </Typography>
+                  <Typography variant="subtitle2" sx={{ color: '#b5cbb2', fontSize: '1.05rem', mb: 2, fontWeight: 600 }}>
+                    Click on the calendar to organise your sessions
+                  </Typography>
+                  <DashboardCalendar
+                    athros={selectedAthros}
+                    confidence={confidenceLevels}
+                    priorities={prioritySubjects}
+                    studentAvailability={studentAvailability}
+                    expandedCard={expandedCard}
+                    setExpandedCard={navigateToCard} // USE UNIVERSAL NAVIGATION
+                    workspaceCardRef={workspaceCardRef}
+                    handleCardClick={navigateToCard} // USE UNIVERSAL NAVIGATION
+                  />
+                </TierGuard>
+              )}
+              {card.id === 'workspace' && (
+                <>
+                  {!user ? (
+                    <Box sx={{ textAlign: 'center', py: 6 }}>
+                      <Typography sx={{ color: '#b5cbb2', mb: 2, fontWeight: 700, fontSize: '1.2rem' }}>
+                        This area is for signed-in users only
+                      </Typography>
+                      <Typography sx={{ color: '#b5cbb2', mb: 3, fontSize: '1rem' }}>
+                        Sign in or create an account to access your personal workspace with study tools, mind maps, flashcards, and AI-powered learning assistance
+                      </Typography>
+                      <Button
+                        variant="contained"
+                        onClick={handleOpenSignIn}
+                        sx={{
+                          backgroundColor: '#4fc38a',
+                          color: '#1c2a1e',
+                          fontWeight: 700,
+                          '&:hover': {
+                            backgroundColor: 'rgba(79, 195, 138, 0.8)',
+                          }
+                        }}
+                      >
+                        Go to Settings to Sign In
+                      </Button>
+                    </Box>
+                  ) : (
+                <WorkspaceEmbed 
+                  selectedAthros={selectedAthros}
+                  confidenceLevels={confidenceLevels}
+                  prioritySubjects={prioritySubjects}
+                />
+                  )}
+                </>
+              )}
+              {card.id === 'settings' && (
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                  {/* Header with Notification Indicator and Logout Button */}
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                      <Typography variant="h5" sx={{ color: '#e4c97e', fontWeight: 'bold' }}>
+                        Settings
+                      </Typography>
+                      {/* Subtle notification indicator - only shows when active */}
+                      {unreadNotificationCount > 0 && (
+                        <Box sx={{ 
+                          position: 'relative',
+                          display: 'flex',
+                          alignItems: 'center',
+                          cursor: 'pointer',
+                          opacity: 0.8,
+                          transition: 'all 0.2s ease',
+                          '&:hover': { opacity: 1, transform: 'scale(1.05)' }
+                        }}
+                        onClick={() => setActiveSettingsTab(2)} // Navigate to notifications tab
+                        >
+                          <Notifications sx={{ color: '#e4c97e', fontSize: 20 }} />
+                          <Box sx={{
+                            position: 'absolute',
+                            top: -6,
+                            right: -6,
+                            backgroundColor: '#e85a6a',
+                            color: 'white',
+                            borderRadius: '50%',
+                            width: 16,
+                            height: 16,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontSize: '0.75rem',
+                            fontWeight: 'bold',
+                            boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+                          }}>
+                            {unreadNotificationCount > 9 ? '9+' : unreadNotificationCount}
+                          </Box>
+                        </Box>
+                      )}
+                    </Box>
+                    {user && (
+                      <Button
+                        onClick={handleLogout}
+                        startIcon={<ExitToApp />}
+                        sx={{
+                          color: '#e85a6a',
+                          borderColor: '#e85a6a',
+                          fontWeight: 'bold',
+                          '&:hover': {
+                            backgroundColor: 'rgba(232, 90, 106, 0.1)',
+                            borderColor: '#e85a6a',
+                          }
+                        }}
+                        variant="outlined"
+                      >
+                        Logout
+                      </Button>
+                    )}
+                  </Box>
+
+                  {/* Tabs */}
+                  <Tabs
+                    value={activeSettingsTab}
+                    onChange={(_, newValue) => setActiveSettingsTab(newValue)}
+                    sx={{
+                      borderBottom: '1px solid rgba(181, 203, 178, 0.3)',
+                      mb: 3,
+                      '& .MuiTab-root': {
+                        color: '#b5cbb2',
+                        fontWeight: 600,
+                        '&.Mui-selected': {
+                          color: '#e4c97e',
+                        }
+                      },
+                      '& .MuiTabs-indicator': {
+                        backgroundColor: '#e4c97e',
+                      }
+                    }}
+                  >
+                    <Tab 
+                      icon={<Person />} 
+                      label="Profile Settings" 
+                      iconPosition="start"
+                    />
+                    <Tab 
+                      icon={<AccountBalance />} 
+                      label="Tier & Usage" 
+                      iconPosition="start"
+                    />
+                    <Tab 
+                      icon={<NotificationsActive />} 
+                      label="Notifications" 
+                      iconPosition="start"
+                    />
+                  </Tabs>
+                  
+                  {/* Tab Content */}
+                  {activeSettingsTab === 0 && (
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                      {/* My Subjects Section - MOVED TO TOP */}
+                      <Box sx={{
+                        border: highlightSubjectSelection ? '3px solid #e4c97e' : '2px solid transparent',
+                        borderRadius: '1rem',
+                        padding: highlightSubjectSelection ? '1rem' : '0.5rem',
+                        backgroundColor: highlightSubjectSelection ? 'rgba(228, 201, 126, 0.1)' : 'transparent',
+                        transition: 'all 0.3s ease-in-out',
+                        boxShadow: highlightSubjectSelection ? '0 0 20px rgba(228, 201, 126, 0.3)' : 'none'
+                      }}>
+                        <Typography variant="h6" sx={{ 
+                          mb: 1, 
+                          color: highlightSubjectSelection ? '#e4c97e' : '#e4c97e',
+                          fontWeight: highlightSubjectSelection ? 'bold' : 'normal',
+                          fontSize: highlightSubjectSelection ? '1.3rem' : '1.25rem',
+                          transition: 'all 0.3s ease-in-out'
+                        }}>
+                          My Subjects {highlightSubjectSelection && '✨'}
+                        </Typography>
+                        <Typography variant="subtitle1" sx={{ 
+                          color: highlightSubjectSelection ? '#e4c97e' : '#e4c97e', 
+                          mb: 2,
+                          fontWeight: highlightSubjectSelection ? 600 : 'normal',
+                          transition: 'all 0.3s ease-in-out'
+                        }}>
+                          Please select ALL subjects that you study at school
+                        </Typography>
+                        <Box sx={{ 
+                          display: 'grid',
+                          gridTemplateColumns: {
+                            xs: '1fr',
+                            sm: 'repeat(2, 1fr)',
+                            md: 'repeat(3, 1fr)',
+                            lg: 'repeat(4, 1fr)'
+                          },
+                          gap: 2,
+                          mb: 2
+                        }}>
+                          {ATHROS.sort((a, b) => a.name.localeCompare(b.name)).map(athro => (
+                            <Box
+                              key={athro.id}
+                              onClick={() => handleAthroSelect(athro)}
+                              sx={{
+                                border: '2px solid',
+                                borderColor: selectedAthros.find(a => a.id === athro.id) ? '#e4c97e' : '#b5cbb2',
+                                borderRadius: '1rem',
+                                padding: '1rem',
+                                cursor: 'pointer',
+                                backgroundColor: selectedAthros.find(a => a.id === athro.id) ? 'rgba(228, 201, 126, 0.15)' : 'rgba(28, 42, 30, 0.8)',
+                                transition: 'all 0.2s ease-in-out',
+                                '&:hover': {
+                                  borderColor: '#e4c97e',
+                                  backgroundColor: 'rgba(228, 201, 126, 0.1)'
+                                }
+                              }}
+                            >
+                              <Typography sx={{ color: '#e4c97e', fontWeight: 600 }}>
+                                {athro.name}
+                              </Typography>
+                              <Typography sx={{ color: '#b5cbb2', fontSize: '0.9rem' }}>
+                                {athro.subject}
+                              </Typography>
+                            </Box>
+                          ))}
+                        </Box>
+                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 1 }}>
+                          {selectedAthros.length === 0 ? (
+                            <Typography color="text.secondary">No subjects selected</Typography>
+                          ) : (
+                            selectedAthros.map(a => (
+                              <Chip key={a.id} label={a.subject} color="primary" variant="outlined" />
+                            ))
+                          )}
+                        </Box>
+
+                        {/* View Selected Athros Button - Moved here from bottom */}
+                        <Button
+                          variant="contained"
+                          sx={{
+                            backgroundColor: '#e4c97e',
+                            color: '#1c2a1e',
+                            fontWeight: 700,
+                            mt: 2,
+                            '&:hover': {
+                              backgroundColor: 'rgba(228, 201, 126, 0.8)',
+                            }
+                          }}
+                          onClick={handleViewSelectedAthros}
+                        >
+                          View Selected Athros
+                        </Button>
+                      </Box>
+
+                      {/* Profile Information */}
+                      <TextField
+                        label="Full Name"
+                        value={formData.full_name}
+                        onChange={e => handleUserInfoChange('full_name', e.target.value)}
+                        fullWidth
+                        variant="outlined"
+                        sx={{ 
+                          '& .MuiInputLabel-root': { color: '#b5cbb2' },
+                          '& .MuiOutlinedInput-root': { 
+                            color: '#e4c97e',
+                            '& fieldset': { borderColor: '#b5cbb2' },
+                            '&:hover fieldset': { borderColor: '#e4c97e' },
+                            '&.Mui-focused fieldset': { borderColor: '#e4c97e' }
+                          }
+                        }}
+                      />
+                      <TextField
+                        label="Preferred Name (for chats)"
+                        value={formData.preferred_name}
+                        onChange={e => handleUserInfoChange('preferred_name', e.target.value)}
+                        fullWidth
+                        variant="outlined"
+                        helperText="This is the name used in chat conversations"
+                        sx={{ 
+                          '& .MuiInputLabel-root': { color: '#b5cbb2' },
+                          '& .MuiFormHelperText-root': { color: '#b5cbb2' },
+                          '& .MuiOutlinedInput-root': { 
+                            color: '#e4c97e',
+                            '& fieldset': { borderColor: '#b5cbb2' },
+                            '&:hover fieldset': { borderColor: '#e4c97e' },
+                            '&.Mui-focused fieldset': { borderColor: '#e4c97e' }
+                          }
+                        }}
+                      />
+                      <TextField
+                        label="School Name"
+                        value={formData.school}
+                        onChange={e => handleUserInfoChange('school', e.target.value)}
+                        fullWidth
+                        variant="outlined"
+                        sx={{ 
+                          '& .MuiInputLabel-root': { color: '#b5cbb2' },
+                          '& .MuiOutlinedInput-root': { 
+                            color: '#e4c97e',
+                            '& fieldset': { borderColor: '#b5cbb2' },
+                            '&:hover fieldset': { borderColor: '#e4c97e' },
+                            '&.Mui-focused fieldset': { borderColor: '#e4c97e' }
+                          }
+                        }}
+                      />
+                      <FormControl fullWidth>
+                        <InputLabel sx={{ color: '#b5cbb2' }}>Year Group</InputLabel>
+                        <Select
+                          value={formData.year}
+                          label="Year Group"
+                          onChange={e => handleUserInfoChange('year', e.target.value)}
+                          sx={{ 
+                            color: '#e4c97e',
+                            '& .MuiOutlinedInput-notchedOutline': { borderColor: '#b5cbb2' },
+                            '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: '#e4c97e' },
+                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: '#e4c97e' }
+                          }}
+                        >
+                          <MenuItem value="">
+                            <em>Select your year</em>
+                          </MenuItem>
+                          {years.map(year => (
+                            <MenuItem key={year} value={year}>Year {year}</MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                      <FormControl fullWidth>
+                        <InputLabel sx={{ color: '#b5cbb2' }}>Exam Board</InputLabel>
+                        <Select
+                          value={formData.exam_board || ''}
+                          label="Exam Board"
+                          onChange={e => handleUserInfoChange('exam_board', e.target.value)}
+                          sx={{ 
+                            color: '#e4c97e',
+                            '& .MuiOutlinedInput-notchedOutline': { borderColor: '#b5cbb2' },
+                            '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: '#e4c97e' },
+                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: '#e4c97e' }
+                          }}
+                        >
+                          <MenuItem value="">
+                            <em>Select your exam board</em>
+                          </MenuItem>
+                          {examBoards.map(board => (
+                            <MenuItem key={board} value={board}>{board}</MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+
+                      {/* Success/Error Messages for Profile Settings */}
+                      {settingsSuccess && (
+                        <Alert 
+                          severity="success" 
+                          sx={{ 
+                            mt: 2,
+                            background: 'rgba(76, 175, 80, 0.1)', 
+                            color: '#4caf50',
+                            border: '1px solid rgba(76, 175, 80, 0.3)',
+                            '& .MuiAlert-icon': { color: '#4caf50' }
+                          }}
+                        >
+                          {settingsSuccess}
+                        </Alert>
+                      )}
+                      {settingsError && (
+                        <Alert 
+                          severity="error" 
+                          sx={{ 
+                            mt: 2,
+                            background: 'rgba(244, 67, 54, 0.1)', 
+                            color: '#f44336',
+                            border: '1px solid rgba(244, 67, 54, 0.3)',
+                            '& .MuiAlert-icon': { color: '#f44336' }
+                          }}
+                        >
+                          {settingsError}
+                        </Alert>
+                      )}
+
+                      <Button
+                        onClick={saveUserProfile}
+                        variant="contained"
+                        sx={{
+                          backgroundColor: '#e4c97e',
+                          color: '#1c2a1e',
+                          fontWeight: 'bold',
+                          mt: 2,
+                          '&:hover': {
+                            backgroundColor: 'rgba(228, 201, 126, 0.8)',
+                          }
+                        }}
+                      >
+                        Save Changes
+                      </Button>
+                    </Box>
+                  )}
+
+                  {activeSettingsTab === 1 && (
+                    <SubscriptionControlPanel />
+                  )}
+
+                  {activeSettingsTab === 2 && (
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                      {/* Beautiful Header Section */}
+                      <Box sx={{ 
+                        background: 'linear-gradient(135deg, rgba(228, 201, 126, 0.1), rgba(181, 203, 178, 0.1))',
+                        borderRadius: '1rem',
+                        p: 3,
+                        border: '1px solid rgba(228, 201, 126, 0.2)'
+                      }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+                          <NotificationsActive sx={{ color: '#e4c97e', fontSize: 28 }} />
+                          <Typography variant="h6" sx={{ color: '#e4c97e', fontWeight: 'bold' }}>
+                            Notification Center
+                          </Typography>
+                        </Box>
+                        <Typography variant="body1" sx={{ color: '#b5cbb2', lineHeight: 1.6 }}>
+                          Customize how and when you receive notifications from Athro. Stay informed about your learning progress, 
+                          study reminders, and achievements while maintaining focus during your study sessions.
+                        </Typography>
+                      </Box>
+
+                      {/* Notification Status Cards */}
+                      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 2 }}>
+                        <Box sx={{
+                          background: 'rgba(76, 175, 80, 0.1)',
+                          border: '1px solid rgba(76, 175, 80, 0.3)',
+                          borderRadius: '0.75rem',
+                          p: 2.5,
+                          textAlign: 'center'
+                        }}>
+                          <Typography variant="h6" sx={{ color: '#4caf50', fontWeight: 'bold', mb: 1 }}>
+                            ✓ System Active
+                          </Typography>
+                          <Typography variant="body2" sx={{ color: '#b5cbb2' }}>
+                            Push notifications are enabled and working
+                          </Typography>
+                        </Box>
+                        <Box sx={{
+                          background: 'rgba(228, 201, 126, 0.1)',
+                          border: '1px solid rgba(228, 201, 126, 0.3)',
+                          borderRadius: '0.75rem',
+                          p: 2.5,
+                          textAlign: 'center'
+                        }}>
+                          <Typography variant="h6" sx={{ color: '#e4c97e', fontWeight: 'bold', mb: 1 }}>
+                            {unreadNotificationCount} Unread
+                          </Typography>
+                          <Typography variant="body2" sx={{ color: '#b5cbb2' }}>
+                            Recent notifications waiting
+                          </Typography>
+                        </Box>
+                      </Box>
+
+                      {/* Main Notification Centre */}
+                      <NotificationCentre 
+                        onSave={(preferences) => {
+                          console.log('✅ Notification preferences saved:', preferences);
+                          setCurrentToast({
+                            id: Date.now().toString(),
+                            type: 'success',
+                            title: 'Preferences Saved',
+                            message: 'Your notification settings have been updated successfully!'
+                          });
+                          setTimeout(() => setCurrentToast(null), 3000);
+                        }}
+                      />
+
+                      {/* Quick Actions */}
+                      <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+                        <Button
+                          variant="outlined"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            // Enable test notification
+                            const notificationService = NotificationService.getInstance();
+                            notificationService.eventBus.publish('notification.display.requested', {
+                              type: 'success',
+                              title: '🎉 Test Notification',
+                              message: 'Your notification system is working perfectly!',
+                              duration: 5000
+                            });
+                          }}
+                          sx={{
+                            borderColor: '#e4c97e',
+                            color: '#e4c97e',
+                            fontWeight: 600,
+                            '&:hover': {
+                              backgroundColor: 'rgba(228, 201, 126, 0.1)',
+                              borderColor: '#e4c97e'
+                            }
+                          }}
+                        >
+                          🧪 Send Test Notification
+                        </Button>
+                        <Button
+                          variant="outlined"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setUnreadNotificationCount(0);
+                          }}
+                          sx={{
+                            borderColor: '#b5cbb2',
+                            color: '#b5cbb2',
+                            fontWeight: 600,
+                            '&:hover': {
+                              backgroundColor: 'rgba(181, 203, 178, 0.1)',
+                              borderColor: '#b5cbb2'
+                            }
+                          }}
+                        >
+                          ✓ Mark All Read
+                        </Button>
+                      </Box>
+                    </Box>
+                  )}
+
+
+
+                  {/* ORIGINAL SETTINGS CONTENT BELOW - THIS SECTION CONTAINS ALL THE EXISTING FUNCTIONALITY */}
+                  <Divider sx={{ my: 4, borderColor: 'rgba(228, 201, 126, 0.3)' }} />
+                  
+                  <Typography variant="h6" sx={{ color: '#e4c97e', mb: 2 }}>
+                    Additional Settings & Tools
+                  </Typography>
+                  
+
+
+
+
+                  {/* Debug buttons removed - they were causing workspace card closure issues */}
+                  
+                  {/* Account Section - Beautiful Auth Interface */}
+                  {!user ? (
+                    <Box sx={{ mb: 4, display: 'flex', justifyContent: 'center' }}>
+                      <Box sx={{ maxWidth: 600, width: '100%' }}>
+                        <Typography variant="h6" sx={{ color: '#e4c97e', mb: 2, fontWeight: 700, textAlign: 'center' }}>
+                          Welcome to Athro
+                        </Typography>
+                        <Box sx={{ 
+                          background: 'rgba(28,42,30,0.92)', 
+                          borderRadius: 2, 
+                          border: '2px solid #4fc38a',
+                          boxShadow: '0 8px 32px rgba(0,0,0,0.25)',
+                          overflow: 'hidden'
+                        }}>
+                        {/* Beautiful Tab Navigation */}
+                        <Box sx={{ 
+                          display: 'flex', 
+                          borderBottom: '1px solid #4fc38a',
+                          background: 'rgba(79, 195, 138, 0.1)'
+                        }}>
+                          <Button
+                            onClick={() => setAuthMode('signup')}
+                            sx={{
+                              flex: 1,
+                              py: 2,
+                              borderRadius: 0,
+                              backgroundColor: authMode === 'signup' ? 'rgba(228, 201, 126, 0.2)' : 'transparent',
+                              color: authMode === 'signup' ? '#e4c97e' : '#b5cbb2',
+                              fontWeight: authMode === 'signup' ? 700 : 500,
+                              fontFamily: 'Raleway, sans-serif',
+                              borderBottom: authMode === 'signup' ? '3px solid #e4c97e' : '3px solid transparent',
+                              transition: 'all 0.3s ease',
+                              '&:hover': {
+                                backgroundColor: 'rgba(228, 201, 126, 0.1)',
+                                color: '#e4c97e'
+                              }
+                            }}
+                          >
+                            Create Account
+                          </Button>
+                          <Button
+                            onClick={() => setAuthMode('signin')}
+                            sx={{
+                              flex: 1,
+                              py: 2,
+                              borderRadius: 0,
+                              backgroundColor: authMode === 'signin' ? 'rgba(228, 201, 126, 0.2)' : 'transparent',
+                              color: authMode === 'signin' ? '#e4c97e' : '#b5cbb2',
+                              fontWeight: authMode === 'signin' ? 700 : 500,
+                              fontFamily: 'Raleway, sans-serif',
+                              borderBottom: authMode === 'signin' ? '3px solid #e4c97e' : '3px solid transparent',
+                              transition: 'all 0.3s ease',
+                              '&:hover': {
+                                backgroundColor: 'rgba(228, 201, 126, 0.1)',
+                                color: '#e4c97e'
+                              }
+                            }}
+                          >
+                            Sign In
+                          </Button>
+                        </Box>
+                        
+                        {/* Form Content */}
+                        <Box sx={{ p: 3 }}>
+                          {/* Success/Error Messages */}
+                          {settingsSuccess && (
+                            <Alert severity="success" sx={{ mb: 2, background: 'rgba(76, 175, 80, 0.1)', color: '#4caf50' }}>
+                              {settingsSuccess}
+                            </Alert>
+                          )}
+                          {settingsError && (
+                            <Alert severity="error" sx={{ mb: 2, background: 'rgba(244, 67, 54, 0.1)', color: '#f44336' }}>
+                              {settingsError}
+                            </Alert>
+                          )}
+                          
+                          {authMode === 'signup' ? (
+                            <form onSubmit={handleSignupSubmit}>
+                          <TextField
+                            fullWidth
+                            label="Full Name"
+                            value={signupFormData.full_name}
+                            onChange={(e) => handleSignupFormChange('full_name', e.target.value)}
+                            required
+                            sx={{
+                              mb: 2,
+                              '& .MuiOutlinedInput-root': {
+                                color: '#e4c97e',
+                                '& fieldset': { borderColor: '#4fc38a' },
+                                '&:hover fieldset': { borderColor: '#e4c97e' },
+                                '&.Mui-focused fieldset': { borderColor: '#e4c97e' }
+                              },
+                              '& .MuiInputLabel-root': {
+                                color: '#b5cbb2',
+                                fontFamily: 'Raleway, sans-serif'
+                              }
+                            }}
+                          />
+                          <TextField
+                            fullWidth
+                            label="Preferred Name"
+                            value={signupFormData.preferred_name}
+                            onChange={(e) => handleSignupFormChange('preferred_name', e.target.value)}
+                            required
+                            sx={{
+                              mb: 2,
+                              '& .MuiOutlinedInput-root': {
+                                color: '#e4c97e',
+                                '& fieldset': { borderColor: '#4fc38a' },
+                                '&:hover fieldset': { borderColor: '#e4c97e' },
+                                '&.Mui-focused fieldset': { borderColor: '#e4c97e' }
+                              },
+                              '& .MuiInputLabel-root': {
+                                color: '#b5cbb2',
+                                fontFamily: 'Raleway, sans-serif'
+                              }
+                            }}
+                          />
+                          <TextField
+                            fullWidth
+                            label="School Name"
+                            value={signupFormData.school}
+                            onChange={(e) => handleSignupFormChange('school', e.target.value)}
+                            required
+                            sx={{
+                              mb: 2,
+                              '& .MuiOutlinedInput-root': {
+                                color: '#e4c97e',
+                                '& fieldset': { borderColor: '#4fc38a' },
+                                '&:hover fieldset': { borderColor: '#e4c97e' },
+                                '&.Mui-focused fieldset': { borderColor: '#e4c97e' }
+                              },
+                              '& .MuiInputLabel-root': {
+                                color: '#b5cbb2',
+                                fontFamily: 'Raleway, sans-serif'
+                              }
+                            }}
+                          />
+                          <FormControl fullWidth sx={{ mb: 2 }}>
+                            <InputLabel sx={{ color: '#b5cbb2', fontFamily: 'Raleway, sans-serif' }}>Year Group</InputLabel>
+                            <Select
+                              value={signupFormData.year}
+                              onChange={(e) => handleSignupFormChange('year', e.target.value)}
+                              required
+                              sx={{
+                                color: '#e4c97e',
+                                '& .MuiOutlinedInput-notchedOutline': { borderColor: '#4fc38a' },
+                                '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: '#e4c97e' },
+                                '&.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: '#e4c97e' },
+                                fontFamily: 'Raleway, sans-serif'
+                              }}
+                            >
+                              {[7, 8, 9, 10, 11, 12, 13].map(year => (
+                                <MenuItem key={year} value={year} sx={{ fontFamily: 'Raleway, sans-serif' }}>
+                                  Year {year}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          </FormControl>
+                          <TextField
+                            fullWidth
+                            label="Email"
+                            type="email"
+                            value={signupFormData.email}
+                            onChange={(e) => handleSignupFormChange('email', e.target.value)}
+                            required
+                            sx={{
+                              mb: 2,
+                              '& .MuiOutlinedInput-root': {
+                                color: '#e4c97e',
+                                '& fieldset': { borderColor: '#4fc38a' },
+                                '&:hover fieldset': { borderColor: '#e4c97e' },
+                                '&.Mui-focused fieldset': { borderColor: '#e4c97e' }
+                              },
+                              '& .MuiInputLabel-root': {
+                                color: '#b5cbb2',
+                                fontFamily: 'Raleway, sans-serif'
+                              }
+                            }}
+                          />
+                          <TextField
+                            fullWidth
+                            label="Password"
+                            type="password"
+                            value={signupFormData.password}
+                            onChange={(e) => handleSignupFormChange('password', e.target.value)}
+                            required
+                            sx={{
+                              mb: 3,
+                              '& .MuiOutlinedInput-root': {
+                                color: '#e4c97e',
+                                '& fieldset': { borderColor: '#4fc38a' },
+                                '&:hover fieldset': { borderColor: '#e4c97e' },
+                                '&.Mui-focused fieldset': { borderColor: '#e4c97e' }
+                              },
+                              '& .MuiInputLabel-root': {
+                                color: '#b5cbb2',
+                                fontFamily: 'Raleway, sans-serif'
+                              }
+                            }}
+                          />
+                          <Button
+                            type="submit"
+                            fullWidth
+                            disabled={settingsLoading}
+                            sx={{
+                              height: '48px',
+                              backgroundColor: 'transparent',
+                              border: '2px solid #e4c97e',
+                              borderRadius: '24px',
+                              color: '#e4c97e',
+                              fontSize: '16px',
+                              fontWeight: 700,
+                              fontFamily: 'Raleway, sans-serif',
+                              cursor: settingsLoading ? 'not-allowed' : 'pointer',
+                              transition: 'all 0.3s ease',
+                              '&:hover': {
+                                backgroundColor: '#e4c97e',
+                                color: '#1c2a1e',
+                                transform: 'translateY(-2px)',
+                                boxShadow: '0 8px 25px rgba(228, 201, 126, 0.3)'
+                              },
+                              '&:active': {
+                                transform: 'translateY(0)',
+                                boxShadow: '0 4px 15px rgba(228, 201, 126, 0.2)'
+                              },
+                              '&:disabled': {
+                                opacity: 0.6,
+                                cursor: 'not-allowed',
+                                transform: 'none',
+                                boxShadow: 'none'
+                              }
+                            }}
+                          >
+                            {settingsLoading ? 'Creating Account...' : 'Create Account'}
+                          </Button>
+                        </form>
+                      ) : (
+                        /* SIGN IN FORM */
+                        <form onSubmit={handleSigninSubmit}>
+                          <TextField
+                            fullWidth
+                            label="Email"
+                            type="email"
+                            value={signinFormData.email}
+                            onChange={(e) => handleSigninFormChange('email', e.target.value)}
+                            required
+                            sx={{
+                              mb: 2,
+                              '& .MuiOutlinedInput-root': {
+                                color: '#e4c97e',
+                                '& fieldset': { borderColor: '#4fc38a' },
+                                '&:hover fieldset': { borderColor: '#e4c97e' },
+                                '&.Mui-focused fieldset': { borderColor: '#e4c97e' }
+                              },
+                              '& .MuiInputLabel-root': {
+                                color: '#b5cbb2',
+                                fontFamily: 'Raleway, sans-serif'
+                              }
+                            }}
+                          />
+                          <TextField
+                            fullWidth
+                            label="Password"
+                            type="password"
+                            value={signinFormData.password}
+                            onChange={(e) => handleSigninFormChange('password', e.target.value)}
+                            required
+                            sx={{
+                              mb: 3,
+                              '& .MuiOutlinedInput-root': {
+                                color: '#e4c97e',
+                                '& fieldset': { borderColor: '#4fc38a' },
+                                '&:hover fieldset': { borderColor: '#e4c97e' },
+                                '&.Mui-focused fieldset': { borderColor: '#e4c97e' }
+                              },
+                              '& .MuiInputLabel-root': {
+                                color: '#b5cbb2',
+                                fontFamily: 'Raleway, sans-serif'
+                              }
+                            }}
+                          />
+                          <Button
+                            type="submit"
+                            fullWidth
+                            disabled={settingsLoading}
+                            sx={{
+                              height: '48px',
+                              backgroundColor: 'transparent',
+                              border: '2px solid #4fc38a',
+                              borderRadius: '24px',
+                              color: '#4fc38a',
+                              fontSize: '16px',
+                              fontWeight: 700,
+                              fontFamily: 'Raleway, sans-serif',
+                              cursor: settingsLoading ? 'not-allowed' : 'pointer',
+                              transition: 'all 0.3s ease',
+                              '&:hover': {
+                                backgroundColor: '#4fc38a',
+                                color: '#1c2a1e',
+                                transform: 'translateY(-2px)',
+                                boxShadow: '0 8px 25px rgba(79, 195, 138, 0.3)'
+                              },
+                              '&:active': {
+                                transform: 'translateY(0)',
+                                boxShadow: '0 4px 15px rgba(79, 195, 138, 0.2)'
+                              },
+                              '&:disabled': {
+                                opacity: 0.6,
+                                cursor: 'not-allowed',
+                                transform: 'none',
+                                boxShadow: 'none'
+                              }
+                            }}
+                          >
+                            {settingsLoading ? 'Signing In...' : 'Sign In'}
+                          </Button>
+                        </form>
+                      )}
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Box>
+                ) : (
+                  <LoginSection />
+                )}
+                  
+
+                  
+
+                </Box>
+              )}
+              {card.id === 'insights' && (
+                <TierGuard 
+                  requiredTier="full" 
+                  feature="Learning insights and analytics"
+                  fallbackMessage="Learning insights and analytics are available with full access. Upgrade to track your progress and achievements."
+                >
+                  <InsightsTools />
+                </TierGuard>
+              )}
+              {card.id === 'wellbeing' && (
+                <TierGuard 
+                  requiredTier="full" 
+                  feature="Wellbeing tools and mood tracking"
+                  fallbackMessage="Wellbeing tools and mood tracking are available with full access. Upgrade to monitor your mental health."
+                >
+                  <WellbeingTools />
+                </TierGuard>
+              )}
+
+            </Box>
+          </Collapse>
+        </Box>
+      ))}
+      <Dialog open={quizOpen} onClose={handleQuizClose} maxWidth="sm" fullWidth>
+        <DialogTitle>
+          {quizLoading ? 'Generating Quiz...' : `Quiz: ${quizSubject}`}
+        </DialogTitle>
+        <DialogContent>
+          {quizLoading ? (
+            <Box sx={{ display: 'flex', justifyContent: 'center', p: 3 }}>
+              <CircularProgress />
+            </Box>
+          ) : quizScore !== null ? (
+            <Box sx={{ textAlign: 'center', p: 2 }}>
+              <Typography variant="h6" sx={{ mb: 2 }}>
+                Quiz Complete!
+              </Typography>
+              <Typography>
+                Your score: {quizScore} out of {quizQuestions.length}
+              </Typography>
+              <Button
+                variant="contained"
+                color="primary"
+                sx={{ mt: 3 }}
+                onClick={handleQuizClose}
+              >
+                Continue
+              </Button>
+            </Box>
+          ) : quizQuestions.length > 0 ? (
+            <Box sx={{ p: 2 }}>
+              <Typography variant="h6" sx={{ mb: 2 }}>
+                Question {quizIdx + 1} of {quizQuestions.length}
+              </Typography>
+              <Typography sx={{ mb: 3 }}>
+                {quizQuestions[quizIdx].question}
+              </Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                {quizQuestions[quizIdx].options.map((option, idx) => {
+                  const isCorrect = idx === quizQuestions[quizIdx].answer;
+                  const isSelected = idx === quizSelected;
+                  let bg = 'transparent';
+                  let borderColor = '#e4c97e';
+                  let color = '#e4c97e';
+                  let opacity = 1;
+                  if (quizReveal) {
+                    if (isCorrect) {
+                      bg = '#4fc38a44';
+                      borderColor = '#4fc38a';
+                      color = isSelected ? '#4fc38a' : '#e4c97e';
+                    } else if (isSelected) {
+                      bg = '#e85a6a44';
+                      borderColor = '#e85a6a';
+                      color = '#e85a6a';
+                    } else {
+                      opacity = 0.4;
+                    }
+                  }
+                  return (
+                    <Button
+                      key={idx}
+                      variant={isSelected ? 'contained' : 'outlined'}
+                      onClick={() => {
+                        if (!quizReveal) handleQuizAnswer(idx);
+                        else if (isSelected) handleQuizNext();
+                      }}
+                      disabled={quizReveal && !isSelected}
+                      sx={{
+                        borderColor,
+                        color: `${color} !important`,
+                        background: bg,
+                        opacity,
+                        fontWeight: isCorrect && quizReveal ? 700 : 600,
+                        '&:hover': {
+                          borderColor: '#e4c97e',
+                          backgroundColor: '#e4c97e22'
+                        }
+                      }}
+                    >
+                      {option}
+                    </Button>
+                  );
+                })}
+              </Box>
+            </Box>
+          ) : null}
+        </DialogContent>
+      </Dialog>
+      
+      {/* Welcome Modal */}
+      <WelcomeModal
+        open={showWelcomeModal}
+        onClose={handleWelcomeClose}
+        onLogin={handleWelcomeLogin}
+        onExplore={handleWelcomeExplore}
+      />
+      
+      {/* Test Upgrade Modal */}
+      <UpgradeModal
+        open={upgradeModalOpen}
+        onClose={() => setUpgradeModalOpen(false)}
+      />
+
+      {/* Subtle Toast Notification - Non-invasive, beautiful design */}
+      {currentToast && (
+        <Box
+          sx={{
+            position: 'fixed',
+            bottom: 24,
+            right: 24,
+            zIndex: 10000,
+            maxWidth: 400,
+            background: currentToast.type === 'success' 
+              ? 'linear-gradient(135deg, rgba(76, 175, 80, 0.95), rgba(56, 142, 60, 0.95))'
+              : currentToast.type === 'error'
+              ? 'linear-gradient(135deg, rgba(244, 67, 54, 0.95), rgba(211, 47, 47, 0.95))'
+              : currentToast.type === 'warning'
+              ? 'linear-gradient(135deg, rgba(255, 152, 0, 0.95), rgba(245, 124, 0, 0.95))'
+              : 'linear-gradient(135deg, rgba(33, 150, 243, 0.95), rgba(25, 118, 210, 0.95))',
+            color: 'white',
+            borderRadius: '12px',
+            padding: '16px 20px',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.2)',
+            backdropFilter: 'blur(10px)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            animation: 'slideInUp 0.3s ease-out',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease',
+            '&:hover': {
+              transform: 'translateY(-2px)',
+              boxShadow: '0 12px 40px rgba(0, 0, 0, 0.4), 0 6px 20px rgba(0, 0, 0, 0.3)'
+            }
+          }}
+          onClick={() => setCurrentToast(null)}
+        >
+          <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2 }}>
+            <Box sx={{ 
+              fontSize: '24px',
+              lineHeight: 1,
+              mt: 0.5
+            }}>
+              {currentToast.type === 'success' && '✨'}
+              {currentToast.type === 'error' && '⚠️'}
+              {currentToast.type === 'warning' && '⚡'}
+              {currentToast.type === 'info' && '💡'}
+            </Box>
+            <Box sx={{ flex: 1, minWidth: 0 }}>
+              <Typography 
+                variant="subtitle1" 
+                sx={{ 
+                  fontWeight: 'bold',
+                  mb: 0.5,
+                  fontSize: '0.95rem',
+                  textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)'
+                }}
+              >
+                {currentToast.title}
+              </Typography>
+              <Typography 
+                variant="body2" 
+                sx={{ 
+                  opacity: 0.95,
+                  lineHeight: 1.4,
+                  fontSize: '0.85rem',
+                  textShadow: '0 1px 2px rgba(0, 0, 0, 0.2)'
+                }}
+              >
+                {currentToast.message}
+              </Typography>
+            </Box>
+            <Box sx={{
+              fontSize: '18px',
+              opacity: 0.7,
+              transition: 'opacity 0.2s ease',
+              '&:hover': { opacity: 1 }
+            }}>
+              ×
+            </Box>
+          </Box>
+        </Box>
+      )}
+
+      {/* CSS for toast animation */}
+      <style>{`
+        @keyframes slideInUp {
+          from {
+            transform: translateY(100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+      `}</style>
+
+    </Box>
+  );
+};
+
+export default Dashboard; 

@@ -1,0 +1,164 @@
+import React, { useEffect, useState } from 'react';
+import Modal from '../common/Modal';
+import SupabaseStudyService from '../../services/SupabaseStudyService';
+import { StudyHistorySummary } from '../../types/history';
+import { formatDateTime } from '../../utils/dateUtils';
+
+interface StudyHistoryModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  athroId: string;
+  onLoadStudy: (historyId: string) => void;
+}
+
+const StudyHistoryModal: React.FC<StudyHistoryModalProps> = ({
+  isOpen,
+  onClose,
+  athroId,
+  onLoadStudy
+}) => {
+  const [loading, setLoading] = useState(true);
+  const [history, setHistory] = useState<StudyHistorySummary[]>([]);
+
+  console.log('[StudyHistoryModal] Rendered with:', { isOpen, athroId, loading, historyLength: history.length });
+
+  useEffect(() => {
+    // Load history when modal is opened
+    if (isOpen) {
+      console.log('[StudyHistoryModal] Modal opened, loading history for athroId:', athroId);
+      loadHistory();
+    }
+  }, [isOpen, athroId]);
+
+  const loadHistory = async () => {
+    console.log('[StudyHistoryModal] loadHistory called for athroId:', athroId);
+    setLoading(true);
+    try {
+      const sessions = await SupabaseStudyService.getStudySessions(athroId);
+      console.log('[StudyHistoryModal] Retrieved sessions:', sessions);
+      
+      // Map the session data to StudyHistorySummary format
+      const studyHistory: StudyHistorySummary[] = sessions.map(session => ({
+        id: session.id,
+        title: session.title || 'Untitled Session',
+        athroId: session.athro_id,
+        createdAt: new Date(session.created_at).getTime(),
+        updatedAt: new Date(session.updated_at || session.created_at).getTime(),
+        messageCount: session.messages?.length || 0,
+        resourceCount: session.resources?.length || 0,
+        toolsCount: (session.flashcards?.length || 0) + 
+                   (session.notes?.length || 0) + 
+                   (session.mind_maps?.length || 0)
+      }));
+      
+      // Sort by creation date, newest first
+      studyHistory.sort((a, b) => b.createdAt - a.createdAt);
+      
+      console.log('[StudyHistoryModal] Mapped study history:', studyHistory);
+      setHistory(studyHistory);
+    } catch (error) {
+      console.error('[StudyHistoryModal] Error loading study history:', error);
+    } finally {
+      setLoading(false);
+      console.log('[StudyHistoryModal] Loading complete, loading state:', false);
+    }
+  };
+
+  const handleLoadStudy = (historyId: string) => {
+    onLoadStudy(historyId);
+    onClose();
+  };
+
+  const handleDeleteStudy = async (historyId: string) => {
+    if (!window.confirm('Are you sure you want to delete this study session? This cannot be undone.')) return;
+    try {
+      await SupabaseStudyService.deleteStudyHistory(historyId);
+      setHistory(prev => prev.filter(session => session.id !== historyId));
+    } catch (error) {
+      console.error('Error deleting study history:', error);
+      alert('Failed to delete study session.');
+    }
+  };
+
+  return (
+    <Modal 
+      isOpen={isOpen} 
+      onClose={onClose} 
+      title="Study History"
+      maxWidth="700px"
+    >
+      <div style={{ padding: '1rem' }}>
+        {loading ? (
+          <div style={{ textAlign: 'center', padding: '2rem', color: '#e4c97e' }}>
+            Loading study history...
+          </div>
+        ) : history.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: '2rem', color: '#e4c97e' }}>
+            No saved study sessions found.
+          </div>
+        ) : (
+          <div style={{ maxHeight: '70vh', overflowY: 'auto' }}>
+            {history.map(session => (
+              <div 
+                key={session.id}
+                style={{
+                  padding: '1rem',
+                  margin: '0.5rem 0',
+                  background: 'rgba(79, 195, 138, 0.1)',
+                  border: '1px solid #4fc38a',
+                  borderRadius: '0.5rem',
+                  color: '#e4c97e',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between'
+                }}
+                onClick={() => handleLoadStudy(session.id)}
+              >
+                <div style={{flex: 1, minWidth: 0}}>
+                  <h3 style={{ margin: '0 0 0.5rem', fontSize: '1.1rem', wordBreak: 'break-word' }}>
+                    {session.title}
+                  </h3>
+                  <div style={{ fontSize: '0.8rem', color: '#b5cbb2', display: 'flex', justifyContent: 'space-between' }}>
+                    <span>{formatDateTime(session.createdAt)}</span>
+                    <div>
+                      <span style={{ marginRight: '1rem' }}>
+                        <span role="img" aria-label="Messages">💬</span> {session.messageCount}
+                      </span>
+                      <span style={{ marginRight: '1rem' }}>
+                        <span role="img" aria-label="Resources">📎</span> {session.resourceCount}
+                      </span>
+                      <span>
+                        <span role="img" aria-label="Tools">🛠️</span> {session.toolsCount}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  onClick={e => { e.stopPropagation(); handleDeleteStudy(session.id); }}
+                  style={{
+                    marginLeft: '1rem',
+                    background: 'none',
+                    border: 'none',
+                    color: '#e57373',
+                    fontSize: '1.2rem',
+                    cursor: 'pointer',
+                    padding: '0.25rem 0.5rem',
+                    borderRadius: '0.25rem',
+                    transition: 'background 0.2s',
+                  }}
+                  title="Delete this study session"
+                >
+                  🗑️
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </Modal>
+  );
+};
+
+export default StudyHistoryModal;

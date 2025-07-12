@@ -1,0 +1,111 @@
+.athro-card-uniform {
+  width: 240px !important;
+  height: 340px !important;
+  flex: 0 0 240px !important;
+  margin: 0 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  min-width: 240px !important;
+  max-width: 240px !important;
+  min-height: 340px !important;
+  max-height: 340px !important;
+  border: 2px solid red !important; /* DEBUG: Red border for card */
+}
+
+/* Override MUI Grid styles */
+:global(.css-17fpwt7-MuiGrid-root) {
+  min-width: 240px !important;
+  box-sizing: border-box !important;
+}
+
+:global(.css-1u8xl8z-MuiGrid-root) {
+  display: grid !important;
+  grid-template-columns: repeat(4, 240px) !important;
+  gap: 24px !important;
+  justify-content: center !important;
+  width: 100% !important;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  box-sizing: border-box !important;
+  flex-wrap: nowrap !important;
+  min-width: 0 !important;
+}
+
+:global(.css-1u8xl8z-MuiGrid-root > *) {
+  width: 240px !important;
+  max-width: 240px !important;
+  min-width: 240px !important;
+  flex: 0 0 240px !important;
+  margin: 0 auto !important;
+  --Grid-parent-rowSpacing: 0 !important;
+  --Grid-parent-columnSpacing: 0 !important;
+  --Grid-parent-columns: 4 !important;
+}
+
+:global(.css-1r3836o-MuiPaper-root-MuiCard-root) {
+  width: 240px !important;
+  height: 340px !important;
+  min-width: 240px !important;
+  max-width: 240px !important;
+  min-height: 340px !important;
+  max-height: 340px !important;
+  flex: 0 0 240px !important;
+  margin: 0 auto !important;
+}
+
+:global(.css-1lt5qva-MuiCardContent-root) {
+  width: 100% !important;
+  height: 100% !important;
+  padding: 16px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+}
+
+:global(.css-e64tsz) {
+  display: grid !important;
+  grid-template-columns: repeat(4, 240px) !important;
+  gap: 24px !important;
+  justify-content: center !important;
+  width: 100% !important;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  box-sizing: border-box !important;
+}
+
+:global(.css-1ey2jvj-MuiPaper-root) {
+  width: 240px !important;
+  height: 340px !important;
+  min-width: 240px !important;
+  max-width: 240px !important;
+  min-height: 340px !important;
+  max-height: 340px !important;
+  flex: 0 0 240px !important;
+  margin: 0 auto !important;
+  box-sizing: border-box !important;
+}
+
+/* Override box-sizing inheritance */
+:global(*) {
+  box-sizing: border-box !important;
+}
+
+/* Add this class for the card grid container */
+.athro-card-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 240px) !important;
+  gap: 24px !important;
+  justify-content: center !important;
+  width: 100% !important;
+  max-width: 1200px !important;
+  margin: 0 auto 32px auto !important;
+  box-sizing: border-box !important;
+  min-width: 0 !important;
+  background: transparent !important;
+  border: 2px solid blue !important; /* DEBUG: Blue border for grid */
+} 

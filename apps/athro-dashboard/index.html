@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Athro Dashboard</title>
+    
+    <!-- Permissive CSP for Development - Stripe Compatibility -->
+    <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: *;
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: *;
+      style-src 'self' 'unsafe-inline' data: *;
+      font-src 'self' 'unsafe-inline' data: blob: *;
+      img-src 'self' data: blob: *;
+      connect-src 'self' data: blob: *;
+      frame-src 'self' *;
+      object-src 'none';
+      base-uri 'self';
+    ">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

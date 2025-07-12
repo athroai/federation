@@ -1,0 +1,225 @@
+import React, { useState, useEffect } from 'react';
+import { Athro, ConfidenceLevel } from '../types/athro';
+import ChatInterface from '../components/ChatInterface';
+import AthroCarousel from '../components/AthroCarousel';
+import n8nEventService, { EventNames } from '../services/N8nEventService';
+
+const ATHROS: Athro[] = [
+  {
+    id: 'athro-english',
+    name: 'AthroEnglish',
+    subject: 'English Language & Literature',
+    description: 'Guides you through English reading, writing, and analysis.',
+    image: '/athros/athro-english.jpg'
+  },
+  {
+    id: 'athro-maths',
+    name: 'AthroMaths',
+    subject: 'Mathematics & Statistics',
+    description: 'Your magical maths mentor for numbers and logic.',
+    image: '/athros/athro-maths.jpg'
+  },
+  {
+    id: 'athro-science',
+    name: 'AthroScience',
+    subject: 'Biology, Chemistry, Physics',
+    description: 'Explores the wonders of the natural world with you.',
+    image: '/athros/athro-science.jpg'
+  },
+  {
+    id: 'athro-geography',
+    name: 'AthroGeography',
+    subject: 'Geography',
+    description: 'Takes you on journeys across the globe and through landscapes.',
+    image: '/athros/athro-geography.jpg'
+  },
+  {
+    id: 'athro-history',
+    name: 'AthroHistory',
+    subject: 'History & Ancient History',
+    description: 'Brings the past to life and helps you learn from it.',
+    image: '/athros/athro-history.jpg'
+  },
+  {
+    id: 'athro-rs',
+    name: 'AthroRS',
+    subject: 'Religious Studies',
+    description: 'Explores beliefs, values, and worldviews.',
+    image: '/athros/athro-rs.jpg'
+  },
+  {
+    id: 'athro-languages',
+    name: 'AthroLanguages',
+    subject: 'Languages',
+    description: 'Helps you master new languages and communication.',
+    image: '/athros/athro-languages.jpg'
+  }
+];
+
+const WorkPage: React.FC = () => {
+  // Track athros with their confidence levels and priority status
+  const [athros, setAthros] = useState<Athro[]>(() => {
+    // Initialize from base ATHROS array
+    return [...ATHROS];
+  });
+  
+  const [selectedAthro, setSelectedAthro] = useState<Athro>(athros[0]);
+  
+  // Load confidence levels and priority status from localStorage on mount
+  useEffect(() => {
+    // Try to load confidence data
+    try {
+      const subjectConfidence = localStorage.getItem('subjectConfidence');
+      if (subjectConfidence) {
+        const confidenceData = JSON.parse(subjectConfidence);
+        console.log('Loaded confidence data:', confidenceData);
+        
+        // Update athros with confidence levels
+        setAthros(prevAthros => {
+          return prevAthros.map(athro => ({
+            ...athro,
+            confidenceLevel: confidenceData[athro.id] as ConfidenceLevel || undefined
+          }));
+        });
+      }
+      
+      // Try to load priority data
+      const priorityData = localStorage.getItem('prioritizedAthros');
+      if (priorityData) {
+        const priorities = JSON.parse(priorityData);
+        console.log('Loaded priority data:', priorities);
+        
+        // Get priority IDs
+        const priorityIds = priorities.map((a: any) => a.id || a);
+        
+        // Update athros with priority status
+        setAthros(prevAthros => {
+          return prevAthros.map(athro => ({
+            ...athro,
+            isPriority: priorityIds.includes(athro.id)
+          }));
+        });
+      }
+    } catch (err) {
+      console.error('Error loading confidence/priority data:', err);
+    }
+  }, []);
+  
+  // Subscribe to confidence updates via the event bus
+  useEffect(() => {
+    // Subscribe to confidence level updates
+    const confidenceUnsubscribe = n8nEventService.subscribe(
+      EventNames.ATHRO_CONFIDENCE_UPDATED,
+      (payload) => {
+        console.log('Received confidence update via event bus:', payload);
+        if (payload.athroId && payload.confidenceLevel) {
+          setAthros(prevAthros => {
+            return prevAthros.map(athro => {
+              if (athro.id === payload.athroId) {
+                return {
+                  ...athro,
+                  confidenceLevel: payload.confidenceLevel as ConfidenceLevel
+                };
+              }
+              return athro;
+            });
+          });
+        }
+      }
+    );
+    
+    // Subscribe to priority updates
+    const priorityUnsubscribe = n8nEventService.subscribe(
+      EventNames.ATHRO_SELECTION_UPDATED,
+      (payload) => {
+        console.log('Received selection update via event bus:', payload);
+        if (payload.athroId && payload.isPriority !== undefined) {
+          setAthros(prevAthros => {
+            return prevAthros.map(athro => {
+              if (athro.id === payload.athroId) {
+                return {
+                  ...athro,
+                  isPriority: payload.isPriority
+                };
+              }
+              return athro;
+            });
+          });
+        }
+      }
+    );
+    
+    // Clean up subscriptions on unmount
+    return () => {
+      confidenceUnsubscribe();
+      priorityUnsubscribe();
+    };
+  }, []);
+  
+  // Update selected athro when athros change
+  useEffect(() => {
+    if (selectedAthro) {
+      const updated = athros.find(a => a.id === selectedAthro.id);
+      if (updated) {
+        setSelectedAthro(updated);
+      }
+    }
+  }, [athros, selectedAthro]);
+
+  return (
+    <div style={{
+      width: '100%',
+      height: '100%',
+      background: '#17221c',
+      position: 'relative',
+      overflow: 'hidden'
+    }}>
+      <div style={{
+        position: 'relative',
+        zIndex: 1,
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column'
+      }}>
+        <div style={{
+          padding: '1rem',
+          borderBottom: '2px solid #e4c97e',
+          maxWidth: '1920px',
+          margin: '0 auto',
+          width: '100%'
+        }}>
+          <AthroCarousel
+            athros={athros}
+            selectedAthro={selectedAthro}
+            onSelectAthro={setSelectedAthro}
+          />
+        </div>
+        
+        <div style={{
+          flex: 1,
+          display: 'flex',
+          justifyContent: 'center',
+          maxWidth: '1920px',
+          margin: '0 auto',
+          width: '100%',
+          padding: '1.5rem'
+        }}>
+          <div style={{
+            width: '100%',
+            height: '100%',
+            background: 'rgba(22, 34, 28, 0.92)',
+            position: 'relative',
+            borderRadius: '1rem',
+            border: '2px solid #4fc38a'
+          }}>
+            <div style={{ position: 'relative', zIndex: 1, height: '100%' }}>
+              <ChatInterface athro={selectedAthro} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default WorkPage;

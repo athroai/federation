@@ -1,0 +1,505 @@
+import React, { useState, useEffect } from 'react';
+import {
+  Box,
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  LinearProgress,
+  Chip,
+  Grid,
+  Alert,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Tooltip
+} from '@mui/material';
+import {
+  Star,
+  TrendingUp,
+  ShoppingCart,
+  CreditCard,
+  MonetizationOn,
+  Check,
+  Info,
+  Settings
+} from '@mui/icons-material';
+import { useAuth } from '../../contexts/AuthContext';
+import { SubscriptionService, TokenMeterService } from '@athro/shared-services';
+
+interface TokenBalance {
+  totalTokens: number;
+  usedTokens: number;
+  remainingTokens: number;
+  isLowTokenWarning: boolean;
+  resetDate: string;
+}
+
+interface SubscriptionControlPanelProps {
+  onClose?: () => void;
+}
+
+const SubscriptionControlPanel: React.FC<SubscriptionControlPanelProps> = ({ onClose }) => {
+  const { user, userTier: authUserTier, subscription } = useAuth();
+  const [loading, setLoading] = useState(true);
+  const [tokenBalance, setTokenBalance] = useState<TokenBalance | null>(null);
+  const [loadingTokens, setLoadingTokens] = useState(false);
+
+  // Use tier from AuthContext instead of local state
+  const userTier = authUserTier || 'free';
+
+  useEffect(() => {
+    loadUserData();
+  }, [user?.id, authUserTier]);
+
+  const loadUserData = async () => {
+    if (!user?.id) return;
+    
+    try {
+      setLoading(true);
+      await loadTokenBalance();
+    } catch (error) {
+      console.error('Error loading user data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadTokenBalance = async () => {
+    if (!user?.id) return;
+    
+    try {
+      setLoadingTokens(true);
+      const subscription = await subscriptionService.getUserSubscription(user.id);
+      
+      if (subscription) {
+        const tokenMeterService = new TokenMeterService();
+        const tokenData = await tokenMeterService.getTokenBalance(user.id, subscription.tier);
+        
+        setTokenBalance({
+          totalTokens: tokenData.totalTokens,
+          usedTokens: tokenData.usedTokens,
+          remainingTokens: tokenData.remainingTokens,
+          isLowTokenWarning: tokenData.remainingTokens <= 300 && tokenData.remainingTokens > 0,
+          resetDate: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000).toISOString()
+        });
+      }
+    } catch (error) {
+      console.error('Error loading token balance:', error);
+    } finally {
+      setLoadingTokens(false);
+    }
+  };
+
+  const getTierInfo = (tier: string) => {
+    switch (tier) {
+      case 'free':
+        return {
+          name: 'Free',
+          price: 'Free',
+          color: '#9e9e9e',
+          features: ['100K tokens/month', 'Basic AI access', 'Community support'],
+          description: 'Perfect for getting started'
+        };
+      case 'lite':
+        return {
+          name: 'AthroAi Lite',
+          price: '£7.99/month',
+          color: '#2196f3',
+          features: ['1M tokens/month', 'Full workspace access', 'Email support'],
+          description: 'Great for focused studying'
+        };
+      case 'full':
+        return {
+          name: 'AthroAi',
+          price: '£14.99/month',
+          color: '#e4c97e',
+          features: ['1.6M tokens/month', 'Full dashboard + workspace', 'Token top-ups', 'Priority support', 'Advanced analytics'],
+          description: 'Ultimate learning experience'
+        };
+      default:
+        return {
+          name: 'Unknown',
+          price: 'N/A',
+          color: '#9e9e9e',
+          features: [],
+          description: ''
+        };
+    }
+  };
+
+  const currentTierInfo = getTierInfo(userTier || 'free');
+  const tokenUsagePercentage = tokenBalance ? (tokenBalance.usedTokens / tokenBalance.totalTokens) * 100 : 0;
+
+  const getUpgradeOptions = () => {
+    const current = userTier || 'free';
+    const options = [];
+
+    if (current === 'free') {
+      options.push(
+        { tier: 'lite', ...getTierInfo('lite'), savings: null },
+        { tier: 'full', ...getTierInfo('full'), savings: 'Most Popular' }
+      );
+    } else if (current === 'lite') {
+      options.push(
+        { tier: 'full', ...getTierInfo('full'), savings: '600K more tokens' }
+      );
+    }
+
+    return options;
+  };
+
+  const handleUpgrade = (targetTier: string) => {
+    console.log(`Upgrading to ${targetTier}`);
+  };
+
+  const handleTokenPurchase = () => {
+    console.log('Purchasing additional tokens');
+  };
+
+  if (loading) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="400px">
+        <Typography sx={{ color: '#e4c97e' }}>Loading subscription details...</Typography>
+      </Box>
+    );
+  }
+
+  if (!user) {
+    return (
+      <Box sx={{ p: 3, textAlign: 'center' }}>
+        <Typography variant="h6" sx={{ color: '#e4c97e', mb: 2 }}>
+          Subscription Control Panel
+        </Typography>
+        <Typography variant="body2" sx={{ color: '#b5cbb2' }}>
+          Please log in to view your subscription details.
+        </Typography>
+      </Box>
+    );
+  }
+
+  return (
+    <Box sx={{ maxWidth: '1200px', mx: 'auto', p: 3 }}>
+      {/* Header */}
+      <Box sx={{ mb: 4, textAlign: 'center' }}>
+        <Typography variant="h4" sx={{ color: '#e4c97e', fontWeight: 'bold', mb: 1 }}>
+          Subscription Control Panel
+        </Typography>
+        <Typography variant="body1" sx={{ color: '#b5cbb2' }}>
+          Manage your subscription and monitor your usage
+        </Typography>
+      </Box>
+
+      <Grid container spacing={3}>
+        {/* Current Plan Overview */}
+        <Grid item xs={12} md={8}>
+          <Card sx={{ 
+            background: `linear-gradient(135deg, rgba(28, 42, 30, 0.9) 0%, rgba(228, 201, 126, 0.1) 100%)`,
+            border: `2px solid ${currentTierInfo.color}`,
+            borderRadius: '1rem',
+            position: 'relative',
+            overflow: 'visible'
+          }}>
+            {userTier === 'full' && (
+              <Chip
+                label="PREMIUM"
+                sx={{
+                  position: 'absolute',
+                  top: -10,
+                  right: 20,
+                  backgroundColor: '#e4c97e',
+                  color: '#1c2a1e',
+                  fontWeight: 'bold',
+                  fontSize: '0.7rem'
+                }}
+              />
+            )}
+            
+            <CardContent sx={{ p: 4 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
+                <Star sx={{ color: currentTierInfo.color, fontSize: 40 }} />
+                <Box>
+                  <Typography variant="h5" sx={{ color: currentTierInfo.color, fontWeight: 'bold' }}>
+                    {currentTierInfo.name}
+                  </Typography>
+                  <Typography variant="h6" sx={{ color: '#b5cbb2' }}>
+                    {currentTierInfo.price}
+                  </Typography>
+                </Box>
+              </Box>
+
+              <Typography variant="body1" sx={{ color: '#b5cbb2', mb: 3 }}>
+                {currentTierInfo.description}
+              </Typography>
+
+              {/* Token Usage Visualization */}
+              {tokenBalance && (
+                <Box sx={{ mb: 3 }}>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+                    <Typography variant="h6" sx={{ color: '#e4c97e' }}>
+                      Token Usage This Month
+                    </Typography>
+                    <Tooltip title="Tokens reset on your billing cycle">
+                      <Info sx={{ color: '#b5cbb2', fontSize: 16 }} />
+                    </Tooltip>
+                  </Box>
+                  
+                  <Box sx={{ position: 'relative', mb: 2 }}>
+                    <LinearProgress
+                      variant="determinate"
+                      value={tokenUsagePercentage}
+                      sx={{
+                        height: 20,
+                        borderRadius: 10,
+                        backgroundColor: 'rgba(181, 203, 178, 0.2)',
+                        '& .MuiLinearProgress-bar': {
+                          background: tokenBalance.isLowTokenWarning 
+                            ? 'linear-gradient(90deg, #ff9800 0%, #f44336 100%)'
+                            : 'linear-gradient(90deg, #4fc38a 0%, #e4c97e 100%)',
+                          borderRadius: 10,
+                        }
+                      }}
+                    />
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        color: '#fff',
+                        fontWeight: 'bold',
+                        textShadow: '0 1px 2px rgba(0,0,0,0.7)'
+                      }}
+                    >
+                      {tokenUsagePercentage.toFixed(1)}%
+                    </Typography>
+                  </Box>
+
+                  <Grid container spacing={2}>
+                    <Grid item xs={4}>
+                      <Box sx={{ textAlign: 'center' }}>
+                        <Typography variant="h6" sx={{ color: '#4fc38a', fontWeight: 'bold' }}>
+                          {tokenBalance.remainingTokens.toLocaleString()}
+                        </Typography>
+                        <Typography variant="caption" sx={{ color: '#b5cbb2' }}>
+                          Remaining
+                        </Typography>
+                      </Box>
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Box sx={{ textAlign: 'center' }}>
+                        <Typography variant="h6" sx={{ color: '#ff9800', fontWeight: 'bold' }}>
+                          {tokenBalance.usedTokens.toLocaleString()}
+                        </Typography>
+                        <Typography variant="caption" sx={{ color: '#b5cbb2' }}>
+                          Used
+                        </Typography>
+                      </Box>
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Box sx={{ textAlign: 'center' }}>
+                        <Typography variant="h6" sx={{ color: '#e4c97e', fontWeight: 'bold' }}>
+                          {tokenBalance.totalTokens.toLocaleString()}
+                        </Typography>
+                        <Typography variant="caption" sx={{ color: '#b5cbb2' }}>
+                          Total
+                        </Typography>
+                      </Box>
+                    </Grid>
+                  </Grid>
+
+                  {tokenBalance.isLowTokenWarning && (
+                    <Alert 
+                      severity="warning" 
+                      sx={{ 
+                        mt: 2,
+                        backgroundColor: 'rgba(255, 152, 0, 0.1)',
+                        color: '#ff9800',
+                        '& .MuiAlert-icon': { color: '#ff9800' }
+                      }}
+                    >
+                      You're running low on tokens! Consider purchasing more or upgrading your plan.
+                    </Alert>
+                  )}
+                </Box>
+              )}
+
+              {/* Current Plan Features */}
+              <Box>
+                <Typography variant="subtitle1" sx={{ color: '#e4c97e', mb: 2 }}>
+                  Your Current Features
+                </Typography>
+                <Grid container spacing={1}>
+                  {currentTierInfo.features.map((feature, index) => (
+                    <Grid item xs={12} sm={6} key={index}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                        <Check sx={{ color: currentTierInfo.color, fontSize: 16 }} />
+                        <Typography variant="body2" sx={{ color: '#b5cbb2' }}>
+                          {feature}
+                        </Typography>
+                      </Box>
+                    </Grid>
+                  ))}
+                </Grid>
+              </Box>
+            </CardContent>
+          </Card>
+        </Grid>
+
+        {/* Quick Actions */}
+        <Grid item xs={12} md={4}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            {/* Token Top-up (Full tier only) */}
+            {userTier === 'full' && (
+              <Card sx={{ backgroundColor: 'rgba(28, 42, 30, 0.8)', border: '1px solid #e4c97e' }}>
+                <CardContent>
+                  <Box sx={{ textAlign: 'center' }}>
+                    <MonetizationOn sx={{ color: '#e4c97e', fontSize: 32, mb: 1 }} />
+                    <Typography variant="h6" sx={{ color: '#e4c97e', mb: 1 }}>
+                      Need More Tokens?
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: '#b5cbb2', mb: 2 }}>
+                      Purchase additional tokens for £2.00 per pack
+                    </Typography>
+                    <Button
+                      variant="contained"
+                      fullWidth
+                      startIcon={<ShoppingCart />}
+                      onClick={handleTokenPurchase}
+                      sx={{
+                        backgroundColor: '#e4c97e',
+                        color: '#1c2a1e',
+                        fontWeight: 'bold',
+                        '&:hover': { backgroundColor: 'rgba(228, 201, 126, 0.8)' }
+                      }}
+                    >
+                      Buy Token Pack
+                    </Button>
+                  </Box>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Billing Management */}
+            <Card sx={{ backgroundColor: 'rgba(28, 42, 30, 0.8)', border: '1px solid #4fc38a' }}>
+              <CardContent>
+                <Box sx={{ textAlign: 'center' }}>
+                  <CreditCard sx={{ color: '#4fc38a', fontSize: 32, mb: 1 }} />
+                  <Typography variant="h6" sx={{ color: '#4fc38a', mb: 1 }}>
+                    Billing
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: '#b5cbb2', mb: 2 }}>
+                    Manage payment methods and billing history
+                  </Typography>
+                  <Button
+                    variant="outlined"
+                    fullWidth
+                    startIcon={<Settings />}
+                    sx={{
+                      borderColor: '#4fc38a',
+                      color: '#4fc38a',
+                      '&:hover': { backgroundColor: 'rgba(79, 195, 138, 0.1)' }
+                    }}
+                  >
+                    Manage Billing
+                  </Button>
+                </Box>
+              </CardContent>
+            </Card>
+
+
+          </Box>
+        </Grid>
+
+        {/* Upgrade Options */}
+        {getUpgradeOptions().length > 0 && (
+          <Grid item xs={12}>
+            <Card sx={{ backgroundColor: 'rgba(28, 42, 30, 0.8)', border: '2px solid #4fc38a' }}>
+              <CardContent>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
+                  <TrendingUp sx={{ color: '#4fc38a', fontSize: 32 }} />
+                  <Typography variant="h5" sx={{ color: '#4fc38a', fontWeight: 'bold' }}>
+                    Upgrade Your Plan
+                  </Typography>
+                </Box>
+
+                <Grid container spacing={3}>
+                  {getUpgradeOptions().map((option, index) => (
+                    <Grid item xs={12} md={6} key={option.tier}>
+                      <Card sx={{
+                        backgroundColor: 'rgba(228, 201, 126, 0.1)',
+                        border: `1px solid ${option.color}`,
+                        borderRadius: '0.8rem',
+                        position: 'relative'
+                      }}>
+                        {option.savings && (
+                          <Chip
+                            label={option.savings}
+                            sx={{
+                              position: 'absolute',
+                              top: -8,
+                              right: 16,
+                              backgroundColor: '#4fc38a',
+                              color: '#1c2a1e',
+                              fontSize: '0.7rem',
+                              fontWeight: 'bold'
+                            }}
+                          />
+                        )}
+                        <CardContent>
+                          <Box sx={{ textAlign: 'center', mb: 2 }}>
+                            <Typography variant="h6" sx={{ color: option.color, fontWeight: 'bold' }}>
+                              {option.name}
+                            </Typography>
+                            <Typography variant="h5" sx={{ color: option.color }}>
+                              {option.price}
+                            </Typography>
+                          </Box>
+                          
+                          <List dense>
+                            {option.features.slice(0, 3).map((feature, featureIndex) => (
+                              <ListItem key={featureIndex} sx={{ px: 0 }}>
+                                <ListItemIcon sx={{ minWidth: 24 }}>
+                                  <Check sx={{ color: option.color, fontSize: 16 }} />
+                                </ListItemIcon>
+                                <ListItemText
+                                  primary={feature}
+                                  primaryTypographyProps={{
+                                    sx: { color: '#b5cbb2', fontSize: '0.9rem' }
+                                  }}
+                                />
+                              </ListItem>
+                            ))}
+                          </List>
+
+                          <Button
+                            variant="contained"
+                            fullWidth
+                            onClick={() => handleUpgrade(option.tier)}
+                            sx={{
+                              mt: 2,
+                              backgroundColor: option.color,
+                              color: '#1c2a1e',
+                              fontWeight: 'bold',
+                              '&:hover': { backgroundColor: `${option.color}CC` }
+                            }}
+                          >
+                            Upgrade to {option.name}
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  ))}
+                </Grid>
+              </CardContent>
+            </Card>
+          </Grid>
+        )}
+      </Grid>
+    </Box>
+  );
+};
+
+export default SubscriptionControlPanel; 

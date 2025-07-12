@@ -1,0 +1,455 @@
+import React from 'react';
+import { Flashcard } from '../../../types/study';
+
+interface FlashcardListProps {
+  flashcards: Flashcard[];
+  onCreateNew: () => void;
+  onStartReview: () => void;
+  onEdit: (flashcard: Flashcard) => void;
+  onDelete: (id: string) => void;
+}
+
+const FlashcardList: React.FC<FlashcardListProps> = ({
+  flashcards,
+  onCreateNew,
+  onStartReview,
+  onEdit,
+  onDelete
+}) => {
+  // Helper function to render individual flashcard
+  const renderFlashcard = (card: Flashcard) => (
+    <div 
+      key={card.id}
+      style={{
+        padding: '1rem',
+        background: 'rgba(0, 0, 0, 0.3)',
+        border: getBorderByDifficulty(card.difficulty),
+        borderRadius: '0.5rem',
+        transition: 'all 0.2s ease'
+      }}
+    >
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+        <div style={{ color: '#e4c97e', fontSize: '0.9rem' }}>
+          {card.topic || 'Untitled Topic'}
+        </div>
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+          <button
+            onClick={() => onStartReview()}
+            style={{
+              background: 'transparent',
+              border: 'none',
+              color: '#4fc38a',
+              cursor: 'pointer',
+              padding: '0.25rem',
+              fontSize: '0.8rem'
+            }}
+          >
+            Review
+          </button>
+          <button
+            onClick={() => onEdit(card)}
+            style={{
+              background: 'transparent',
+              border: 'none',
+              color: '#4fc38a',
+              cursor: 'pointer',
+              padding: '0.25rem',
+              fontSize: '0.8rem'
+            }}
+          >
+            Edit
+          </button>
+          <button
+            onClick={() => onDelete(card.id)}
+            style={{
+              background: 'transparent',
+              border: 'none',
+              color: '#e77373',
+              cursor: 'pointer',
+              padding: '0.25rem',
+              fontSize: '0.8rem'
+            }}
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+      
+      <div style={{ 
+        fontSize: '1rem', 
+        color: 'white', 
+        marginBottom: '0.5rem',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap'
+      }}>
+        {card.front}
+      </div>
+      
+      {card.lastReviewed && (
+        <div style={{ 
+          fontSize: '0.8rem', 
+          color: 'rgba(255, 255, 255, 0.5)',
+          marginTop: '0.5rem' 
+        }}>
+          Last reviewed: {new Date(card.lastReviewed).toLocaleDateString()}
+          {card.difficulty && ` • Difficulty: ${card.difficulty}`}
+        </div>
+      )}
+    </div>
+  );
+
+  // Helper function to get border color based on difficulty
+  const getBorderByDifficulty = (difficulty: FlashcardDifficulty): string => {
+    switch (difficulty) {
+      case 'EASY':
+        return '1px solid rgba(79, 195, 138, 0.5)';
+      case 'MEDIUM':
+        return '1px solid rgba(228, 201, 126, 0.5)';
+      case 'HARD':
+        return '1px solid rgba(231, 115, 115, 0.5)';
+      default:
+        return '1px solid rgba(228, 201, 126, 0.3)';
+    }
+  };
+
+  // Calculate number of cards due for review
+  const dueFlashcards = flashcards.filter(card => 
+    !card.nextReview || card.nextReview <= Date.now()
+  ).length;
+  
+  return (
+    <div style={{ padding: '1rem', height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <h2 style={{ color: '#e4c97e', margin: '0 0 1rem 0', textAlign: 'center' }}>Flashcards</h2>
+      
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', marginBottom: '1.5rem' }}>
+        
+        
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+          <button
+            onClick={onCreateNew}
+            style={{
+              padding: '0.5rem 1rem',
+              background: '#4fc38a',
+              border: 'none',
+              borderRadius: '0.5rem',
+              color: '#17221c',
+              cursor: 'pointer',
+              fontWeight: 'bold',
+              fontSize: '0.9rem'
+            }}
+          >
+            + New Card
+          </button>
+          
+          <button
+            onClick={onStartReview}
+            disabled={dueFlashcards === 0}
+            style={{
+              padding: '0.5rem 1rem',
+              background: dueFlashcards > 0 ? '#e4c97e' : 'rgba(228, 201, 126, 0.3)',
+              border: 'none',
+              borderRadius: '0.5rem',
+              color: dueFlashcards > 0 ? '#17221c' : 'rgba(255, 255, 255, 0.5)',
+              cursor: dueFlashcards > 0 ? 'pointer' : 'not-allowed',
+              fontWeight: 'bold',
+              fontSize: '0.9rem'
+            }}
+          >
+            Review {dueFlashcards > 0 ? `(${dueFlashcards})` : ''}
+          </button>
+        </div>
+      </div>
+      
+      {/* Organize flashcards by difficulty */}
+      {flashcards.length === 0 ? (
+        <div style={{ 
+          flex: 1, 
+          display: 'flex', 
+          flexDirection: 'column', 
+          justifyContent: 'center', 
+          alignItems: 'center',
+          color: 'rgba(255, 255, 255, 0.7)',
+          textAlign: 'center'
+        }}>
+          <p>You don't have any flashcards yet.</p>
+          <button
+            onClick={onCreateNew}
+            style={{
+              padding: '0.5rem 1rem',
+              background: '#4fc38a',
+              border: 'none',
+              borderRadius: '0.5rem',
+              color: '#17221c',
+              cursor: 'pointer',
+              fontWeight: 'bold',
+              fontSize: '0.9rem',
+              marginTop: '1rem'
+            }}
+          >
+            Create Your First Flashcard
+          </button>
+        </div>
+      ) : (
+        <div style={{ 
+          flex: 1, 
+          overflowY: 'auto', 
+          display: 'flex', 
+          flexDirection: 'column', 
+          gap: '1.5rem'
+        }}>
+          {/* Hard Cards Section */}
+          <div>
+            <h3 style={{ 
+              color: '#e77373', 
+              fontSize: '1rem', 
+              marginBottom: '0.5rem',
+              borderBottom: '1px solid rgba(231, 115, 115, 0.3)',
+              paddingBottom: '0.25rem'
+            }}>Need Review - Hard</h3>
+            
+            {flashcards.filter(card => card.difficulty === 'HARD').length > 0 ? (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                {flashcards
+                  .filter(card => card.difficulty === 'HARD')
+                  .map(card => renderFlashcard(card))}
+              </div>
+            ) : (
+              <p style={{ color: 'rgba(255, 255, 255, 0.5)', fontSize: '0.9rem', fontStyle: 'italic' }}>
+                No hard flashcards
+              </p>
+            )}
+          </div>
+          
+          {/* Medium Cards Section */}
+          <div>
+            <h3 style={{ 
+              color: '#e4c97e', 
+              fontSize: '1rem', 
+              marginBottom: '0.5rem',
+              borderBottom: '1px solid rgba(228, 201, 126, 0.3)',
+              paddingBottom: '0.25rem'
+            }}>Keep Practicing - Medium</h3>
+            
+            {flashcards.filter(card => card.difficulty === 'MEDIUM').length > 0 ? (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                {flashcards
+                  .filter(card => card.difficulty === 'MEDIUM')
+                  .map(card => renderFlashcard(card))}
+              </div>
+            ) : (
+              <p style={{ color: 'rgba(255, 255, 255, 0.5)', fontSize: '0.9rem', fontStyle: 'italic' }}>
+                No medium flashcards
+              </p>
+            )}
+          </div>
+          
+          {/* Easy Cards Section */}
+          <div>
+            <h3 style={{ 
+              color: '#4fc38a', 
+              fontSize: '1rem', 
+              marginBottom: '0.5rem',
+              borderBottom: '1px solid rgba(79, 195, 138, 0.3)',
+              paddingBottom: '0.25rem'
+            }}>Mastered - Easy</h3>
+            
+            {flashcards.filter(card => card.difficulty === 'EASY').length > 0 ? (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                {flashcards
+                  .filter(card => card.difficulty === 'EASY')
+                  .map(card => renderFlashcard(card))}
+              </div>
+            ) : (
+              <p style={{ color: 'rgba(255, 255, 255, 0.5)', fontSize: '0.9rem', fontStyle: 'italic' }}>
+                No easy flashcards
+              </p>
+            )}
+          </div>
+          {/* We'll handle cards in the sections above instead */}
+            {false && <div></div>}
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+
+// Helper function to get border color based on difficulty
+const getBorderByDifficulty = (difficulty: FlashcardDifficulty): string => {
+  switch (difficulty) {
+    case 'EASY':
+      return '1px solid rgba(79, 195, 138, 0.5)';
+    case 'MEDIUM':
+      return '1px solid rgba(228, 201, 126, 0.5)';
+    case 'HARD':
+      return '1px solid rgba(231, 115, 115, 0.5)';
+    default:
+      return '1px solid rgba(228, 201, 126, 0.3)';
+  }
+};
+
+// Calculate number of cards due for review
+const dueFlashcards = flashcards.filter(card => 
+  !card.nextReview || card.nextReview <= Date.now()
+).length;
+  
+return (
+  <div style={{ padding: '1rem', height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <h2 style={{ color: '#e4c97e', margin: '0 0 1rem 0', textAlign: 'center' }}>Flashcards</h2>
+    
+    <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', marginBottom: '1.5rem' }}>
+      
+      
+      <div style={{ display: 'flex', gap: '0.5rem' }}>
+        <button
+          onClick={onCreateNew}
+          style={{
+            padding: '0.5rem 1rem',
+            background: '#4fc38a',
+            border: 'none',
+            borderRadius: '0.5rem',
+            color: '#17221c',
+            cursor: 'pointer',
+            fontWeight: 'bold',
+            fontSize: '0.9rem'
+          }}
+        >
+          + New Card
+        </button>
+        
+        <button
+          onClick={onStartReview}
+          disabled={dueFlashcards === 0}
+          style={{
+            padding: '0.5rem 1rem',
+            background: dueFlashcards > 0 ? '#e4c97e' : 'rgba(228, 201, 126, 0.3)',
+            border: 'none',
+            borderRadius: '0.5rem',
+            color: dueFlashcards > 0 ? '#17221c' : 'rgba(255, 255, 255, 0.5)',
+            cursor: dueFlashcards > 0 ? 'pointer' : 'not-allowed',
+            fontWeight: 'bold',
+            fontSize: '0.9rem'
+          }}
+        >
+          Review {dueFlashcards > 0 ? `(${dueFlashcards})` : ''}
+        </button>
+      </div>
+    </div>
+    
+    {/* Organize flashcards by difficulty */}
+    {flashcards.length === 0 ? (
+      <div style={{ 
+        flex: 1, 
+        display: 'flex', 
+        flexDirection: 'column', 
+        justifyContent: 'center', 
+        alignItems: 'center',
+        color: 'rgba(255, 255, 255, 0.7)',
+        textAlign: 'center'
+      }}>
+        <p>You don't have any flashcards yet.</p>
+        <button
+          onClick={onCreateNew}
+          style={{
+            padding: '0.5rem 1rem',
+            background: '#4fc38a',
+            border: 'none',
+            borderRadius: '0.5rem',
+            color: '#17221c',
+            cursor: 'pointer',
+            fontWeight: 'bold',
+            fontSize: '0.9rem',
+            marginTop: '1rem'
+          }}
+        >
+          Create Your First Flashcard
+        </button>
+      </div>
+    ) : (
+      <div style={{ 
+        flex: 1, 
+        overflowY: 'auto', 
+        display: 'flex', 
+        flexDirection: 'column', 
+        gap: '1.5rem'
+      }}>
+        {/* Hard Cards Section */}
+        <div>
+          <h3 style={{ 
+            color: '#e77373', 
+            fontSize: '1rem', 
+            marginBottom: '0.5rem',
+            borderBottom: '1px solid rgba(231, 115, 115, 0.3)',
+            paddingBottom: '0.25rem'
+          }}>Need Review - Hard</h3>
+          
+          {flashcards.filter(card => card.difficulty === 'HARD').length > 0 ? (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              {flashcards
+                .filter(card => card.difficulty === 'HARD')
+                .map(card => renderFlashcard(card))}
+            </div>
+          ) : (
+            <p style={{ color: 'rgba(255, 255, 255, 0.5)', fontSize: '0.9rem', fontStyle: 'italic' }}>
+              No hard flashcards
+            </p>
+          )}
+        </div>
+        
+        {/* Medium Cards Section */}
+        <div>
+          <h3 style={{ 
+            color: '#e4c97e', 
+            fontSize: '1rem', 
+            marginBottom: '0.5rem',
+            borderBottom: '1px solid rgba(228, 201, 126, 0.3)',
+            paddingBottom: '0.25rem'
+          }}>Keep Practicing - Medium</h3>
+          
+          {flashcards.filter(card => card.difficulty === 'MEDIUM').length > 0 ? (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              {flashcards
+                .filter(card => card.difficulty === 'MEDIUM')
+                .map(card => renderFlashcard(card))}
+            </div>
+          ) : (
+            <p style={{ color: 'rgba(255, 255, 255, 0.5)', fontSize: '0.9rem', fontStyle: 'italic' }}>
+              No medium flashcards
+            </p>
+          )}
+        </div>
+        
+        {/* Easy Cards Section */}
+        <div>
+          <h3 style={{ 
+            color: '#4fc38a', 
+            fontSize: '1rem', 
+            marginBottom: '0.5rem',
+            borderBottom: '1px solid rgba(79, 195, 138, 0.3)',
+            paddingBottom: '0.25rem'
+          }}>Mastered - Easy</h3>
+          
+          {flashcards.filter(card => card.difficulty === 'EASY').length > 0 ? (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              {flashcards
+                .filter(card => card.difficulty === 'EASY')
+                .map(card => renderFlashcard(card))}
+            </div>
+          ) : (
+            <p style={{ color: 'rgba(255, 255, 255, 0.5)', fontSize: '0.9rem', fontStyle: 'italic' }}>
+              No easy flashcards
+            </p>
+          )}
+        </div>
+        {/* We'll handle cards in the sections above instead */}
+          {false && <div></div>}
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+              
+              
+            </div>
+            
+              
+        }
+      </div>
+    )}
+  </div>
+);
+};
+
+export default FlashcardList;
