@@ -7,3 +7,9 @@ dist/
 coverage/
 .yarn/
 .turbo/
+
+# API Keys and Secrets
+APIkey.txt
+api-key.txt
+*.key
+.secret
