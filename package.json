@@ -7,18 +7,18 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "turbo run dev",
-    "build": "turbo run build",
-    "lint": "turbo run lint",
-    "test": "turbo run test",
-    "clean": "turbo run clean",
-    "build:dashboard": "turbo build --filter=athro-dashboard...",
-    "build:dashboard-explicit": "turbo build --filter=@athro/shared-types --filter=@athro/shared-services --filter=@athro/shared-ui --filter=@athro/shared-athros --filter=athro-dashboard",
+    "dev": "npx turbo run dev",
+    "build": "npx turbo run build",
+    "lint": "npx turbo run lint",
+    "test": "npx turbo run test",
+    "clean": "npx turbo run clean",
+    "build:dashboard": "npx turbo build --filter=athro-dashboard...",
+    "build:dashboard-explicit": "npx turbo build --filter=@athro/shared-types --filter=@athro/shared-services --filter=@athro/shared-ui --filter=@athro/shared-athros --filter=athro-dashboard",
     "build:workspace": "npm run build --workspace=@athro/shared-services && npm run build --workspace=@athro/shared-ui && npm run build --workspace=@athro/shared-types && npm run build --workspace=@athro/shared-athros && npm run build --workspace=athro-workspace-2",
-    "build:dashboard-complete": "turbo build --filter=@athro/shared-types --filter=@athro/shared-services --filter=@athro/shared-ui --filter=@athro/shared-athros --filter=athro-workspace-2 --filter=athro-dashboard"
+    "build:dashboard-complete": "npx turbo build --filter=@athro/shared-types --filter=@athro/shared-services --filter=@athro/shared-ui --filter=@athro/shared-athros --filter=athro-workspace-2 --filter=athro-dashboard"
   },
   "devDependencies": {
-    "turbo": "^1.10.0"
+    "turbo": "^2.3.0"
   },
   "main": "index.js",
   "license": "MIT",
