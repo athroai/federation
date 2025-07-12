@@ -1,5 +1,5 @@
 [build]
-  command = "git config url.\"https://$GITHUB_TOKEN@github.com/\".insteadOf \"https://github.com/\" && git submodule update --init --recursive && npm run build:dashboard-complete"
+  command = "npm run build:dashboard-complete"
   publish = "apps/athro-dashboard/dist"
   
 [build.environment]

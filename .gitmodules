@@ -1,9 +1,1 @@
-[submodule "apps/athro-dashboard"]
-	path = apps/athro-dashboard
-	url = https://github.com/athroai/athro-dashboard.git
-	branch = main
 
-[submodule "apps/athro-workspace-2"]
-	path = apps/athro-workspace-2
-	url = https://github.com/athroai/athro-workspace.git
-	branch = main 
