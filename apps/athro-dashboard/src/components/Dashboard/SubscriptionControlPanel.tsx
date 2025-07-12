@@ -37,7 +37,7 @@ import {
   CloudUpload,
   School,
   RocketLaunch,
-  GeneratingTokens,
+  AutorenewOutlined,
   Refresh
 } from '@mui/icons-material';
 import { useAuth } from '../../contexts/AuthContext';
@@ -819,7 +819,7 @@ const SubscriptionControlPanel: React.FC<SubscriptionControlPanelProps> = ({ onC
             }}
           >
                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-               <GeneratingTokens sx={{ color: '#e4c97e', fontSize: 28 }} />
+                               <AutorenewOutlined sx={{ color: '#e4c97e', fontSize: 28 }} />
                <Typography variant="h6" sx={{ color: '#e4c97e', fontWeight: 'bold' }}>
                  AthroAi Token Pack
                </Typography>

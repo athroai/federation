@@ -1,8 +1,8 @@
 {
   "buildCommand": "npm run build:dashboard",
   "outputDirectory": "apps/athro-dashboard/dist",
-  "installCommand": "npm ci",
-  "nodeVersion": "18.x",
+  "installCommand": "npm ci --include=optional --no-audit",
+  "nodeVersion": "20.x",
   "rewrites": [
     {
       "source": "/(.*)",
@@ -42,6 +42,9 @@
     }
   ],
   "env": {
-    "NODE_ENV": "production"
+    "NODE_ENV": "production",
+    "STANDALONE": "true",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "ROLLUP_NO_NATIVE": "true"
   }
 } 

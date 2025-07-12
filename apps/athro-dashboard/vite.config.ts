@@ -16,7 +16,7 @@ import path from 'path';
  */
 export default defineConfig(({ mode }) => {
   const isProduction = mode === 'production';
-  const isStandalone = process.env.STANDALONE === 'true';
+  const isStandalone = process.env.STANDALONE === 'true' || isProduction;
   
   return {
     plugins: [

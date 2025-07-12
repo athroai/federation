@@ -1,19 +1,50 @@
 [build]
-  command = "npm ci && npm run build:dashboard-complete"
+  command = "npm run build:dashboard"
   publish = "apps/athro-dashboard/dist"
   
 [build.environment]
+  NODE_VERSION = "20"
   NODE_ENV = "production"
   STANDALONE = "true"
+  NODE_OPTIONS = "--max-old-space-size=8192"
+  NPM_FLAGS = "--omit=optional --no-audit --no-fund --prefer-offline"
+  ROLLUP_NO_NATIVE = "true"
+  DISABLE_OPENCOLLECTIVE = "true"
+  ADBLOCK = "true"
+  CI = "true"
+  TURBO_TELEMETRY_DISABLED = "1"
+
+[build.processing]
+  skip_processing = false
+
+[build.processing.css]
+  bundle = true
+  minify = true
+
+[build.processing.js]
+  bundle = true
+  minify = true
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
 
 [context.production]
-  command = "npm ci && npm run build:dashboard-complete"
+  command = "npm ci && npm run build:dashboard"
 
 [context.deploy-preview]
-  command = "npm ci && npm run build:dashboard-complete"
+  command = "npm ci && npm run build:dashboard"
 
 [context.branch-deploy]
-  command = "npm ci && npm run build:dashboard-complete"
+  command = "npm ci && npm run build:dashboard"
 
 [[redirects]]
   from = "/*"

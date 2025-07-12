@@ -29,7 +29,7 @@
     "@athro/shared-ui": "file:../../packages/shared-ui",
     "@aws-sdk/client-textract": "^3.812.0",
     "@google-cloud/translate": "^9.1.0",
-    "@mui/icons-material": "^7.1.1",
+    "@mui/icons-material": "^5.15.21",
     "@originjs/vite-plugin-federation": "^1.4.1",
     "@reactflow/node-resizer": "^2.2.14",
     "@supabase/supabase-js": "^2.50.0",
@@ -52,11 +52,12 @@
     "react-icons": "^5.5.0",
     "react-multi-carousel": "^2.8.6",
     "react-router-dom": "^6.26.2",
+    "@remix-run/router": "^1.19.2",
     "reactflow": "^11.11.4",
     "tinyglobby": "^0.2.14",
     "uuid": "^11.1.0",
     "zustand": "^5.0.4",
-    "vite": "^6.3.1"
+    "vite": "~4.5.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
@@ -64,12 +65,21 @@
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@types/uuid": "^10.0.0",
-    "@vitejs/plugin-react": "^4.3.4",
+    "@vitejs/plugin-react": "^4.0.4",
     "eslint": "^9.22.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
+    "rollup": "~3.29.0",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.26.1"
+  },
+  "overrides": {
+    "vite": "~4.5.5",
+    "rollup": "~3.29.0"
+  },
+  "resolutions": {
+    "vite": "~4.5.5",
+    "rollup": "~3.29.0"
   }
 }
