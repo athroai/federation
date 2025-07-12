@@ -1,21 +1,29 @@
 {
   "name": "athro-federation",
   "version": "1.0.0",
+  "description": "Athro AI Federation - Microfrontend Architecture",
+  "packageManager": "npm@10.8.2",
   "private": true,
   "workspaces": [
-    "apps/*",
-    "packages/*"
+    "packages/shared-types",
+    "packages/shared-services",
+    "packages/shared-ui",
+    "packages/shared-athros",
+    "packages/ui-components",
+    "apps/athro-dashboard",
+    "apps/athro-workspace-2"
   ],
   "scripts": {
-    "dev": "npx turbo run dev",
-    "build": "npx turbo run build",
-    "lint": "npx turbo run lint",
-    "test": "npx turbo run test",
-    "clean": "npx turbo run clean",
-    "build:dashboard": "npx turbo build --filter=athro-dashboard...",
-    "build:dashboard-explicit": "npx turbo build --filter=@athro/shared-types --filter=@athro/shared-services --filter=@athro/shared-ui --filter=@athro/shared-athros --filter=athro-dashboard",
-    "build:workspace": "npm run build --workspace=@athro/shared-services && npm run build --workspace=@athro/shared-ui && npm run build --workspace=@athro/shared-types && npm run build --workspace=@athro/shared-athros && npm run build --workspace=athro-workspace-2",
-    "build:dashboard-complete": "npx turbo build --filter=@athro/shared-types --filter=@athro/shared-services --filter=@athro/shared-ui --filter=@athro/shared-athros --filter=athro-workspace-2 --filter=athro-dashboard"
+    "dev": "turbo dev",
+    "dev:dashboard": "turbo dev --filter=athro-dashboard",
+    "dev:workspace": "turbo dev --filter=athro-workspace",
+    "build": "turbo build",
+    "build:dashboard": "turbo build --filter=athro-dashboard",
+    "build:workspace": "turbo build --filter=athro-workspace",
+    "build:dashboard-complete": "npx turbo build --filter=@athro/shared-types --filter=@athro/shared-services --filter=@athro/shared-ui --filter=@athro/shared-athros --filter=athro-workspace --filter=athro-dashboard",
+    "lint": "turbo lint",
+    "test": "turbo test",
+    "clean": "turbo clean"
   },
   "devDependencies": {
     "turbo": "^2.3.0"

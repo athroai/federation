@@ -1,80 +1,72 @@
-import React, { lazy, Suspense, ComponentType, useState, useEffect } from 'react';
+import React, { Suspense, ComponentType, useState, useEffect } from 'react';
 
 interface FederatedComponentLoaderProps {
-  scope: string;          // Remote app name (e.g., 'athro_workspace')
-  module: string;         // Module path (e.g., './DocumentViewer')
+  scope: string;
+  module: string;
   fallback?: React.ReactNode;
-  errorFallback?: React.ReactNode;
-  props?: Record<string, any>;
+  onError?: (error: Error) => void;
 }
 
+interface FederatedWindow extends Window {
+  [key: string]: any;
+}
+
+declare let window: FederatedWindow;
+
 /**
- * FederatedComponentLoader provides a consistent way to load federated components
- * This implements the "UI remains coherent regardless of source" principle by providing
- * standardized loading states and error handling
+ * FederatedComponentLoader dynamically loads federated components
+ * Implements the "Everything is observable" principle by reporting loading events
  */
-export const FederatedComponentLoader: React.FC<FederatedComponentLoaderProps> = ({
-  scope,
-  module,
-  fallback = <div className="athro-federated-loading">Loading...</div>,
-  errorFallback = <div className="athro-federated-error">Failed to load component</div>,
-  props = {}
+export const FederatedComponentLoader: React.FC<FederatedComponentLoaderProps> = ({ 
+  scope, 
+  module, 
+  fallback,
+  onError 
 }) => {
-  const [Component, setComponent] = useState<ComponentType<any> | null>(null);
+  const [Component, setComponent] = useState<ComponentType | null>(null);
   const [error, setError] = useState<Error | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Reset state when scope or module changes
-    setComponent(null);
-    setError(null);
-    
     const loadComponent = async () => {
       try {
-        // Dynamically import the federated component
+        setLoading(true);
+        setError(null);
+        
+        if (!window[scope]) {
+          throw new Error(`Scope ${scope} not found on window`);
+        }
+        
         const factory = await window[scope].get(module);
-        const RemoteComponent = factory();
-        setComponent(() => RemoteComponent);
+        const Module = factory();
+        setComponent(() => Module.default || Module);
       } catch (err) {
-        console.error(`Error loading federated component ${scope}/${module}:`, err);
-        setError(err as Error);
+        const error = err instanceof Error ? err : new Error(String(err));
+        setError(error);
+        onError?.(error);
+      } finally {
+        setLoading(false);
       }
     };
-    
+
     loadComponent();
-  }, [scope, module]);
-  
+  }, [scope, module, onError]);
+
+  if (loading) {
+    return fallback || <div>Loading...</div>;
+  }
+
   if (error) {
-    return <>{errorFallback}</>;
+    return <div>Error loading component: {error.message}</div>;
   }
-  
+
   if (!Component) {
-    return <>{fallback}</>;
+    return <div>Component not found</div>;
   }
-  
+
   return (
-    <Suspense fallback={fallback}>
-      <Component {...props} />
+    <Suspense fallback={fallback || <div>Loading...</div>}>
+      <Component />
     </Suspense>
   );
 };
-
-/**
- * Higher-order function to create a component that wraps FederatedComponentLoader
- * Makes it easier to use federated components with custom loading states
- */
-export function createFederatedComponent<T = any>(
-  scope: string,
-  module: string,
-  fallback?: React.ReactNode,
-  errorFallback?: React.ReactNode
-) {
-  return (props: T) => (
-    <FederatedComponentLoader
-      scope={scope}
-      module={module}
-      fallback={fallback}
-      errorFallback={errorFallback}
-      props={props as any}
-    />
-  );
-}

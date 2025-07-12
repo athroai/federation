@@ -1,4 +1,4 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { Component, ErrorInfo, ReactNode } from 'react';
 import { eventBus } from '@athro/shared-services';
 
 interface ErrorBoundaryProps {
@@ -65,11 +65,11 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
     if (hasError) {
       if (typeof fallback === 'function' && error) {
-        return fallback(error, this.resetErrorBoundary);
+        return (fallback as (error: Error, reset: () => void) => ReactNode)(error, this.resetErrorBoundary);
       }
       
       if (fallback) {
-        return fallback;
+        return fallback as ReactNode;
       }
       
       // Default error UI
