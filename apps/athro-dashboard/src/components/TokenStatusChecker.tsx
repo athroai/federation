@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { Box, Card, CardContent, Typography, Button, Chip, Alert, LinearProgress, Tooltip } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Chip, Box, Typography, Alert, Card, CardContent, Button, LinearProgress, Tooltip } from '@mui/material';
 import { Refresh, Warning, CheckCircle, MonetizationOn } from '@mui/icons-material';
 import { useAuth } from '../contexts/AuthContext';
-import { TokenEnforcementService } from '../../packages/shared-services/src/TokenEnforcementService';
+import { TokenEnforcementService } from '@athro/shared-services';
+import { UpgradeModal } from './Payment/UpgradeModal';
 
 interface TokenStatus {
   totalTokens: number;

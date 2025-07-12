@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import federation from '@originjs/vite-plugin-federation';
+import path from 'path';
 
 /**
  * Dashboard Remote Application (athro-dashboard) Configuration
@@ -77,12 +78,8 @@ export default defineConfig(({ mode }) => {
     },
     resolve: {
       alias: {
-        // Always use relative imports for production builds
-        '@athro/shared-services': '../../packages/shared-services/src',
-        '@athro/shared-types': '../../packages/shared-types/src',
-        '@athro/shared-ui': '../../packages/shared-ui/src',
-        '@athro/shared-athros': '../../packages/shared-athros/src'
-      }
+        '@': path.resolve(__dirname, './src'),
+      },
     },
     base: '/'
   };

@@ -96,7 +96,7 @@ const InsightsTools: React.FC = () => {
       try {
         // Import athros and selection service
         const { ATHROS } = await import('@athro/shared-athros');
-        const { AthroSelectionService } = await import('../../../../../packages/shared-services/src/AthroSelectionService');
+        const { AthroSelectionService } = await import('@athro/shared-services');
         
         const athroSelectionService = AthroSelectionService.getInstance();
         const selections = athroSelectionService.getSelections('athro-dashboard');

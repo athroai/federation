@@ -79,8 +79,12 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
     });
     
     return () => {
-      if (typeof unsubscribe === 'function') {
-        unsubscribe();
+      try {
+        if (unsubscribe && typeof unsubscribe === 'function') {
+          (unsubscribe as any)();
+        }
+      } catch (error) {
+        // Ignore unsubscribe errors
       }
     };
   }, [mode]);
