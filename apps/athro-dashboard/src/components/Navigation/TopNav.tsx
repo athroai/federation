@@ -12,7 +12,7 @@ export const TopNav = () => {
           <Button
             color="primary"
             startIcon={<Dashboard />}
-            href="http://localhost:5210"
+            href="https://bucolic-fenglisu-6ffb84.netlify.app"
           >
             Dashboard
           </Button>

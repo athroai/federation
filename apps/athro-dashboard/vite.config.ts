@@ -35,8 +35,8 @@ export default defineConfig(({ mode }) => {
       // Custom plugin to add CSP headers in development only
       ...(isProduction ? [] : [{
         name: 'dev-csp-headers',
-        configureServer(server) {
-          server.middlewares.use((req, res, next) => {
+        configureServer(server: any) {
+          server.middlewares.use((req: any, res: any, next: any) => {
             // Disable CSP entirely for development to avoid conflicts
             res.removeHeader('Content-Security-Policy');
             res.removeHeader('Content-Security-Policy-Report-Only');
@@ -55,7 +55,7 @@ export default defineConfig(({ mode }) => {
       port: 5210,
       strictPort: true,
       cors: true,
-      origin: 'http://localhost:5210',
+      origin: isProduction ? 'https://bucolic-fenglisu-6ffb84.netlify.app' : 'http://localhost:5210',
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',

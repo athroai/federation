@@ -15,7 +15,7 @@ export const FEDERATION_CONFIG = {
   // Production URLs - UPDATED WITH NEW TIER SYSTEM
   production: {
     workspace: 'https://lite.athro.ai', // Lite tier users go here
-    dashboard: 'https://athro.ai'       // Premium tier users access this
+    dashboard: 'https://bucolic-fenglisu-6ffb84.netlify.app'       // Premium tier users access this
   }
 };
 
