@@ -1,5 +1,5 @@
 [build]
-  command = "npm ci --workspaces --include-workspace-root && npm run build:dashboard"
+  command = "npm ci --workspaces --include-workspace-root --include=dev && npm run build:dashboard"
   publish = "apps/athro-dashboard/dist"
   
 [build.environment]
@@ -39,13 +39,13 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
 
 [context.production]
-  command = "npm ci --workspaces --include-workspace-root && npm run build:dashboard"
+  command = "npm ci --workspaces --include-workspace-root --include=dev && npm run build:dashboard"
 
 [context.deploy-preview]
-  command = "npm ci --workspaces --include-workspace-root && npm run build:dashboard"
+  command = "npm ci --workspaces --include-workspace-root --include=dev && npm run build:dashboard"
 
 [context.branch-deploy]
-  command = "npm ci --workspaces --include-workspace-root && npm run build:dashboard"
+  command = "npm ci --workspaces --include-workspace-root --include=dev && npm run build:dashboard"
 
 [[redirects]]
   from = "/*"
