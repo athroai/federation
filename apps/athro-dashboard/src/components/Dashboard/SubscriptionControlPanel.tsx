@@ -607,24 +607,6 @@ const SubscriptionControlPanel: React.FC<SubscriptionControlPanelProps> = ({ onC
                           border: '2px solid #4fc38a'
                         }
                       }}>
-                        {/* Most Popular Badge */}
-                        <Chip
-                          label="MOST POPULAR"
-                          sx={{
-                            position: 'absolute',
-                            top: -10,
-                            left: '50%',
-                            transform: 'translateX(-50%)',
-                            backgroundColor: '#4fc38a',
-                            color: '#1c2a1e',
-                            fontSize: '0.8rem',
-                            fontWeight: 'bold',
-                            px: 3,
-                            zIndex: 2,
-                            boxShadow: '0 4px 12px rgba(79, 195, 138, 0.4)'
-                          }}
-                        />
-
                         <CardContent sx={{ p: 4 }}>
                           <Grid container spacing={3}>
                             {/* Left Side - Image and Title */}
