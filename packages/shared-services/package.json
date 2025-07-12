@@ -5,8 +5,8 @@
   "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
-    "build": "../../node_modules/.bin/tsc",
-    "dev": "../../node_modules/.bin/tsc -w"
+    "build": "npx tsc",
+    "dev": "npx tsc -w"
   },
   "dependencies": {
     "@athro/shared-types": "file:../shared-types",
