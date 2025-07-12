@@ -156,7 +156,10 @@ const SubscriptionControlPanel: React.FC<SubscriptionControlPanelProps> = ({ onC
   };
 
   const getTierInfo = (tier: string) => {
-    switch (tier) {
+    // Ensure we always have a valid tier - default to 'free' for any invalid/undefined values
+    const validTier = tier || 'free';
+    
+    switch (validTier) {
       case 'free':
         return {
           name: 'Free',
@@ -195,12 +198,13 @@ const SubscriptionControlPanel: React.FC<SubscriptionControlPanelProps> = ({ onC
           description: 'Ultimate learning experience'
         };
       default:
+        // Default to free tier when payment fails or tier is invalid
         return {
-          name: 'Unknown',
-          price: 'N/A',
+          name: 'Free',
+          price: 'Free',
           color: '#9e9e9e',
-          features: [],
-          description: ''
+          features: ['100,000 tokens/month', 'GPT-4.1 for quizzes only', 'Community support', 'Document upload & analysis', 'Progress saved permanently'],
+          description: 'Free entry point - Upload documents and get started!'
         };
     }
   };
@@ -212,7 +216,8 @@ const SubscriptionControlPanel: React.FC<SubscriptionControlPanelProps> = ({ onC
     const current = userTier || 'free';
     const options = [];
 
-    if (current === 'free') {
+    // For any invalid tier (including failed payments), treat as 'free' and show upgrade options
+    if (current === 'free' || !['free', 'lite', 'full'].includes(current)) {
       options.push(
         { tier: 'lite', ...getTierInfo('lite'), savings: null },
         { tier: 'full', ...getTierInfo('full'), savings: 'Most Popular' }
