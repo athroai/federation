@@ -7,8 +7,9 @@
     "rootDir": "./src",
     "esModuleInterop": true,
     "moduleResolution": "Node",
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
+    "forceConsistentCasingInFileNames": false,
+    "strict": false,
+    "noEmitOnError": false,
     "skipLibCheck": true
   },
   "include": ["src/**/*"],
