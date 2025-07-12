@@ -9,9 +9,7 @@
     "dev": "../../node_modules/.bin/tsc -w"
   },
   "dependencies": {
-    "@athro/shared-types": "file:../shared-types"
-  },
-  "devDependencies": {
+    "@athro/shared-types": "file:../shared-types",
     "typescript": "^5.0.0"
   }
 } 

@@ -8,7 +8,7 @@
     "build": "../../node_modules/.bin/tsc",
     "dev": "../../node_modules/.bin/tsc --watch"
   },
-  "devDependencies": {
+  "dependencies": {
     "typescript": "^5.0.0"
   }
 }
