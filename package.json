@@ -14,16 +14,16 @@
     "apps/athro-workspace-2"
   ],
   "scripts": {
-    "dev": "turbo dev",
-    "dev:dashboard": "turbo dev --filter=athro-dashboard",
-    "dev:workspace": "turbo dev --filter=athro-workspace",
-    "build": "turbo build",
-    "build:dashboard": "turbo build --filter=athro-dashboard",
-    "build:workspace": "turbo build --filter=athro-workspace",
+    "dev": "npx turbo dev",
+    "dev:dashboard": "npx turbo dev --filter=athro-dashboard",
+    "dev:workspace": "npx turbo dev --filter=athro-workspace",
+    "build": "npx turbo build",
+    "build:dashboard": "npx turbo build --filter=athro-dashboard",
+    "build:workspace": "npx turbo build --filter=athro-workspace",
     "build:dashboard-complete": "npx turbo build --filter=@athro/shared-types --filter=@athro/shared-services --filter=@athro/shared-ui --filter=@athro/shared-athros --filter=athro-workspace --filter=athro-dashboard",
-    "lint": "turbo lint",
-    "test": "turbo test",
-    "clean": "turbo clean"
+    "lint": "npx turbo lint",
+    "test": "npx turbo test",
+    "clean": "npx turbo clean"
   },
   "devDependencies": {
     "turbo": "^2.3.0",

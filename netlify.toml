@@ -8,6 +8,7 @@
   STANDALONE = "true"
   NODE_OPTIONS = "--max-old-space-size=8192"
   NPM_FLAGS = "--omit=optional --no-audit --no-fund --prefer-offline"
+  NPX_FLAGS = "--yes"
   ROLLUP_NO_NATIVE = "true"
   DISABLE_OPENCOLLECTIVE = "true"
   ADBLOCK = "true"
