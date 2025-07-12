@@ -25,8 +25,8 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@athro/shared-services": "0.1.0",
-    "@athro/shared-ui": "0.1.0",
+    "@athro/shared-services": "file:../../packages/shared-services",
+    "@athro/shared-ui": "file:../../packages/shared-ui",
     "@aws-sdk/client-textract": "^3.812.0",
     "@google-cloud/translate": "^9.1.0",
     "@mui/icons-material": "^7.1.1",

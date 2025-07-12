@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build:dashboard-complete"
+  command = "npm ci && npm run build:dashboard-complete"
   publish = "apps/athro-dashboard/dist"
   
 [build.environment]
@@ -7,13 +7,13 @@
   STANDALONE = "true"
 
 [context.production]
-  command = "npm run build:dashboard-complete"
+  command = "npm ci && npm run build:dashboard-complete"
 
 [context.deploy-preview]
-  command = "npm run build:dashboard-complete"
+  command = "npm ci && npm run build:dashboard-complete"
 
 [context.branch-deploy]
-  command = "npm run build:dashboard-complete"
+  command = "npm ci && npm run build:dashboard-complete"
 
 [[redirects]]
   from = "/*"
