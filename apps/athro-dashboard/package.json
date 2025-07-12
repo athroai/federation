@@ -8,8 +8,8 @@
     "dev:standalone": "STANDALONE=true vite",
     "start": "vite preview --host 0.0.0.0 --port 5211",
     "start:dashboard": "npm run start",
-    "build": "tsc && vite build",
-    "build:standalone": "STANDALONE=true tsc && vite build",
+    "build": "npx tsc && vite build",
+    "build:standalone": "STANDALONE=true npx tsc && vite build",
     "build:production": "NODE_ENV=production npm run build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "npm run lint -- --fix",
@@ -22,7 +22,7 @@
     "lighthouse": "echo 'Lighthouse not configured yet' && exit 0",
     "lighthouse:mobile": "echo 'Mobile lighthouse not configured yet' && exit 0",
     "analyze": "echo 'Bundle analyzer not configured yet' && exit 0",
-    "type-check": "tsc --noEmit"
+    "type-check": "npx tsc --noEmit"
   },
   "dependencies": {
     "@athro/shared-athros": "file:../../packages/shared-athros",

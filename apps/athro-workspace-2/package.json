@@ -9,7 +9,7 @@
     "start:workspace": "npm run start",
     "build": "vite build --mode production",
     "build:skip-types": "vite build --mode production",
-    "build:safe": "tsc --noEmit false && vite build",
+    "build:safe": "npx tsc --noEmit false && vite build",
     "build:production": "NODE_ENV=production npm run build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "npm run lint -- --fix",
@@ -22,7 +22,7 @@
     "lighthouse": "echo 'Lighthouse not configured yet' && exit 0",
     "lighthouse:mobile": "echo 'Mobile lighthouse not configured yet' && exit 0",
     "analyze": "echo 'Bundle analyzer not configured yet' && exit 0",
-    "type-check": "tsc --noEmit"
+    "type-check": "npx tsc --noEmit"
   },
   "dependencies": {
     "@athro/shared-services": "file:../../packages/shared-services",
