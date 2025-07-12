@@ -1,0 +1,21 @@
+[build]
+  command = "npm run build:dashboard-complete"
+  publish = "apps/athro-dashboard/dist"
+  
+[build.environment]
+  NODE_ENV = "production"
+  STANDALONE = "true"
+
+[context.production]
+  command = "npm run build:dashboard-complete"
+
+[context.deploy-preview]
+  command = "npm run build:dashboard-complete"
+
+[context.branch-deploy]
+  command = "npm run build:dashboard-complete"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200 
